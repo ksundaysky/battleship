@@ -10,7 +10,7 @@ public class FailureTest {
     @Test
     public void failureTest() {
         System.out.println("dupa");
-        assert false;
+        //assert false;
     }
 
 }
