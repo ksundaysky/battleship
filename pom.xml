@@ -48,13 +48,17 @@
 			<artifactId>testng</artifactId>
 			<version>6.14.3</version>
 		</dependency>
-	</dependencies>
+	</dependencies>git
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
