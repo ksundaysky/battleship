@@ -62,12 +62,6 @@
 	<!--site report-->
 	<reporting>
 		<plugins>
-			<!--Warning for not specified version of this-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>3.0.0</version>
-			</plugin>
 			<!--Give warnings about illegal reflection access (using groovy plugin with this problem) - tracked issues-->
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>
@@ -88,26 +82,9 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
+					<linkXRef>false</linkXRef>
+					<configLocation>google_checks.xml</configLocation>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jdepend-maven-plugin</artifactId>
-				<version>2.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.3</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<!-- select non-aggregate reports -->
-							<report>report</report>
-						</reports>
-					</reportSet>
-				</reportSets>
 			</plugin>
 		</plugins>
 	</reporting>
