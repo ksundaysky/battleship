@@ -27,8 +27,8 @@ class UserRestController {
 //    }
 
     @PostMapping("/getUser")
-    public ResponseEntity<SuccessMessage> getUserBody(@RequestBody UserDto userDto) {
+    public SuccessMessage getUserBody(@RequestBody UserDto userDto) {
         userService.findUserByEmail(userDto.getEmail());
-        return ResponseEntity.ok(new SuccessMessage("JEst super, zalogowany"));
+        return new SuccessMessage("JEst super, zalogowany");
     }
 }
