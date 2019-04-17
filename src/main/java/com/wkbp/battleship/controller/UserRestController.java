@@ -27,8 +27,8 @@ class UserRestController {
 //    }
 
     @PostMapping("/getUser")
-    public SuccessMessage getUserBody(@RequestBody UserDto userDto) {
+    public String getUserBody(@RequestBody UserDto userDto) {
         User user = userService.findUserByEmail(userDto.getEmail());
-        return new SuccessMessage("Jest super, zalogowany");
+        return "Udalo sie";
     }
 }
