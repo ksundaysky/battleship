@@ -5,26 +5,17 @@ package com.wkbp.battleship.dto;
  */
 public class UserDto {
 
-//    private Long id;
-//    private String nick;
+
+
     private String email;
     private String password;
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getNick() {
-//        return nick;
-//    }
-//
-//    public void setNick(String nick) {
-//        this.nick = nick;
-//    }
+    public UserDto(){}
+
+    public UserDto(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
 
     public String getEmail() {
         return email;
