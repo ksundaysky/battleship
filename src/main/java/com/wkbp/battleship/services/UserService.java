@@ -6,5 +6,5 @@ import com.wkbp.battleship.model.User;
  * @author Wiktor Rup
  */
 public interface UserService {
-    User findUserByEmail(String email);
+    User findByEmailAndPassword(String email, String password);
 }

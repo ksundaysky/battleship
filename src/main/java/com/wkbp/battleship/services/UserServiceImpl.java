@@ -5,9 +5,6 @@ import com.wkbp.battleship.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author Wiktor Rup
  */
@@ -19,9 +16,9 @@ class UserServiceImpl implements UserService {
     private
     UserRepository userRepository;
 
-    @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
 
+    @Override
+    public User findByEmailAndPassword(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+    }
 }
