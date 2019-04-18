@@ -18,8 +18,9 @@ class UserRestController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/getUser")
-    public HttpStatus getUserBody(@RequestBody UserDto userDto) {
+
+    @PostMapping("/verifyUser")
+    public HttpStatus verifyUser(@RequestBody UserDto userDto) {
         User user = userService.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
         if (user != null) {
             return HttpStatus.ACCEPTED;
