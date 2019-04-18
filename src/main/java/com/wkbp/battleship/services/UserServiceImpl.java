@@ -15,7 +15,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-
     @Override
     public User findByEmailAndPassword(String email, String password) {
         return userRepository.findByEmailAndPassword(email, password);

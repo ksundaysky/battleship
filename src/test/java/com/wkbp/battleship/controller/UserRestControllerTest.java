@@ -14,19 +14,17 @@ import static org.mockito.Mockito.mock;
 
 public class UserRestControllerTest {
 
-
-
     private UserRestController userRestController = mock(UserRestController.class);
 
     @Test
     public void testVerifyUser() {
-        UserDto userDto = new UserDto("test","test");
+        UserDto userDto = new UserDto("test", "test");
         Mockito.when(userRestController.verifyUser(userDto)).thenReturn(HttpStatus.ACCEPTED);
 
         HttpStatus httpStatus = userRestController.verifyUser(userDto);
 
-        Assert.assertEquals("test",userDto.getEmail());
-        Assert.assertEquals("test",userDto.getPassword());
+        Assert.assertEquals("test", userDto.getEmail());
+        Assert.assertEquals("test", userDto.getPassword());
 
         Assert.assertEquals(httpStatus, HttpStatus.ACCEPTED);
 
