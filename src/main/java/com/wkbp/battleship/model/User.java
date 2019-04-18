@@ -19,6 +19,8 @@ public class User {
     @Column(name = "Password")
     private String password;
 
+    public User() {
+    }
 
     public User(Long id, String nick, String email, String password) {
         this.id = id;
