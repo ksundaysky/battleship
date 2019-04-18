@@ -1,2 +1,2 @@
-INSERT INTO user_table(ID, nick, email, password)
-VALUES (1, 'test', 'test@user.com', 'testhaslo');
+INSERT INTO User_Table(ID, Nick, Email, Password)
+VALUES (1, 'klient', 'klient@statki.pl', 'klient');

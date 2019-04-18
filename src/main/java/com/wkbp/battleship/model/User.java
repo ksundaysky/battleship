@@ -6,18 +6,17 @@ import javax.persistence.*;
  * @author Wiktor Rup
  */
 @Entity
-@Table(name = "user_table")
-public
-class User {
+@Table(name = "User_Table")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nick")
+    @Column(name = "Nick")
     private String nick;
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
-    @Column(name = "password")
+    @Column(name = "Password")
     private String password;
 
 
