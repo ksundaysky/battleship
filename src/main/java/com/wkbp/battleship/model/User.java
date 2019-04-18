@@ -20,5 +20,26 @@ public class User {
     private String password;
 
 
+    public User(Long id, String nick, String email, String password) {
+        this.id = id;
+        this.nick = nick;
+        this.email = email;
+        this.password = password;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
