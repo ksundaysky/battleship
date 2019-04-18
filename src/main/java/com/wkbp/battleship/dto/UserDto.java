@@ -5,7 +5,6 @@ package com.wkbp.battleship.dto;
  */
 public class UserDto {
 
-
     private String email;
     private String password;
 

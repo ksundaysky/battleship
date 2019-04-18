@@ -16,7 +16,7 @@ public class UserServiceTest {
     private UserServiceImpl userServiceImpl = mock(UserServiceImpl.class);
 
     @Test
-    public void testFindEmail(){
+    public void testUserService(){
 
         Mockito.when(userService.findByEmailAndPassword("test", "test")).thenReturn(new User(1L, "test", "test", "test"));
         User user = userService.findByEmailAndPassword("test", "test");
@@ -28,7 +28,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testImplFindEmail(){
+    public void testUserServiceImpl(){
 
         Mockito.when(userServiceImpl.findByEmailAndPassword("test", "test")).thenReturn(new User(1L, "test", "test", "test"));
         User user = userServiceImpl.findByEmailAndPassword("test", "test");
