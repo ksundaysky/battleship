@@ -8,6 +8,12 @@ public class Field {
     private int id;
     private StateOfField stateOfField;
 
+
+    public Field(int id, StateOfField stateOfField) {
+        this.id = id;
+        this.stateOfField = stateOfField;
+    }
+
     public Field(int id) {
         this.id = id;
         stateOfField = StateOfField.EMPTY;
