@@ -7,7 +7,7 @@ package wkbp.battleship.model;
  * @author Wiktor Rup
  */
 public enum RoleName {
-    ROLE_NAME,
+    ROLE_USER,
     ROLE_PM,
     ROLE_ADMIN
 }
