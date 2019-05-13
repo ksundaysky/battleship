@@ -35,7 +35,7 @@ public class ShipsRandomize {
                 do {
                     field = board.getFieldList().get(RANDOM.nextInt(board.getFieldList().size()));
                 }
-                while (field.getStateOfField().equals(StateOfField.OCCUPIED) &&
+                while (field.getStateOfField().equals(StateOfField.OCCUPIED) ||
                         board.getColumns() - (ship.getSize()) < field.getId() % board.getColumns());
                 for (int i = 0; i < ship.getSize(); i++) {
                     board.getFieldList().get(field.getId() + i).setStateOfField(StateOfField.OCCUPIED);
@@ -45,11 +45,11 @@ public class ShipsRandomize {
                 do {
                     field = board.getFieldList().get(RANDOM.nextInt(board.getFieldList().size()));
                 }
-                while (field.getStateOfField().equals(StateOfField.OCCUPIED) &&
-                        board.getColumns() - (ship.getSize()) < field.getId() / board.getColumns());
+                while (field.getStateOfField().equals(StateOfField.OCCUPIED) ||
+                        board.getColumns() - ship.getSize() < field.getId() / board.getColumns());
                 for (int i = 0; i < ship.getSize(); i++) {
-                    board.getFieldList().get(field.getId() + i*10).setStateOfField(StateOfField.OCCUPIED);
-                    ships.add(board.getFieldList().get(field.getId() + i * 10));
+                    board.getFieldList().get(field.getId() + (i * 10)).setStateOfField(StateOfField.OCCUPIED);
+                    ships.add(board.getFieldList().get(field.getId() + (i * 10)));
                 }
             }
         }

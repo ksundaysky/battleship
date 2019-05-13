@@ -61,7 +61,11 @@ public class TestRestAPIs {
         for (int i = 0; i < 100; i++) {
             fieldList.add(new Field(i));
         }
-        Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(new Ship(4), new Ship(3), new Ship(2))));
+        Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(new Ship(4),
+                new Ship(3), new Ship(3),
+                new Ship(2), new Ship(2), new Ship(2),
+                new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
+
         Board board = new Board(fieldList);
         ShipsRandomize shipsRandomize = new ShipsRandomize(board, fleet);
         ObjectMapper objectMapper = new ObjectMapper();
