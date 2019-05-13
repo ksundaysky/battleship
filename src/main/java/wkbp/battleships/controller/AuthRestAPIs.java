@@ -36,19 +36,24 @@ import java.util.Set;
 public class AuthRestAPIs {
 
 	@Autowired
+	private
 	AuthenticationManager authenticationManager;
 
 	// TODO: 13.05.19 Dlaczego w kontrolerze są repozytoria zamiast serwisów?
 	@Autowired
+	private
 	UserRepository userRepository;
 
 	@Autowired
+	private
 	RoleRepository roleRepository;
 
 	@Autowired
+	private
 	PasswordEncoder encoder;
 
 	@Autowired
+	private
 	JwtProvider jwtProvider;
 
 

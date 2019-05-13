@@ -25,9 +25,11 @@ import wkbp.battleships.security.services.UserDetailsServiceImpl;
 // TODO: 13.05.19 dokumentacja
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
+    private
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
+    private
     JwtAuthEntryPoint unauthorizedHandler;
 
     @Bean

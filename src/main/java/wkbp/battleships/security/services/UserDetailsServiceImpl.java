@@ -15,6 +15,7 @@ import wkbp.battleships.repository.UserRepository;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
+	private
 	UserRepository userRepository;
 
 	@Override
