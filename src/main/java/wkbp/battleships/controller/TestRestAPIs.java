@@ -62,7 +62,8 @@ public class TestRestAPIs {
             fieldList.add(new Field(i));
         }
         Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
-                new Ship(4),
+                new Ship(5),
+                new Ship(4),new Ship(4),
                 new Ship(3), new Ship(3),
                 new Ship(2), new Ship(2), new Ship(2),
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
