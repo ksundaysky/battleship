@@ -5,7 +5,7 @@ package wkbp.battleships.model;
  */
 public enum StateOfField {
 
-    EMPTY, OCCUPIED;
+    EMPTY, OCCUPIED, ILLEGAL_TO_PLACE;
 
     boolean isHit;
 

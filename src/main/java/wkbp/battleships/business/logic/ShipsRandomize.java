@@ -36,24 +36,104 @@ public class ShipsRandomize {
                     field = board.getFieldList().get(RANDOM.nextInt(board.getFieldList().size()));
                 }
                 while (field.getStateOfField().equals(StateOfField.OCCUPIED) ||
-                        board.getColumns() - (ship.getSize()) < field.getId() % board.getColumns());
+                        field.getStateOfField().equals(StateOfField.ILLEGAL_TO_PLACE) ||
+                        board.getColumns() - (ship.getSize()) < field.getId() % board.getColumns() ||
+                        checkIfShipCanBePlacedHorizontally(ship.getSize(), field));
+
                 for (int i = 0; i < ship.getSize(); i++) {
                     board.getFieldList().get(field.getId() + i).setStateOfField(StateOfField.OCCUPIED);
                     ships.add(board.getFieldList().get(field.getId() + i));
                 }
+                for (int i = -1; i < 2; i++) {
+                    if (indexExists(board.getFieldList(), field.getId() - board.getColumns() + i)) {
+                        if (!(board.getFieldList().get(field.getId() - board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                            board.getFieldList().get(field.getId() - board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                        }
+                    }
+                }
+                for (int i = -1; i < 2; i++) {
+                    if (indexExists(board.getFieldList(), field.getId() + board.getColumns() + i)) {
+                        if (!(board.getFieldList().get(field.getId() + board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                            board.getFieldList().get(field.getId() + board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                        }
+                    }
+                }
+                if (indexExists(board.getFieldList(), field.getId() + 1)) {
+                    if (!(board.getFieldList().get(field.getId() + 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                        board.getFieldList().get(field.getId() + 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                    }
+                }
+                if (indexExists(board.getFieldList(), field.getId() - 1)) {
+                    if (!(board.getFieldList().get(field.getId() - 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                        board.getFieldList().get(field.getId() - 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                    }
+                }
+
             } else {
                 do {
                     field = board.getFieldList().get(RANDOM.nextInt(board.getFieldList().size()));
                 }
                 while (field.getStateOfField().equals(StateOfField.OCCUPIED) ||
-                        board.getColumns() - ship.getSize() < field.getId() / board.getColumns());
+                        field.getStateOfField().equals(StateOfField.ILLEGAL_TO_PLACE) ||
+                        board.getColumns() - ship.getSize() < field.getId() / board.getColumns() ||
+                        checkIfShipCanBePlacedVertically(ship.getSize(), field));
                 for (int i = 0; i < ship.getSize(); i++) {
                     board.getFieldList().get(field.getId() + (i * 10)).setStateOfField(StateOfField.OCCUPIED);
                     ships.add(board.getFieldList().get(field.getId() + (i * 10)));
                 }
+                for (int i = -1; i < 2; i++) {
+                    if (indexExists(board.getFieldList(), field.getId() - board.getColumns() + i)) {
+                        if (!(board.getFieldList().get(field.getId() - board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                            board.getFieldList().get(field.getId() - board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                        }
+                    }
+                }
+                for (int i = -1; i < 2; i++) {
+                    if (indexExists(board.getFieldList(), field.getId() + board.getColumns() + i)) {
+                        if (!(board.getFieldList().get(field.getId() + board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                            board.getFieldList().get(field.getId() + board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                        }
+                    }
+                }
+                if (indexExists(board.getFieldList(), field.getId() + 1)) {
+                    if (!(board.getFieldList().get(field.getId() + 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                        board.getFieldList().get(field.getId() + 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                    }
+                }
+                if (indexExists(board.getFieldList(), field.getId() - 1)) {
+                    if (!(board.getFieldList().get(field.getId() - 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                        board.getFieldList().get(field.getId() - 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                    }
+                }
             }
         }
         return ships;
+    }
+
+    private boolean indexExists(final List list, final int index) {
+        return index >= 0 && index < list.size();
+    }
+
+    private boolean checkIfShipCanBePlacedHorizontally(int shipSize, Field startingPosition) {
+
+        for (int i = 0; i < shipSize; i++) {
+            if (board.getFieldList().get(startingPosition.getId() + i).getStateOfField().equals(StateOfField.OCCUPIED) ||
+                    board.getFieldList().get(startingPosition.getId() + i).getStateOfField().equals(StateOfField.ILLEGAL_TO_PLACE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkIfShipCanBePlacedVertically(int shipSize, Field startingPosition) {
+
+        for (int i = 0; i < shipSize; i++) {
+            if (board.getFieldList().get(startingPosition.getId() + i * 10).getStateOfField().equals(StateOfField.OCCUPIED) ||
+                    board.getFieldList().get(startingPosition.getId() + i * 10).getStateOfField().equals(StateOfField.ILLEGAL_TO_PLACE)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
