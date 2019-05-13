@@ -18,6 +18,8 @@ import java.util.Set;
             "email"
         })
 })
+// TODO: 13.05.19 dokumentacja
+
 public class User{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

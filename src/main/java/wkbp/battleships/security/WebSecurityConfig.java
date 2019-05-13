@@ -22,12 +22,13 @@ import wkbp.battleships.security.services.UserDetailsServiceImpl;
 @EnableGlobalMethodSecurity(
 		prePostEnabled = true
 )
+// TODO: 13.05.19 dokumentacja
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private JwtAuthEntryPoint unauthorizedHandler;
+    JwtAuthEntryPoint unauthorizedHandler;
 
     @Bean
     public JwtAuthTokenFilter authenticationJwtTokenFilter() {

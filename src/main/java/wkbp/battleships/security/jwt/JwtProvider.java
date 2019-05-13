@@ -10,6 +10,7 @@ import wkbp.battleships.security.services.UserPrinciple;
 
 import java.util.Date;
 
+// TODO: 13.05.19 dokumentacja 
 @Component
 public class JwtProvider {
 

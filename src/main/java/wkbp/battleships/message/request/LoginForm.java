@@ -3,6 +3,7 @@ package wkbp.battleships.message.request;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+// TODO: 13.05.19 dokumentacja
 public class LoginForm {
     @NotBlank
     @Size(min=3, max = 60)

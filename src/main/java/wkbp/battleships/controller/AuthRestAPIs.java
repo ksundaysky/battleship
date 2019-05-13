@@ -21,10 +21,15 @@ import wkbp.battleships.repository.RoleRepository;
 import wkbp.battleships.repository.UserRepository;
 import wkbp.battleships.security.jwt.JwtProvider;
 
+import javax.management.relation.RoleNotFoundException;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
-
+/**
+ * This controller sets two major endpoints for logging in and signing up.
+ * These endpoints accept requests from client side and proceed with them.
+ * @author Wiktor Rup
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -33,6 +38,7 @@ public class AuthRestAPIs {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
+	// TODO: 13.05.19 Dlaczego w kontrolerze są repozytoria zamiast serwisów?
 	@Autowired
 	UserRepository userRepository;
 
@@ -45,6 +51,8 @@ public class AuthRestAPIs {
 	@Autowired
 	JwtProvider jwtProvider;
 
+
+	// TODO: 13.05.19 Przeniesienie logiki kontrolerów do serwisów.
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
@@ -59,15 +67,16 @@ public class AuthRestAPIs {
 		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
 	}
 
+	// TODO: 13.05.19 Przeniesienie logiki kontrolerów do serwisów.
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
+			return new ResponseEntity<>(new ResponseMessage("This username is already taken!"),
 					HttpStatus.BAD_REQUEST);
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already in use!"),
+			return new ResponseEntity<>(new ResponseMessage("Account with given email already exists!"),
 					HttpStatus.BAD_REQUEST);
 		}
 
@@ -79,22 +88,13 @@ public class AuthRestAPIs {
 		Set<Role> roles = new HashSet<>();
 
 		strRoles.forEach(role -> {
-			switch (role) {
-			case "admin":
+			if ("admin".equals(role)) {
 				Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("User Role not found."));
 				roles.add(adminRole);
-
-				break;
-			case "pm":
-				Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-				roles.add(pmRole);
-
-				break;
-			default:
+			} else {
 				Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("User Role not found."));
 				roles.add(userRole);
 			}
 		});

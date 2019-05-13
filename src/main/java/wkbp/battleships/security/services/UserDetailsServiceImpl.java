@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import wkbp.battleships.model.User;
 import wkbp.battleships.repository.UserRepository;
 
+
+// TODO: 13.05.19 dokumentacja
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

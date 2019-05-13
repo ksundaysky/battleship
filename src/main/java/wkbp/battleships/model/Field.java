@@ -3,6 +3,8 @@ package wkbp.battleships.model;
 /**
  * @author krzysztof.niedzielski
  */
+// TODO: 13.05.19 dokumentacja
+
 public class Field {
 
     private int id;

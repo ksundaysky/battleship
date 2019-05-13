@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+// TODO: 13.05.19 dokumentacja
 public class UserPrinciple implements UserDetails {
 	private static final long serialVersionUID = 1L;
 

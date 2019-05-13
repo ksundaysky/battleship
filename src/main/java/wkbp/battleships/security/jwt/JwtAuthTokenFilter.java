@@ -14,6 +14,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
@@ -27,10 +28,9 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 	private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
-
 			String jwt = getJwt(request);
 			if (jwt != null && tokenProvider.validateJwtToken(jwt)) {
 				String username = tokenProvider.getUserNameFromJwtToken(jwt);

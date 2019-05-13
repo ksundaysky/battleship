@@ -5,7 +5,7 @@ import wkbp.battleships.model.*;
 import java.util.*;
 
 /**
- * @author Wiktor Rup
+ * @author Wiktor Rup, Patryk Kucharski
  */
 public class ShipsRandomize {
 
@@ -73,14 +73,14 @@ public class ShipsRandomize {
     }
 
     private void setNeighboursOfFieldAsIllegal(Field currentField, boolean areFieldsAboveCurrentField) {
-        int columns = board.getColumns();
+        int boardDimension = board.getDimension();
         int indexDifference = 1;
         if (areFieldsAboveCurrentField) {
-            columns *= -1;
+            boardDimension *= -1;
             indexDifference = -1;
         }
         for (int i = -1; i < 2; i++) {
-            changeStateOfFieldToIllegal(currentField, columns, i); // TODO: 13.05.19 ustawia pola nad i pod danym polem na illegal
+            changeStateOfFieldToIllegal(currentField, boardDimension, i); // TODO: 13.05.19 ustawia pola nad i pod danym polem na illegal
         }
         changeStateOfFieldToIllegalSingleIndexBeforeOrAfter(currentField, indexDifference); // TODO: 13.05.19 ustawia poprzedni i następny index pola jako illegal
     }
@@ -104,9 +104,9 @@ public class ShipsRandomize {
 
     private boolean checkIfShipCanFit(Field startingPosition, Ship ship) {
         if (isHorizontal) {
-            return board.getColumns() - (ship.getSize()) < startingPosition.getId() % board.getColumns();
+            return board.getDimension() - (ship.getSize()) < startingPosition.getId() % board.getDimension();
         }
-        return board.getColumns() - ship.getSize() < startingPosition.getId() / board.getColumns();
+        return board.getDimension() - ship.getSize() < startingPosition.getId() / board.getDimension();
     }
 
     private boolean checkIfFieldIsIllegal(Field startingPosition) {

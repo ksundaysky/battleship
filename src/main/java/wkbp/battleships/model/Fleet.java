@@ -5,6 +5,8 @@ import java.util.List;
 /**
  * @author Wiktor Rup
  */
+// TODO: 13.05.19 dokumentacja
+
 public class Fleet {
 
 

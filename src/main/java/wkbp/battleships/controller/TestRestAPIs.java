@@ -15,19 +15,16 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+// TODO: 13.05.19 Rozbicie na osobne klasy : konfig, rozstawianie statków, rozgrywka
 public class TestRestAPIs {
 
+    // TODO: 13.05.19 Nazwa endpointów jest kiepska.
     @GetMapping("/api/test/user")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public String userAccess() {
         return ">>> User Contents!";
     }
 
-    @GetMapping("/api/test/pm")
-    @PreAuthorize("hasRole('PM') or hasRole('ADMIN')")
-    public String projectManagementAccess() {
-        return ">>> Project Management Board";
-    }
 
     @GetMapping("/api/test/admin")
     @PreAuthorize("hasRole('ADMIN')")
@@ -54,6 +51,7 @@ public class TestRestAPIs {
         return new ResponseEntity<>(s, HttpStatus.OK);
     }
 
+    // TODO: 13.05.19 Zmiana nazwy z "ships" na shipsplacement
     @GetMapping("/api/test/game/ships")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> gameShipsRandomize() throws JsonProcessingException {
@@ -62,8 +60,7 @@ public class TestRestAPIs {
             fieldList.add(new Field(i));
         }
         Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
-                new Ship(5),
-                new Ship(4),new Ship(4),
+                new Ship(4),
                 new Ship(3), new Ship(3),
                 new Ship(2), new Ship(2), new Ship(2),
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1))));

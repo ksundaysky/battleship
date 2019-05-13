@@ -1,5 +1,6 @@
 package wkbp.battleships.message.response;
 
+// TODO: 13.05.19 dokumentacja
 public class ResponseMessage {
 	private String message;
 

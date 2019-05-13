@@ -5,22 +5,23 @@ import java.util.List;
 /**
  * @author Wiktor Rup
  */
+// TODO: 13.05.19 dokumentacja
 public class Board {
 
 
     private List<Field> fieldList;
-    private int columns;
+    private int dimension;
 
     public Board(List<Field> fieldList) {
         this.fieldList = fieldList;
-        columns = (int) Math.sqrt(fieldList.size());
+        dimension = (int) Math.sqrt(fieldList.size());
     }
 
     public List<Field> getFieldList() {
         return fieldList;
     }
 
-    public int getColumns() {
-        return columns;
+    public int getDimension() {
+        return dimension;
     }
 }

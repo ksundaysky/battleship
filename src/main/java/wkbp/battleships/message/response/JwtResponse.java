@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+// TODO: 13.05.19 dokumentacja
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";

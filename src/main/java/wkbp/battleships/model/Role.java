@@ -4,8 +4,11 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "roles")
+// TODO: 13.05.19 dokumentacja
+
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
