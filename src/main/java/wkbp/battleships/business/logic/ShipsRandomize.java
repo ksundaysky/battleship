@@ -44,30 +44,36 @@ public class ShipsRandomize {
                     board.getFieldList().get(field.getId() + i).setStateOfField(StateOfField.OCCUPIED);
                     ships.add(board.getFieldList().get(field.getId() + i));
                 }
-                for (int i = -1; i < 2; i++) {
-                    if (indexExists(board.getFieldList(), field.getId() - board.getColumns() + i)) {
-                        if (!(board.getFieldList().get(field.getId() - board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
-                            board.getFieldList().get(field.getId() - board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+
+                for (int j = 0; j < ship.getSize(); j++) {
+
+                    Field currentField = board.getFieldList().get((field.getId()) + j);
+                    for (int i = -1; i < 2; i++) {
+                        if (indexExists(board.getFieldList(), currentField.getId() - board.getColumns() + i)) {
+                            if (!(board.getFieldList().get(currentField.getId() - board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                                board.getFieldList().get(currentField.getId() - board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                            }
+                        }
+                    }
+                    for (int i = -1; i < 2; i++) {
+                        if (indexExists(board.getFieldList(), currentField.getId() + board.getColumns() + i)) {
+                            if (!(board.getFieldList().get(currentField.getId() + board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                                board.getFieldList().get(currentField.getId() + board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                            }
+                        }
+                    }
+                    if (indexExists(board.getFieldList(), currentField.getId() + 1)) {
+                        if (!(board.getFieldList().get(currentField.getId() + 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                            board.getFieldList().get(currentField.getId() + 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                        }
+                    }
+                    if (indexExists(board.getFieldList(), currentField.getId() - 1)) {
+                        if (!(board.getFieldList().get(currentField.getId() - 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                            board.getFieldList().get(currentField.getId() - 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
                         }
                     }
                 }
-                for (int i = -1; i < 2; i++) {
-                    if (indexExists(board.getFieldList(), field.getId() + board.getColumns() + i)) {
-                        if (!(board.getFieldList().get(field.getId() + board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
-                            board.getFieldList().get(field.getId() + board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
-                        }
-                    }
-                }
-                if (indexExists(board.getFieldList(), field.getId() + 1)) {
-                    if (!(board.getFieldList().get(field.getId() + 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
-                        board.getFieldList().get(field.getId() + 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
-                    }
-                }
-                if (indexExists(board.getFieldList(), field.getId() - 1)) {
-                    if (!(board.getFieldList().get(field.getId() - 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
-                        board.getFieldList().get(field.getId() - 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
-                    }
-                }
+
 
             } else {
                 do {
@@ -81,28 +87,32 @@ public class ShipsRandomize {
                     board.getFieldList().get(field.getId() + (i * 10)).setStateOfField(StateOfField.OCCUPIED);
                     ships.add(board.getFieldList().get(field.getId() + (i * 10)));
                 }
-                for (int i = -1; i < 2; i++) {
-                    if (indexExists(board.getFieldList(), field.getId() - board.getColumns() + i)) {
-                        if (!(board.getFieldList().get(field.getId() - board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
-                            board.getFieldList().get(field.getId() - board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                for (int j = 0; j < ship.getSize(); j++) {
+
+                    Field currentField = board.getFieldList().get((field.getId()) + (j * 10));
+                    for (int i = -1; i < 2; i++) {
+                        if (indexExists(board.getFieldList(), currentField.getId() - board.getColumns() + i)) {
+                            if (!(board.getFieldList().get(currentField.getId() - board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                                board.getFieldList().get(currentField.getId() - board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                            }
                         }
                     }
-                }
-                for (int i = -1; i < 2; i++) {
-                    if (indexExists(board.getFieldList(), field.getId() + board.getColumns() + i)) {
-                        if (!(board.getFieldList().get(field.getId() + board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
-                            board.getFieldList().get(field.getId() + board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                    for (int i = -1; i < 2; i++) {
+                        if (indexExists(board.getFieldList(), currentField.getId() + board.getColumns() + i)) {
+                            if (!(board.getFieldList().get(currentField.getId() + board.getColumns() + i).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                                board.getFieldList().get(currentField.getId() + board.getColumns() + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                            }
                         }
                     }
-                }
-                if (indexExists(board.getFieldList(), field.getId() + 1)) {
-                    if (!(board.getFieldList().get(field.getId() + 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
-                        board.getFieldList().get(field.getId() + 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                    if (indexExists(board.getFieldList(), currentField.getId() + 1)) {
+                        if (!(board.getFieldList().get(currentField.getId() + 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                            board.getFieldList().get(currentField.getId() + 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                        }
                     }
-                }
-                if (indexExists(board.getFieldList(), field.getId() - 1)) {
-                    if (!(board.getFieldList().get(field.getId() - 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
-                        board.getFieldList().get(field.getId() - 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                    if (indexExists(board.getFieldList(), currentField.getId() - 1)) {
+                        if (!(board.getFieldList().get(currentField.getId() - 1).getStateOfField().equals(StateOfField.OCCUPIED))) {
+                            board.getFieldList().get(currentField.getId() - 1).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                        }
                     }
                 }
             }
