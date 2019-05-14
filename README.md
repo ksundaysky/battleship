@@ -11,7 +11,7 @@ before he destroys ours.
 
 ## PREREQUISITES 
 
-* Java 11
+* Java 8
 * Maven 3.3.6
 * Internet connection to download pom dependencies.
 
