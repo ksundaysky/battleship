@@ -38,7 +38,7 @@ public class ShipsRandomiser {
      * Main method that draws random direction (HORIZONTAL, VERTICAL)
      * and puts ship on board depending on drawing output.
      *
-     * {@link Compass}
+     * @see Compass
      *
      * @return List of fields with ships, which is to be sent to client
      */
@@ -74,15 +74,16 @@ public class ShipsRandomiser {
 
     /**
      * draws a field from the board until it's fully valid for a ship to
-     * be placed on
+     * be placed on. See private methods invoked inside:
      *
-     * @param ship to be placed on board
-     * @return valid starting field for @param ship
-     * <p>
      * {@link #checkIfFieldIsOccupied(Field startingPosition)}
      * {@link #checkIfFieldIsIllegal(Field startingPosition)}
      * {@link #checkIfShipCanFit(Field startingPosition, Ship ship)}
      * {@link #ifShipHasRoomToBePlaced(Ship ship, Field startingPosition)}
+     *
+     * @param ship to be placed on board
+     * @return valid starting field for @param ship
+     * <p>
      */
 
     private Field getValidFieldForShip(Ship ship) {
@@ -163,7 +164,7 @@ public class ShipsRandomiser {
      * -----------------
      * |   |   |   |   |
      * <p>
-     * then ones on the left and right of field (if not OCCUPIED)
+     * then ones on the left and right side of field (if not StateOfField.OCCUPIED)
      * {@link #changeStateOfFieldToIllegalSingleIndexBeforeOrAfter(Field currentField, int indexDifference)}
      * <p>
      * | x | x | x |   |

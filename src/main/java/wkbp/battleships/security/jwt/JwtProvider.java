@@ -10,7 +10,15 @@ import wkbp.battleships.security.services.UserPrinciple;
 
 import java.util.Date;
 
-// TODO: 13.05.19 dokumentacja 
+/**
+ * Class which represents Token used as the logged-in session ID.
+ * It generates and provides JWT (JSON Web Tokens).
+ * Please check {@link JwtAuthTokenFilter} to see its usage cases.
+ *
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
+ */
+
 @Component
 public class JwtProvider {
 
@@ -27,13 +35,13 @@ public class JwtProvider {
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
         return Jwts.builder()
-		                .setSubject((userPrincipal.getUsername()))
-		                .setIssuedAt(new Date())
-		                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
-		                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-		                .compact();
+                .setSubject((userPrincipal.getUsername()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date((new Date()).getTime() + jwtExpiration * 1000))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
     }
-    
+
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
@@ -49,14 +57,14 @@ public class JwtProvider {
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty -> Message: {}", e);
         }
-        
+
         return false;
     }
-    
+
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
-			                .setSigningKey(jwtSecret)
-			                .parseClaimsJws(token)
-			                .getBody().getSubject();
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody().getSubject();
     }
 }

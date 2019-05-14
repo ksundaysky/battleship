@@ -9,22 +9,28 @@ import org.springframework.transaction.annotation.Transactional;
 import wkbp.battleships.model.User;
 import wkbp.battleships.repository.UserRepository;
 
+/**
+ * Class is responsible for exchanging information and returning the result
+ * of identification of user in database {@link wkbp.battleships.model.User}.
+ * Please see the {@link org.springframework.security.core.userdetails.UserDetailsService}
+ * for true identity.
+ *
+ * @author Wiktor Rup
+ */
 
-// TODO: 13.05.19 dokumentacja
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private
-	UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	@Transactional
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		User user = userRepository.findByUsername(username).orElseThrow(
-				() -> new UsernameNotFoundException("User Not Found with -> username or email : " + username));
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException("User Not Found with -> username or email : " + username));
 
-		return UserPrinciple.build(user);
-	}
+        return UserPrinciple.build(user);
+    }
 }

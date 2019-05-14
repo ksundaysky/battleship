@@ -17,20 +17,24 @@ import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 import wkbp.battleships.security.jwt.JwtAuthTokenFilter;
 import wkbp.battleships.security.services.UserDetailsServiceImpl;
 
+/**
+ * Configuration class responsible for user authentication and authorization.
+ *
+ * @author Wiktor Rup
+ * @see wkbp.battleships.model.User
+ * @see wkbp.battleships.security.jwt.JwtAuthTokenFilter
+ * @see wkbp.battleships.security.jwt.JwtAuthEntryPoint
+ */
+
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-		prePostEnabled = true
-)
-// TODO: 13.05.19 dokumentacja
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private
-    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private
-    JwtAuthEntryPoint unauthorizedHandler;
+    private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private JwtAuthEntryPoint unauthorizedHandler;
 
     @Bean
     public JwtAuthTokenFilter authenticationJwtTokenFilter() {
@@ -54,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
@@ -64,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        
+
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

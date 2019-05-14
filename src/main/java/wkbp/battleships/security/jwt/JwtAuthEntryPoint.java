@@ -11,19 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Class which is responsible for handling unauthorized requests.
+ *
+ * @author Wiktor Rup
+ * @see org.springframework.security.web.AuthenticationEntryPoint
+ */
 
-// TODO: 13.05.19 dokumentacja
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
-    
+
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,
-                         AuthenticationException e) 
-                        		 throws IOException, ServletException {
-    	
+                         AuthenticationException e)
+            throws IOException, ServletException {
+
         logger.error("Unauthorized error. Message - {}", e.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }

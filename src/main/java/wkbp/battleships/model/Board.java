@@ -19,7 +19,8 @@ public class Board {
      * are taken as a square root of filed number
      *
      * @param fieldList which is to be created based on gameConfig passed
-     *                  to BoardFactory.class {@link BoardFactory}
+     *                  to BoardFactory.class
+     * @see BoardFactory
      */
 
     public Board(List<Field> fieldList) {
