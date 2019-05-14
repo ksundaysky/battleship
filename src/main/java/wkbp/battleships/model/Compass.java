@@ -1,9 +1,11 @@
 package wkbp.battleships.model;
 
 /**
+ * Represents direction, used for random ship placement
+ * {@link wkbp.battleships.businesslogic.ShipsRandomiser}
+ *
  * @author Wiktor Rup
  */
-// TODO: 13.05.19 dokumentacja
 
 public enum Compass {
 

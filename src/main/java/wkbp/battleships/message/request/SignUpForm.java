@@ -5,7 +5,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-// TODO: 13.05.19 dokumentacja
+/**
+ * Represents register form on the client side
+ *
+ * @author Patryk Kucharski
+ * @author Wiktor Wrup
+ */
+
 public class SignUpForm {
     @NotBlank
     @Size(min = 3, max = 50)
@@ -19,9 +25,9 @@ public class SignUpForm {
     @Size(max = 60)
     @Email
     private String email;
-    
+
     private Set<String> role;
-    
+
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
@@ -30,39 +36,20 @@ public class SignUpForm {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
     public Set<String> getRole() {
-    	return this.role;
+        return this.role;
     }
-    
-    public void setRole(Set<String> role) {
-    	this.role = role;
-    }
+    //usunięte settery, jakby co nie hulało to wygenerować znowu iksde
 }

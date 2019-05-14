@@ -1,8 +1,14 @@
 package wkbp.battleships.model;
 
-// TODO: 13.05.19 dokumentacja
+/**
+ * Represents roles name,
+ * makes adding more roles much easier
+ *
+ * @author Bartosz Kupajski
+ * @author Krzysztof Niedzielski
+ */
 
 public enum  RoleName {
-    ROLE_USER,
-    ROLE_ADMIN
+
+    ROLE_USER, ROLE_ADMIN
 }

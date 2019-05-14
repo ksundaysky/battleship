@@ -4,12 +4,18 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 
+/**
+ * Represents role of users which determines permissions and
+ * authorization for given actions on the client and server side
+ *
+ * @author Krzysztof Niedzielski
+ * @author Bartek Kupajski
+ */
 
 @Entity
 @Table(name = "roles")
-// TODO: 13.05.19 dokumentacja
-
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +25,12 @@ public class Role {
     @Column(length = 60)
     private RoleName name;
 
-    public Role() {}
+    public Role() {
+    }
+
+    /**
+     * @param name of the role {@link RoleName}
+     */
 
     public Role(RoleName name) {
         this.name = name;

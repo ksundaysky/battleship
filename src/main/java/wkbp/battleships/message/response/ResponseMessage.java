@@ -1,7 +1,15 @@
 package wkbp.battleships.message.response;
 
-// TODO: 13.05.19 dokumentacja
+/**
+ * Docker for a messages which are to
+ * be sent between server and client
+ *
+ * @author Wiktor Wrup
+ * @author Patryk Kucharski
+ */
+
 public class ResponseMessage {
+
 	private String message;
 
 	public ResponseMessage(String message) {

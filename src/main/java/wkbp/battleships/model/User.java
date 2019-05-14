@@ -9,6 +9,13 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * User entity that represents user table in database
+ *
+ * @author Krzysztof Niedzielski
+ * @author Bartek Kupajski
+ */
+
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
@@ -18,9 +25,7 @@ import java.util.Set;
             "email"
         })
 })
-// TODO: 13.05.19 dokumentacja
-
-public class User{
+public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

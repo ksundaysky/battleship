@@ -3,10 +3,16 @@ package wkbp.battleships.message.request;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-// TODO: 13.05.19 dokumentacja
+/**
+ * Represents login form on the client side
+ *
+ * @author Patryk Kucharski
+ * @author Wiktor Wrup
+ */
+
 public class LoginForm {
     @NotBlank
-    @Size(min=3, max = 60)
+    @Size(min = 3, max = 60)
     private String username;
 
     @NotBlank
@@ -17,15 +23,8 @@ public class LoginForm {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    // usunięte settery jakby co nie hulało to wygenerować znowu
 }

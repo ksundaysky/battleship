@@ -1,9 +1,14 @@
 package wkbp.battleships.model;
 
 /**
+ * Represents current state of field on board
+ * ILLEGAL_TO_PLACE is used only for purpose
+ * of placing ships on board
+ * <p>
+ * {@link wkbp.battleships.businesslogic.ShipsRandomiser}
+ *
  * @author Wiktor Rup
  */
-// TODO: 13.05.19 dokumentacja
 
 public enum StateOfField {
 
@@ -13,4 +18,5 @@ public enum StateOfField {
 
     public void setHit(boolean hit) {
         isHit = hit;
-    }}
+    }
+}

@@ -7,6 +7,13 @@ import wkbp.battleships.model.RoleName;
 
 import java.util.Optional;
 
+/**
+ * Repository responsible for retrieving role
+ *
+ * @author Krzysztof Niedzielski
+ * @author Bartek Kupajski
+ */
+
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Optional<Role> findByName(RoleName roleName);

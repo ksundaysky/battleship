@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Represents single ship unit that is part of fleet {@link Fleet}
+ * Consists of List of fields with given state
+ *
  * @author Wiktor Rup
  */
-// TODO: 13.05.19 dokumentacja
 
 public class Ship {
 
     private int size;
-    private List<Field> fieldList;
+    private List<Field> fieldsOfShip;
 
     public Ship(int size) {
         this.size = size;
-        this.fieldList = new ArrayList<>();
+        this.fieldsOfShip = new ArrayList<>();
     }
 
     public int getSize() {
