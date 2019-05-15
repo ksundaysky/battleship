@@ -14,10 +14,10 @@ public class CreateGameRestAPIsTest {
 
     CreateGameRestAPIs createGameRestAPIs = new CreateGameRestAPIs();
 
-    @Test
-    public void testGameAccess() {
-        assertEquals("game config",createGameRestAPIs.gameAccess());
-    }
+//    @Test
+//    public void testGameAccess() {
+//        assertEquals("game config",createGameRestAPIs.gameAccess());
+//    }
 
     @Test
     public void testRandomizeShips() throws JsonProcessingException {

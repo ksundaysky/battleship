@@ -2,18 +2,19 @@ package wkbp.battleships.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.tomcat.util.http.parser.Authorization;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.businesslogic.ShipsRandomiser;
-import wkbp.battleships.model.Board;
-import wkbp.battleships.model.Field;
-import wkbp.battleships.model.Fleet;
-import wkbp.battleships.model.Ship;
+import wkbp.battleships.dto.ConfigDTO;
+import wkbp.battleships.model.*;
+import wkbp.battleships.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,11 +31,21 @@ import java.util.List;
 // TODO: 13.05.19 Rozbicie na osobne klasy : konfig, rozstawianie statków, rozgrywka
 public class CreateGameRestAPIs {
 
-    @GetMapping("/api/wkbp/get/game_config")
+    @Autowired
+    UserRepository userRepository; //TODO do gameserwisu to zrobisz
+
+    @PostMapping("/api/wkbp/config")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String gameAccess() {
-        // TODO: 14.05.19  implement
-        return "game config";
+    public ResponseEntity<String> gameAccess(Authentication authentication, @RequestBody ConfigDTO configDTO) {
+
+        System.out.println(configDTO);
+
+        System.out.println(authentication.getName());
+
+        User owner = userRepository.findByUsername(authentication.getName()).get();
+//        Game game = new Game(configDTO, owner );
+
+        return new ResponseEntity<>("1",HttpStatus.OK);
     }
 
     @GetMapping("/api/wkbp/get/ships_placement")

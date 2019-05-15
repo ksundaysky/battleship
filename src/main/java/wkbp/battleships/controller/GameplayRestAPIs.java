@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.model.StateOfField;
 
@@ -33,4 +30,6 @@ public class GameplayRestAPIs {
 
         return new ResponseEntity<>(s, HttpStatus.OK);
     }
+
+
 }
