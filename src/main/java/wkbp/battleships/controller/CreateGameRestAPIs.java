@@ -2,7 +2,6 @@ package wkbp.battleships.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.businesslogic.ShipsRandomiser;
 import wkbp.battleships.dto.ConfigDTO;
 import wkbp.battleships.model.*;
-import wkbp.battleships.repository.UserRepository;
+import wkbp.battleships.dao.repository.UserRepository;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +41,8 @@ public class CreateGameRestAPIs {
         System.out.println(authentication.getName());
 
         User owner = userRepository.findByUsername(authentication.getName()).get();
-//        Game game = new Game(configDTO, owner );
+
+        Game game = new Game(owner, configDTO.assembly() );
 
         return new ResponseEntity<>("1",HttpStatus.OK);
     }

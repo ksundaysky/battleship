@@ -16,4 +16,11 @@ public class GameConfig {
     public int getDimension() {
         return dimension;
     }
+
+    public GameConfig(String gameName, int dimension, GameMode gameMode, boolean doesOwnerStart) {
+        this.gameName = gameName;
+        this.dimension = dimension;
+        this.gameMode = gameMode;
+        this.doesOwnerStart = doesOwnerStart;
+    }
 }

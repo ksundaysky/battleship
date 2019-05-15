@@ -17,8 +17,8 @@ import wkbp.battleships.message.response.ResponseMessage;
 import wkbp.battleships.model.Role;
 import wkbp.battleships.model.RoleName;
 import wkbp.battleships.model.User;
-import wkbp.battleships.repository.RoleRepository;
-import wkbp.battleships.repository.UserRepository;
+import wkbp.battleships.dao.repository.RoleRepository;
+import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.security.jwt.JwtProvider;
 
 import javax.validation.Valid;

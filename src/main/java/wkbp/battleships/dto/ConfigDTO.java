@@ -1,5 +1,8 @@
 package wkbp.battleships.dto;
 
+import wkbp.battleships.model.GameConfig;
+import wkbp.battleships.model.GameMode;
+
 /**
  * @author krzysztof.niedzielski
  */
@@ -25,5 +28,9 @@ public class ConfigDTO {
                 ", doesOwnerStart=" + doesOwnerStart +
                 ", gameMode=" + gameMode +
                 '}';
+    }
+
+    public GameConfig assembly() {
+        return new GameConfig(gameName,dimension,gameMode,doesOwnerStart);
     }
 }
