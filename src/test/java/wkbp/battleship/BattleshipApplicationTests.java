@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import wkbp.battleships.SpringBootJwtAuthenticationApplication;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringBootJwtAuthenticationApplication.class)
+@SpringBootTest()
 public class BattleshipApplicationTests {
 
     @Test
