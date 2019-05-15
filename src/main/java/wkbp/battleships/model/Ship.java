@@ -9,7 +9,6 @@ import java.util.List;
  *
  * @author Wiktor Rup
  */
-
 public class Ship {
 
     private int size;

@@ -7,7 +7,6 @@ package wkbp.battleships.message.response;
  * @author Wiktor Wrup
  * @author Patryk Kucharski
  */
-
 public class ResponseMessage {
 
 	private String message;

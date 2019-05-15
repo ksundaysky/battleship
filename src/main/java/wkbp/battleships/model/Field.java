@@ -9,7 +9,6 @@ package wkbp.battleships.model;
  * @author Krzysztof Niedzielski
  * @author Patryk Kucharski
  */
-
 public class Field {
 
     private int id;

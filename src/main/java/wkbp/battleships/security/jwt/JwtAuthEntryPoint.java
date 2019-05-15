@@ -17,7 +17,6 @@ import java.io.IOException;
  * @author Wiktor Rup
  * @see org.springframework.security.web.AuthenticationEntryPoint
  */
-
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 

@@ -33,7 +33,6 @@ import java.util.Set;
  * @author Wiktor Rup
  * @author Patryk Kucharski
  */
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/wkbp/auth")

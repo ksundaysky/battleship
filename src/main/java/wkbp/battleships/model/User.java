@@ -15,7 +15,6 @@ import java.util.Set;
  * @author Krzysztof Niedzielski
  * @author Bartek Kupajski
  */
-
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {

@@ -7,7 +7,6 @@ package wkbp.battleships.model;
  * @author Bartosz Kupajski
  * @author Krzysztof Niedzielski
  */
-
 public enum  RoleName {
 
     ROLE_USER, ROLE_ADMIN

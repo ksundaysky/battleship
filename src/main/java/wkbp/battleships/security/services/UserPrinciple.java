@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
  *
  * @author Wiktor Rup
  */
-
 public class UserPrinciple implements UserDetails {
     private static final long serialVersionUID = 1L;
 

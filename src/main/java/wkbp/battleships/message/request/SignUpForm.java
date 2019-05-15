@@ -11,7 +11,6 @@ import java.util.Set;
  * @author Patryk Kucharski
  * @author Wiktor Wrup
  */
-
 public class SignUpForm {
     @NotBlank
     @Size(min = 3, max = 50)

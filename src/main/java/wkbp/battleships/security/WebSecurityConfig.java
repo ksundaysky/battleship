@@ -25,7 +25,6 @@ import wkbp.battleships.security.services.UserDetailsServiceImpl;
  * @see wkbp.battleships.security.jwt.JwtAuthTokenFilter
  * @see wkbp.battleships.security.jwt.JwtAuthEntryPoint
  */
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

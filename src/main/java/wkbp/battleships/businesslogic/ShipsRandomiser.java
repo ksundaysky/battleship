@@ -2,25 +2,25 @@ package wkbp.battleships.businesslogic;
 
 import wkbp.battleships.model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * <p>
  * Class responsible for random ship placement on board,
- *
  */
-
 public class ShipsRandomiser {
 
     private static final List<Compass> VALUES =
             Collections.unmodifiableList(Arrays.asList(Compass.values()));
-    private static final int SIZE = VALUES.size();
-    private static final Random RANDOM = new Random();
+    private final int SIZE = VALUES.size();
     private Board board;
     private Fleet fleet;
-
     private boolean isHorizontal = false;
     private int multiplier = 1;
 
@@ -28,7 +28,6 @@ public class ShipsRandomiser {
      * @param board for ships to be placed on
      * @param fleet ships to be placed
      */
-
     public ShipsRandomiser(Board board, Fleet fleet) {
         this.fleet = fleet;
         this.board = board;
@@ -38,15 +37,13 @@ public class ShipsRandomiser {
      * Main method that draws random direction (HORIZONTAL, VERTICAL)
      * and puts ship on board depending on drawing output.
      *
-     * @see Compass
-     *
      * @return List of fields with ships, which is to be sent to client
+     * @see Compass
      */
-
     public List<Field> randomizeShips() {
         List<Field> randomizedShips = new ArrayList<>();
         for (Ship ship : fleet.getShipList()) {
-            if (VALUES.get(RANDOM.nextInt(SIZE)).equals(Compass.HORIZONTAL)) {
+            if (VALUES.get(ThreadLocalRandom.current().nextInt(SIZE)).equals(Compass.HORIZONTAL)) {
                 isHorizontal = true;
                 multiplier = 1;
             } else {
@@ -62,12 +59,13 @@ public class ShipsRandomiser {
      * @param randomizedShips list of fields to be sent to client
      * @param ship            ship to be placed on board
      */
-
     private void putShipOnBoard(List<Field> randomizedShips, Ship ship) {
         Field startingPosition = getValidFieldForShip(ship);
         for (int i = 0; i < ship.getSize(); i++) {
-            board.getFieldList().get(startingPosition.getId() + (i * multiplier)).setStateOfField(StateOfField.OCCUPIED);
-            randomizedShips.add(board.getFieldList().get(startingPosition.getId() + (i * multiplier)));
+            int currentIndexToBeMarked = startingPosition.getId() + (i * multiplier);
+            Field currentField = board.getField(currentIndexToBeMarked);
+            currentField.setStateOfField(StateOfField.OCCUPIED);
+            randomizedShips.add(currentField);
         }
         setNeighbourFieldsOfShipAsIllegal(startingPosition, ship);
     }
@@ -75,8 +73,8 @@ public class ShipsRandomiser {
     /**
      * draws a field from the board until it's fully valid for a ship to
      * be placed on. See private methods invoked inside:
-     *
-     * {@link #checkIfFieldIsOccupied(Field startingPosition)}
+     * <p>
+     * {@link #fieldIsOccupied(Field startingPosition)}
      * {@link #checkIfFieldIsIllegal(Field startingPosition)}
      * {@link #checkIfShipCanFit(Field startingPosition, Ship ship)}
      * {@link #ifShipHasRoomToBePlaced(Ship ship, Field startingPosition)}
@@ -85,13 +83,12 @@ public class ShipsRandomiser {
      * @return valid starting field for @param ship
      * <p>
      */
-
     private Field getValidFieldForShip(Ship ship) {
         Field startingPosition;
         do {
             startingPosition = getRandomFieldFromBoard();
         }
-        while (checkIfFieldIsOccupied(startingPosition) ||
+        while (fieldIsOccupied(startingPosition) ||
                 checkIfFieldIsIllegal(startingPosition) ||
                 checkIfShipCanFit(startingPosition, ship) ||
                 ifShipHasRoomToBePlaced(ship, startingPosition));
@@ -110,15 +107,15 @@ public class ShipsRandomiser {
         return startingPosition.getStateOfField().equals(StateOfField.ILLEGAL_TO_PLACE);
     }
 
-    private boolean checkIfFieldIsOccupied(Field startingPosition) {
+    private boolean fieldIsOccupied(Field startingPosition) {
         return startingPosition.getStateOfField().equals(StateOfField.OCCUPIED);
     }
 
     private boolean ifShipHasRoomToBePlaced(Ship ship, Field startingPosition) {
-
         for (int i = 0; i < ship.getSize(); i++) {
-            if (checkIfFieldIsOccupied(board.getFieldList().get(startingPosition.getId() + i * multiplier)) ||
-                    checkIfFieldIsIllegal(board.getFieldList().get(startingPosition.getId() + i * multiplier))) {
+            Field currentlyCheckedField = board.getField(startingPosition.getId() + i * multiplier);
+            if (fieldIsOccupied(currentlyCheckedField) ||
+                    checkIfFieldIsIllegal(currentlyCheckedField)) {
                 return true;
             }
         }
@@ -126,7 +123,7 @@ public class ShipsRandomiser {
     }
 
     private Field getRandomFieldFromBoard() {
-        return board.getFieldList().get(RANDOM.nextInt(board.getFieldList().size()));
+        return board.getField(ThreadLocalRandom.current().nextInt(board.getSize()));
     }
 
     /**
@@ -144,7 +141,7 @@ public class ShipsRandomiser {
      * |   |   |   |   |
      * <p>
      * algorithm starts with 3 fields above first field of ship starting from left or top,
-     * depending if ship was placed horizontally or vertically
+     * depending if ship was placed horizontally or vertically {@link #setNeighboursOfFieldAsIllegal(Field)}
      * <p>
      * | x | x | x |   |
      * -----------------
@@ -165,7 +162,7 @@ public class ShipsRandomiser {
      * |   |   |   |   |
      * <p>
      * then ones on the left and right side of field (if not StateOfField.OCCUPIED)
-     * {@link #changeStateOfFieldToIllegalSingleIndexBeforeOrAfter(Field currentField, int indexDifference)}
+     * {@link #changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(Field currentField, int indexDifference)}
      * <p>
      * | x | x | x |   |
      * -----------------
@@ -204,45 +201,56 @@ public class ShipsRandomiser {
      * -----------------
      * |   |   |   |   |
      */
-
     private void setNeighbourFieldsOfShipAsIllegal(Field startingPosition, Ship ship) {
         for (int j = 0; j < ship.getSize(); j++) {
-            Field currentField = board.getFieldList().get((startingPosition.getId()) + j * multiplier);
-            setNeighboursOfFieldAsIllegal(currentField, true);
-            setNeighboursOfFieldAsIllegal(currentField, false);
+            Field currentField = board.getField((startingPosition.getId()) + j * multiplier);
+            setNeighboursOfFieldAsIllegal(currentField);
         }
     }
 
-    private void setNeighboursOfFieldAsIllegal(Field currentField, boolean areFieldsAboveCurrentField) {
-        int boardDimension = board.getDimension();
-        int indexDifference = 1;
-        if (areFieldsAboveCurrentField) {
-            boardDimension *= -1;
-            indexDifference = -1;
-        }
+    private void setNeighboursOfFieldAsIllegal(Field field) {
+        setFieldsAboveFieldAsIllegal(field);
+        setFieldsBelowFieldAsIllegal(field);
+    }
+
+    private void iterateThroughSelectedFieldsAndMarkThemAsIllegal(Field field, int rowJump) {
         for (int i = -1; i < 2; i++) {
-            changeStateOfFieldToIllegal(currentField, boardDimension, i);
+            changeStateOfFieldToIllegal(field, rowJump, i);
         }
-        changeStateOfFieldToIllegalSingleIndexBeforeOrAfter(currentField, indexDifference);
     }
 
-    private void changeStateOfFieldToIllegalSingleIndexBeforeOrAfter(Field currentField, int indexDifference) {
-        if (indexExists(board.getFieldList(), currentField.getId() + indexDifference)) {
-            if (!(checkIfFieldIsOccupied(board.getFieldList().get(currentField.getId() + indexDifference)))) {
-                board.getFieldList().get(currentField.getId() + indexDifference).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+    private void setFieldsAboveFieldAsIllegal(Field field) {
+        int rowJump = board.getDimension() * -1;
+        int indexDifference = -1;
+        iterateThroughSelectedFieldsAndMarkThemAsIllegal(field, rowJump);
+        changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(field, indexDifference);
+    }
+
+    private void setFieldsBelowFieldAsIllegal(Field field) {
+        int rowJump = board.getDimension();
+        int indexDifference = 1;
+        iterateThroughSelectedFieldsAndMarkThemAsIllegal(field, rowJump);
+        changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(field, indexDifference);
+    }
+
+    private void changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(Field currentField, int indexDifference) {
+        if (board.indexExists(currentField.getId() + indexDifference)) {
+            Field startingPosition = board.getField(currentField.getId() + indexDifference);
+            if (!(fieldIsOccupied(startingPosition))) {
+                startingPosition.setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
             }
         }
     }
 
-    private void changeStateOfFieldToIllegal(Field currentField, int columns, int i) {
-        if (indexExists(board.getFieldList(), currentField.getId() + columns + i)) {
-            if (!(checkIfFieldIsOccupied(board.getFieldList().get(currentField.getId() + columns + i)))) {
-                board.getFieldList().get(currentField.getId() + columns + i).setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
-            }
-        }
-    }
+    private void changeStateOfFieldToIllegal(Field currentField, int rowJump, int i) {
+        int indexOfFieldToChange = currentField.getId() + rowJump + i;
 
-    private boolean indexExists(final List list, final int index) {
-        return index >= 0 && index < list.size();
+        if (board.indexExists(indexOfFieldToChange)) {
+            Field fieldToUpdate = board.getField(indexOfFieldToChange);
+            if (fieldIsOccupied(fieldToUpdate)) {
+                return;
+            }
+            fieldToUpdate.setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+        }
     }
 }

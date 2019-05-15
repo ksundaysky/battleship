@@ -9,7 +9,6 @@ package wkbp.battleships.model;
  *
  * @author Wiktor Rup
  */
-
 public enum StateOfField {
 
     EMPTY, OCCUPIED, ILLEGAL_TO_PLACE;

@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author Krzysztof Niedzielski
  */
-
 @SpringBootApplication
 public class SpringBootJwtAuthenticationApplication {
 

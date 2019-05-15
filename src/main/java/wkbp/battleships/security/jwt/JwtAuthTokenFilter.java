@@ -25,7 +25,6 @@ import java.io.IOException;
  * @see JwtProvider
  * @see org.springframework.web.filter.OncePerRequestFilter
  */
-
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);

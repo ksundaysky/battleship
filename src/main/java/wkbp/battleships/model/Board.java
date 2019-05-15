@@ -8,7 +8,6 @@ import java.util.List;
  * @author Wiktor Rup
  * @author Patryk Kucharski
  */
-
 public class Board {
 
     private List<Field> fieldList;
@@ -22,7 +21,6 @@ public class Board {
      *                  to BoardFactory.class
      * @see BoardFactory
      */
-
     public Board(List<Field> fieldList) {
         this.fieldList = fieldList;
         dimension = (int) Math.sqrt(fieldList.size());
@@ -34,5 +32,17 @@ public class Board {
 
     public int getDimension() {
         return dimension;
+    }
+
+    public Field getField(int fieldIndex) {
+        return fieldList.get(fieldIndex);
+    }
+
+    public int getSize(){
+        return fieldList.size();
+    }
+
+    public boolean indexExists(final int index) {
+        return index >= 0 && index < fieldList.size();
     }
 }

@@ -17,7 +17,6 @@ import wkbp.battleships.repository.UserRepository;
  *
  * @author Wiktor Rup
  */
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

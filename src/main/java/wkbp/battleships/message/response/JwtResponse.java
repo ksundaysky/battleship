@@ -10,7 +10,6 @@ import java.util.Collection;
  * @author Wiktor Wrup
  * @author Patryk Kucharski
  */
-
 public class JwtResponse {
     private String token;
     private String type = "Bearer";

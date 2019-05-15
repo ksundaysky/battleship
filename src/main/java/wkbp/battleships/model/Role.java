@@ -11,7 +11,6 @@ import javax.persistence.*;
  * @author Krzysztof Niedzielski
  * @author Bartek Kupajski
  */
-
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -31,7 +30,6 @@ public class Role {
     /**
      * @param name of the role {@link RoleName}
      */
-
     public Role(RoleName name) {
         this.name = name;
     }

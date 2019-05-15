@@ -18,7 +18,6 @@ import java.util.Date;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
-
 @Component
 public class JwtProvider {
 

@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
  * @author Patryk Kucharski
  * @author Wiktor Wrup
  */
-
 public class LoginForm {
     @NotBlank
     @Size(min = 3, max = 60)

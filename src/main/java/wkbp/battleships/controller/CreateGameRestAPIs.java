@@ -25,7 +25,6 @@ import java.util.List;
  * @author Wiktor Wrup
  * @author Patryk Kucharski
  */
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 // TODO: 13.05.19 Rozbicie na osobne klasy : konfig, rozstawianie statków, rozgrywka

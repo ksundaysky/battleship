@@ -18,7 +18,6 @@ import wkbp.battleships.model.StateOfField;
  * @author Patryk Kucharski
  * @author Wiktor Wrup
  */
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class GameplayRestAPIs {

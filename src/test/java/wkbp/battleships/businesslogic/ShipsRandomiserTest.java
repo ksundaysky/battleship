@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.testng.Assert.*;
-
 import static org.testng.AssertJUnit.assertEquals;
 
 /**

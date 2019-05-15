@@ -13,7 +13,6 @@ import java.util.Optional;
  * @author Krzysztof Niedzielski
  * @author Bartek Kupajski
  */
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
