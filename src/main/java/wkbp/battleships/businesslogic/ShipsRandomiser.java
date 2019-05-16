@@ -91,7 +91,7 @@ public class ShipsRandomiser {
         Field startingPosition;
         do {
             couterOfAttempts++;
-            if (couterOfAttempts >= 1000)
+            if (couterOfAttempts >= 60)
                 throw new CantPlaceShipsException("Couldn't find space for ship.");
 
             startingPosition = getRandomFieldFromBoard();

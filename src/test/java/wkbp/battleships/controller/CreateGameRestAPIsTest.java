@@ -14,7 +14,7 @@ import static org.testng.Assert.*;
  */
 public class CreateGameRestAPIsTest {
 
-    CreateGameRestAPIs createGameRestAPIs = new CreateGameRestAPIs();
+    private CreateGameRestAPIs createGameRestAPIs = new CreateGameRestAPIs();
 
     @Test
     public void testGameAccess() {
