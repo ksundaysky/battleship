@@ -9,6 +9,7 @@ import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dto.ConfigDTO;
 import wkbp.battleships.exception.CantPlaceShipsException;
+import wkbp.battleships.exception.GameIsFullException;
 import wkbp.battleships.exception.NoAvailableGamesException;
 import wkbp.battleships.model.*;
 
@@ -100,5 +101,13 @@ public class GameService {
             throw new NoAvailableGamesException("No available games to display!");
         }
         return games;
+    }
+
+    public long checkIfUserCanJoinGame(long id) {
+        Game game = games.get(id);
+        if(game.getNumberOfPlayers() >=2){
+            throw new GameIsFullException("You cannot join. Game is full!");
+        }
+        return id;
     }
 }

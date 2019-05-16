@@ -54,7 +54,8 @@ public class CreateGameRestAPIs {
     @GetMapping("get/ships_placement/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> shipsPlacement(@PathVariable("id") long id) {
-        return new ResponseEntity<>(String.valueOf(id), HttpStatus.OK);
+        long gameId = gameService.checkIfUserCanJoinGame(id);
+        return new ResponseEntity<>(String.valueOf(gameId), HttpStatus.OK);
     }
 
     @GetMapping("get/ship_randomize/{id}")

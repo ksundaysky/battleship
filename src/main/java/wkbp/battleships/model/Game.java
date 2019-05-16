@@ -48,4 +48,8 @@ public class Game {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public int getNumberOfPlayers(){
+        return currentPlayers.size();
+    }
 }
