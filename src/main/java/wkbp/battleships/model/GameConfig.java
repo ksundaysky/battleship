@@ -18,6 +18,14 @@ public class GameConfig {
         return dimension;
     }
 
+    public String getGameName() {
+        return gameName;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
     public GameConfig(String gameName, int dimension, GameMode gameMode, boolean doesOwnerStart) {
         this.gameName = gameName;
         this.dimension = dimension;

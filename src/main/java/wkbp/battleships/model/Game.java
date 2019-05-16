@@ -44,4 +44,8 @@ public class Game {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
