@@ -1,2 +1,2 @@
-INSERT INTO User_Table(ID, Nick, Email, Password)
-VALUES (1, 'klient', 'klient@statki.pl', 'klient');
+INSERT INTO roles(name) VALUES('ROLE_USER');
+INSERT INTO roles(name) VALUES('ROLE_ADMIN');
