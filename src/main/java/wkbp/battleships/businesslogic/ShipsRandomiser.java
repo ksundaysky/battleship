@@ -131,6 +131,7 @@ public class ShipsRandomiser {
     }
 
     private Field getRandomFieldFromBoard() {
+        System.out.println(board.getSize());
         return board.getField(ThreadLocalRandom.current().nextInt(board.getSize()));
     }
 

@@ -37,6 +37,7 @@ public class GameService {
         User owner = userRepository.findByUsername(name).get();
 
         Game game = new Game(configDTO.assembly());
+        System.out.println(configDTO);
         GameEntity gameEntity = new GameEntity(game.getGameState());
 
         UserInGameEntity userInGameEntity = new UserInGameEntity(owner, gameEntity);
@@ -62,6 +63,7 @@ public class GameService {
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
 
         Board board = new BoardFactory(game.getConfig()).createBoard();
+        System.out.println(board.toString());
         ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
         List<Integer> listOfIds = shipsRandomiser.randomizeShips().stream().map(Field::getId).collect(Collectors.toList());
         for (Integer fieldId : listOfIds) {

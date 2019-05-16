@@ -45,4 +45,12 @@ public class Board {
     public boolean indexExists(final int index) {
         return index >= 0 && index < fieldList.size();
     }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "fieldList=" + fieldList +
+                ", dimension=" + dimension +
+                '}';
+    }
 }
