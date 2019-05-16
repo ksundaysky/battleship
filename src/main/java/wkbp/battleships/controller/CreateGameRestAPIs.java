@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wkbp.battleships.businesslogic.ShipsRandomiser;
+import wkbp.battleships.exception.CantPlaceShipsException;
 import wkbp.battleships.model.Board;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.model.Fleet;
@@ -55,9 +56,14 @@ public class CreateGameRestAPIs {
         Board board = new Board(fieldList);
         ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
         ObjectMapper objectMapper = new ObjectMapper();
-        String s = objectMapper.writeValueAsString(shipsRandomiser.randomizeShips());
-        System.out.println(s);
-
-        return new ResponseEntity<>(s, HttpStatus.OK);
+        String message;
+        try {
+            message = objectMapper.writeValueAsString(shipsRandomiser.randomizeShips());
+        }
+        catch (CantPlaceShipsException e){
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

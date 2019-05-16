@@ -21,7 +21,7 @@ public class CreateGameRestAPIsTest {
         assertEquals("game config",createGameRestAPIs.gameAccess());
     }
 
-    @Test
+    @Test(invocationCount = 10, successPercentage = 90)
     public void testRandomizeShips() throws JsonProcessingException {
         assertEquals(HttpStatus.OK,createGameRestAPIs.randomizeShips().getStatusCode());
     }
