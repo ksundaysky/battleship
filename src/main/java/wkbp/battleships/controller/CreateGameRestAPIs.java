@@ -49,7 +49,7 @@ public class CreateGameRestAPIs {
 
         long gameId = gameService.createGame(authentication.getName(), configDTO);
 
-        return new ResponseEntity<>("1", HttpStatus.OK);
+        return new ResponseEntity<>(String.valueOf(gameId), HttpStatus.OK);
     }
 
     @GetMapping("get/ships_placement/{id}")
@@ -75,4 +75,23 @@ public class CreateGameRestAPIs {
         return new ResponseEntity<>(message, HttpStatus.OK);
 
     }
+
+    @GetMapping("get/game/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> userFleet(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        try {
+            List<Field> ships = gameService.returnUserFleet(id, authentication.getName());
+            message = objectMapper.writeValueAsString(ships);
+        } catch (CantPlaceShipsException e) {
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+
+    }
+
+
+
 }

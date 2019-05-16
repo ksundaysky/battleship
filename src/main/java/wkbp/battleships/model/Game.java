@@ -36,4 +36,8 @@ public class Game {
     public void addPlayerToTheGame(User user, Board board) {
         currentPlayers.put(user, board);
     }
+
+    public Board getBoardByUser(User user){
+        return currentPlayers.get(user);
+    }
 }

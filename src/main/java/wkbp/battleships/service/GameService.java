@@ -53,8 +53,8 @@ public class GameService {
     }
 
 
-    public List<Field> randomShips(Long id, String name) throws CantPlaceShipsException {
-        User owner = userRepository.findByUsername(name).get();
+    public List<Field> randomShips(Long id, String username) throws CantPlaceShipsException {
+        User owner = userRepository.findByUsername(username).get();
         Game game = games.get(id);
         Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
                 new Ship(4),
@@ -73,6 +73,18 @@ public class GameService {
         game.addPlayerToTheGame(owner, board);
 
         return ships;
+    }
+
+    public List<Field> returnUserFleet(Long id, String username){
+        User user = userRepository.findByUsername(username).get();
+        Game game = games.get(id);
+        Board userBoard = game.getBoardByUser(user);
+
+        return userBoard.getFieldList()
+                .stream()
+                .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
+                .collect(Collectors.toList());
+
     }
 
 
