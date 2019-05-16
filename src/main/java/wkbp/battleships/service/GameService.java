@@ -62,16 +62,17 @@ public class GameService {
                 new Ship(2), new Ship(2), new Ship(2),
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
 
-        Board board = new BoardFactory(game.getConfig()).createBoard();
+        Board board = new BoardFactory(game.getConfig()).createBoard(); //dimension = 0!
         System.out.println(board.toString());
         ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
-        List<Integer> listOfIds = shipsRandomiser.randomizeShips().stream().map(Field::getId).collect(Collectors.toList());
-        for (Integer fieldId : listOfIds) {
-            board.getFieldList().get(fieldId).setStateOfField(StateOfField.OCCUPIED);
+        List<Field> ships = shipsRandomiser.randomizeShips();
+
+        for (Field field : ships) {
+            board.getFieldList().get(field.getId()).setStateOfField(StateOfField.OCCUPIED);
         }
         game.addPlayerToTheGame(owner, board);
 
-        return shipsRandomiser.randomizeShips();
+        return ships;
     }
 
 
