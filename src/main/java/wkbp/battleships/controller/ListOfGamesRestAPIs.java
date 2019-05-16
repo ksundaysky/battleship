@@ -16,7 +16,7 @@ import wkbp.battleships.service.GameService;
  * @author Wiktor Rup
  */
 
-@RestController("/api/wkbp/")
+@RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 class ListOfGamesRestAPIs {
 
@@ -24,8 +24,8 @@ class ListOfGamesRestAPIs {
     @Autowired
     private GameService gameService;
 
-    @GetMapping("get/gameslist")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping("/api/wkbp/get/gameslist")
+//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> shipsRandomize() throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
