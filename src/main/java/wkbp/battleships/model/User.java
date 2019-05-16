@@ -53,6 +53,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<UserInGameEntity> userInGameEntities = new HashSet<>();
+
     public User() {
     }
 

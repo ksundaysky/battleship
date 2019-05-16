@@ -16,10 +16,10 @@ public class CreateGameRestAPIsTest {
 
     private CreateGameRestAPIs createGameRestAPIs = new CreateGameRestAPIs();
 
-    @Test
-    public void testGameAccess() {
-        assertEquals("game config", createGameRestAPIs.gameAccess());
-    }
+//    @Test
+//    public void testGameAccess() {
+//        assertEquals("game config", createGameRestAPIs.gameAccess());
+//    }
 
     @Test(invocationCount = 10, successPercentage = 90)
     public void testRandomizeShips() throws JsonProcessingException {

@@ -2,19 +2,24 @@ package wkbp.battleships.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wkbp.battleships.businesslogic.ShipsRandomiser;
+import wkbp.battleships.dto.ConfigDTO;
 import wkbp.battleships.exception.CantPlaceShipsException;
 import wkbp.battleships.model.Board;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.model.Fleet;
 import wkbp.battleships.model.Ship;
+import wkbp.battleships.service.GameService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,34 +38,29 @@ import java.util.List;
 // TODO: 13.05.19 Rozbicie na osobne klasy : konfig, rozstawianie statków, rozgrywka
 public class CreateGameRestAPIs {
 
+    @Autowired
+    private GameService gameService; //TODO do gameserwisu to zrobisz
+
     @GetMapping("get/game_config")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    String gameAccess() {
-        // TODO: 14.05.19  implementacja
-        return "game config";
+    public ResponseEntity<String> gameAccess(Authentication authentication, @RequestBody ConfigDTO configDTO) {
+
+
+        long gameId = gameService.createGame(authentication.getName(), configDTO);
+
+        return new ResponseEntity<>(Long.toString(gameId), HttpStatus.OK);
     }
 
-    @GetMapping("get/ships_placement")
+
+    @GetMapping("get/ships_placement/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> randomizeShips() throws JsonProcessingException {
+    public ResponseEntity<?> randomizeShips(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
 
-        // TODO: 14.05.19 logika nie tu
-        List<Field> fieldList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            fieldList.add(new Field(i));
-        }
-        Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
-                new Ship(4),
-                new Ship(3), new Ship(3),
-                new Ship(2), new Ship(2), new Ship(2),
-                new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
-
-        Board board = new Board(fieldList);
-        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            message = objectMapper.writeValueAsString(shipsRandomiser.randomizeShips());
+            List<Field> ships = gameService.randomShips(id, authentication.getName());
+            message = objectMapper.writeValueAsString(ships);
         } catch (CantPlaceShipsException e) {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
