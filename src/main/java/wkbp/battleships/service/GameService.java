@@ -62,10 +62,11 @@ public class GameService {
                 new Ship(2), new Ship(2), new Ship(2),
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
 
-        Board board = new BoardFactory(game.getConfig()).createBoard(); //dimension = 0!
+        Board board = new BoardFactory(game.getConfig()).createBoard();
         System.out.println(board.toString());
         ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
         List<Field> ships = shipsRandomiser.randomizeShips();
+
 
         for (Field field : ships) {
             board.getFieldList().get(field.getId()).setStateOfField(StateOfField.OCCUPIED);
