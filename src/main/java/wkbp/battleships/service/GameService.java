@@ -43,12 +43,12 @@ public class GameService {
         UserInGameEntity userInGameEntity = new UserInGameEntity(owner, gameEntity);
 
         userRepository.save(owner);
-        gameRepository.save(gameEntity);
+        gameEntity = gameRepository.save(gameEntity);
         userInGameRepository.save(userInGameEntity);
 
-        games.put(1L, game);
+        games.put(gameEntity.getId(), game);
 
-        return 1;
+        return gameEntity.getId();
 
     }
 
