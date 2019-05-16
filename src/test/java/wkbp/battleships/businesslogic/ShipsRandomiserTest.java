@@ -90,19 +90,19 @@ public class ShipsRandomiserTest {
 
     @Test(expectedExceptions = CantPlaceShipsException.class)
     public void shouldThrowCantPlaceShipsExceptionWhenToBigFleetIsGiven() {
-        fleet = new Fleet(Arrays.asList(
+        Fleet tooBigFleet = new Fleet(Arrays.asList(
                 new Ship(4), new Ship(4), new Ship(4),
                 new Ship(4), new Ship(4), new Ship(4),
                 new Ship(4), new Ship(4), new Ship(4),
-                new Ship(4)));
-        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
+                new Ship(4), new Ship(4)));
+        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, tooBigFleet);
         shipsRandomiser.randomizeShips();
     }
 
     @Test(expectedExceptions = CantPlaceShipsException.class)
     public void shouldThrowCantPlaceShipsExceptionWhenShipCannotFitOnBoard() {
-        fleet = new Fleet(Arrays.asList(new Ship(11)));
-        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
+        Fleet containingTooBigShip = new Fleet(Arrays.asList(new Ship(11)));
+        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, containingTooBigShip);
         shipsRandomiser.randomizeShips();
     }
 

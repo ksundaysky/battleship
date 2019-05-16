@@ -20,11 +20,11 @@ import wkbp.battleships.model.StateOfField;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-public class GameplayRestAPIs {
+class GameplayRestAPIs {
 
     @PostMapping("/api/wkbp/post/game/shoot")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> gameShot(@RequestBody Field field) throws JsonProcessingException {
+    ResponseEntity<?> gameShot(@RequestBody Field field) throws JsonProcessingException {
 
         // TODO: 14.05.19 logika nie tu
         field.setStateOfField(StateOfField.OCCUPIED);

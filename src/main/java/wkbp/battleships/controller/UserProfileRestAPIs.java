@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-public class UserProfileRestAPIs {
+class UserProfileRestAPIs {
 
     @GetMapping("/api/wkbp/get/user_board")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String userAccess() {
-        // TODO: 14.05.19 implement
+    String userAccess() {
+        // TODO: 14.05.19 implementacja
         return ">>> User board";
     }
 
     @GetMapping("/api/wkbp/get/admin_board")
     @PreAuthorize("hasRole('ADMIN')")
-    public String adminAccess() {
-        // TODO: 14.05.19 implement
+    String adminAccess() {
+        // TODO: 14.05.19 implementacja
         return ">>> Admin board";
     }
 

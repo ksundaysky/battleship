@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wkbp.battleships.businesslogic.ShipsRandomiser;
 import wkbp.battleships.exception.CantPlaceShipsException;
@@ -28,17 +29,18 @@ import java.util.List;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequestMapping("/api/wkbp/")
 // TODO: 13.05.19 Rozbicie na osobne klasy : konfig, rozstawianie statków, rozgrywka
 public class CreateGameRestAPIs {
 
-    @GetMapping("/api/wkbp/get/game_config")
+    @GetMapping("get/game_config")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String gameAccess() {
-        // TODO: 14.05.19  implement
+    String gameAccess() {
+        // TODO: 14.05.19  implementacja
         return "game config";
     }
 
-    @GetMapping("/api/wkbp/get/ships_placement")
+    @GetMapping("get/ships_placement")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> randomizeShips() throws JsonProcessingException {
 

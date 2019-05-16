@@ -36,7 +36,7 @@ import java.util.Set;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/wkbp/auth")
-public class AuthenticationRestAPIs {
+class AuthenticationRestAPIs {
 
     // TODO: 13.05.19 Dlaczego w kontrolerze są repozytoria zamiast serwisów?
 
@@ -54,7 +54,7 @@ public class AuthenticationRestAPIs {
     // TODO: 13.05.19 Przeniesienie logiki kontrolerów do serwisów.
 
     @PostMapping("/sign_in")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+    ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -69,7 +69,7 @@ public class AuthenticationRestAPIs {
 
     // TODO: 13.05.19 Przeniesienie logiki kontrolerów do serwisów.
     @PostMapping("/sign_up")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
+    ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity<>(new ResponseMessage("This username is already taken!"),
                     HttpStatus.BAD_REQUEST);
