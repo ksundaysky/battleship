@@ -23,12 +23,12 @@ public class CreateGameRestAPIsTest {
 
 //    @Test(invocationCount = 10, successPercentage = 90)
 //    public void testRandomizeShips() throws JsonProcessingException {
-//        assertEquals(HttpStatus.OK, createGameRestAPIs.randomizeShips().getStatusCode());
+//        assertEquals(HttpStatus.OK, createGameRestAPIs.shipsPlacement().getStatusCode());
 //    }
 //
 //    @Test
 //    public void testResponseMessage() throws JsonProcessingException {
-//        ResponseEntity responseEntity = createGameRestAPIs.randomizeShips();
+//        ResponseEntity responseEntity = createGameRestAPIs.shipsPlacement();
 //        assertEquals(String.class, Objects.requireNonNull(responseEntity.getBody()).getClass());
 //    }
 }

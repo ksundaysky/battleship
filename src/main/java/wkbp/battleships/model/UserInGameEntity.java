@@ -30,8 +30,4 @@ class UserInGameEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gameentity_id", nullable = false)
     private GameEntity gameEntity;
-
-    public long getId() {
-        return id;
-    }
 }

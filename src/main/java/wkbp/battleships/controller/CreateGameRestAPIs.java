@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,14 +49,20 @@ public class CreateGameRestAPIs {
 
         long gameId = gameService.createGame(authentication.getName(), configDTO);
 
-        return new ResponseEntity<>(Long.toString(gameId), HttpStatus.OK);
+        return new ResponseEntity<>("1", HttpStatus.OK);
     }
-
 
     @GetMapping("get/ships_placement/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> randomizeShips(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> shipsPlacement(@PathVariable("id") long id) {
+        return new ResponseEntity<>(String.valueOf(id), HttpStatus.OK);
 
+
+    }
+
+    @GetMapping("get/ship_randomize/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> shipsRandomize(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
@@ -66,5 +73,6 @@ public class CreateGameRestAPIs {
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
+
     }
 }
