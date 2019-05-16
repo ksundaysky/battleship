@@ -76,10 +76,13 @@ public class GameService {
     }
 
     public List<Field> returnUserFleet(Long id, String username) {
+        System.out.println("Mapa gier: " + games);
         System.out.println(id + " " + username);
         User user = userRepository.findByUsername(username).get();
         Game game = games.get(id);
+        System.out.println("GRA :" + game);
         Board userBoard = game.getBoardByUser(user);
+        System.out.println("USER BOARD: " + userBoard);
 
         List<Field> collect = userBoard.getFieldList()
                 .stream()
