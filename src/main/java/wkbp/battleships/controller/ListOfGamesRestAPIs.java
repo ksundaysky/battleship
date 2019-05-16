@@ -16,7 +16,7 @@ import wkbp.battleships.service.GameService;
  * @author Wiktor Rup
  */
 
-@RestController
+@RestController("/api/wkbp/")
 @CrossOrigin(origins = "*", maxAge = 3600)
 class ListOfGamesRestAPIs {
 
