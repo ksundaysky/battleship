@@ -21,14 +21,14 @@ public class CreateGameRestAPIsTest {
 //        assertEquals("game config", createGameRestAPIs.gameAccess());
 //    }
 
-    @Test(invocationCount = 10, successPercentage = 90)
-    public void testRandomizeShips() throws JsonProcessingException {
-        assertEquals(HttpStatus.OK, createGameRestAPIs.randomizeShips().getStatusCode());
-    }
-
-    @Test
-    public void testResponseMessage() throws JsonProcessingException {
-        ResponseEntity responseEntity = createGameRestAPIs.randomizeShips();
-        assertEquals(String.class, Objects.requireNonNull(responseEntity.getBody()).getClass());
-    }
+//    @Test(invocationCount = 10, successPercentage = 90)
+//    public void testRandomizeShips() throws JsonProcessingException {
+//        assertEquals(HttpStatus.OK, createGameRestAPIs.randomizeShips().getStatusCode());
+//    }
+//
+//    @Test
+//    public void testResponseMessage() throws JsonProcessingException {
+//        ResponseEntity responseEntity = createGameRestAPIs.randomizeShips();
+//        assertEquals(String.class, Objects.requireNonNull(responseEntity.getBody()).getClass());
+//    }
 }
