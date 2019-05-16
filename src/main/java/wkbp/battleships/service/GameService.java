@@ -45,6 +45,7 @@ public class GameService {
         gameRepository.save(gameEntity);
         userInGameRepository.save(userInGameEntity);
 
+        games.put(1L, game);
 
         return 1;
 
