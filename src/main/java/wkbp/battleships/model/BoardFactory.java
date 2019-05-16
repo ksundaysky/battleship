@@ -18,7 +18,7 @@ public class BoardFactory {
 
     public Board createBoard() {
         List<Field> boardFileds = new ArrayList<>();
-        for (int i = 0; i < gameConfig.getDimension(); i++)
+        for (int i = 0; i < Math.pow(gameConfig.getDimension(), 2); i++)
             boardFileds.add(new Field(i));
 
 
