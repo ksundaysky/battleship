@@ -9,5 +9,4 @@ import wkbp.battleships.dao.repository.entity.GameEntity;
  */
 @Repository
 public interface GameRepository extends JpaRepository<GameEntity, Long> {
-
 }

@@ -45,9 +45,8 @@ public class GameService {
         gameRepository.save(gameEntity);
         userInGameRepository.save(userInGameEntity);
 
-        games.put(userInGameEntity.getId(), game);
 
-        return userInGameEntity.getId();
+        return 1;
 
     }
 
