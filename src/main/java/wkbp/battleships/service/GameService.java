@@ -75,17 +75,17 @@ public class GameService {
         return ships;
     }
 
-    public List<Field> returnUserFleet(Long id, String username){
+    public List<Field> returnUserFleet(Long id, String username) {
+        System.out.println(id + " " + username);
         User user = userRepository.findByUsername(username).get();
         Game game = games.get(id);
         Board userBoard = game.getBoardByUser(user);
 
-        return userBoard.getFieldList()
+        List<Field> collect = userBoard.getFieldList()
                 .stream()
                 .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
                 .collect(Collectors.toList());
-
+        System.out.println(collect);
+        return collect;
     }
-
-
 }

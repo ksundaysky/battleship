@@ -46,7 +46,6 @@ public class CreateGameRestAPIs {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<String> gameAccess(Authentication authentication, @RequestBody ConfigDTO configDTO) {
 
-
         long gameId = gameService.createGame(authentication.getName(), configDTO);
 
         return new ResponseEntity<>(String.valueOf(gameId), HttpStatus.OK);
@@ -56,8 +55,6 @@ public class CreateGameRestAPIs {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> shipsPlacement(@PathVariable("id") long id) {
         return new ResponseEntity<>(String.valueOf(id), HttpStatus.OK);
-
-
     }
 
     @GetMapping("get/ship_randomize/{id}")
@@ -73,7 +70,6 @@ public class CreateGameRestAPIs {
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
-
     }
 
     @GetMapping("get/game/{id}")
@@ -84,14 +80,11 @@ public class CreateGameRestAPIs {
         try {
             List<Field> ships = gameService.returnUserFleet(id, authentication.getName());
             message = objectMapper.writeValueAsString(ships);
+            System.out.println(message);
         } catch (CantPlaceShipsException e) {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
-
     }
-
-
-
 }
