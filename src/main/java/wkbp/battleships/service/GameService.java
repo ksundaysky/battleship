@@ -9,6 +9,7 @@ import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dto.ConfigDTO;
 import wkbp.battleships.exception.CantPlaceShipsException;
+import wkbp.battleships.exception.NoAvailableGamesException;
 import wkbp.battleships.model.*;
 
 import java.util.*;
@@ -81,6 +82,7 @@ public class GameService {
         System.out.println(id + " " + username);
         User user = userRepository.findByUsername(username).get();
         Game game = games.get(id);
+        game.setGameState(GameState.IN_PROGRESS);
         System.out.println("GRA :" + game);
         Board userBoard = game.getBoardByUser(user);
         System.out.println("USER BOARD: " + userBoard);
@@ -91,5 +93,12 @@ public class GameService {
                 .collect(Collectors.toList());
         System.out.println(collect);
         return collect;
+    }
+
+    public Map<Long, Game> returnListOfGames(){
+        if (games.isEmpty()) {
+            throw new NoAvailableGamesException("No available games to display!");
+        }
+        return games;
     }
 }

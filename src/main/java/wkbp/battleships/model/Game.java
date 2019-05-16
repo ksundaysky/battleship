@@ -40,4 +40,8 @@ public class Game {
     public Board getBoardByUser(User user){
         return currentPlayers.get(user);
     }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 }
