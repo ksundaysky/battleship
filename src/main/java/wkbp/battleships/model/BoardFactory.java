@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Class which creates Boards {@link Board}
+ *
  * @author Wiktor Rup
  */
 public class BoardFactory {
@@ -15,9 +16,9 @@ public class BoardFactory {
         this.gameConfig = gameConfig;
     }
 
-    public Board createBoard(){
+    public Board createBoard() {
         List<Field> boardFileds = new ArrayList<>();
-        for(int i =0; i< gameConfig.getDimension(); i++)
+        for (int i = 0; i < gameConfig.getDimension(); i++)
             boardFileds.add(new Field(i));
 
 

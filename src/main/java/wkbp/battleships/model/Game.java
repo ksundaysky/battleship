@@ -17,7 +17,7 @@ public class Game {
     private GameConfig gameConfig;
     private GameState gameState;
 
-    public Game(User owner, GameConfig gameConfig){
+    public Game(User owner, GameConfig gameConfig) {
         currentPlayers = new HashMap<>();
         currentPlayers.put(owner, null);
         this.gameConfig = gameConfig;

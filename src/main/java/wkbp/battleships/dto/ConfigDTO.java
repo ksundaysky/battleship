@@ -31,6 +31,6 @@ public class ConfigDTO {
     }
 
     public GameConfig assembly() {
-        return new GameConfig(gameName,dimension,gameMode,doesOwnerStart);
+        return new GameConfig(gameName, dimension, gameMode, doesOwnerStart);
     }
 }

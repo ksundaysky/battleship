@@ -10,8 +10,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.businesslogic.ShipsRandomiser;
 import wkbp.battleships.dto.ConfigDTO;
-import wkbp.battleships.model.*;
-import wkbp.battleships.dao.repository.UserRepository;
+import wkbp.battleships.model.Board;
+import wkbp.battleships.model.Field;
+import wkbp.battleships.model.Fleet;
+import wkbp.battleships.model.Ship;
 import wkbp.battleships.service.GameService;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class CreateGameRestAPIs {
 
         long gameId = gameService.createGame(authentication.getName(), configDTO);
 
-        return new ResponseEntity<>(Long.toString(gameId),HttpStatus.OK);
+        return new ResponseEntity<>(Long.toString(gameId), HttpStatus.OK);
     }
 
     @GetMapping("/api/wkbp/get/ships_placement")

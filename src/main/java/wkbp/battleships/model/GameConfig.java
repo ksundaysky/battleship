@@ -2,6 +2,7 @@ package wkbp.battleships.model;
 
 /**
  * Contains all necessary informations to initialize game {@link Game}
+ *
  * @author Wiktor Rup
  */
 public class GameConfig {

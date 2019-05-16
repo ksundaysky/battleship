@@ -1,6 +1,5 @@
 package wkbp.battleships.dao.repository.entity;
 
-import wkbp.battleships.model.Game;
 import wkbp.battleships.model.GameState;
 import wkbp.battleships.model.User;
 
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Entity
 public class GameEntity {
 
-    public GameEntity(User owner, GameState gameState){
+    public GameEntity(User owner, GameState gameState) {
         this.owner = owner;
         this.gameState = gameState;
     }

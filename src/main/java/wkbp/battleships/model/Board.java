@@ -38,7 +38,7 @@ public class Board {
         return fieldList.get(fieldIndex);
     }
 
-    public int getSize(){
+    public int getSize() {
         return fieldList.size();
     }
 

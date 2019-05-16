@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * Class which creates Boards {@link Fleet}
+ *
  * @author Wiktor Rup
  */
 public class FleetFactory {
@@ -16,7 +17,7 @@ public class FleetFactory {
 
     public Fleet generateFleet() {
         List<Ship> shipsInFleet = new ArrayList<>();
-        for(Map.Entry<Integer, Integer> entry : fleetConfig.getFleetConfig().entrySet()){
+        for (Map.Entry<Integer, Integer> entry : fleetConfig.getFleetConfig().entrySet()) {
             for (int i = 0; i < entry.getKey(); i++) {
                 shipsInFleet.add(new Ship(entry.getValue()));
             }

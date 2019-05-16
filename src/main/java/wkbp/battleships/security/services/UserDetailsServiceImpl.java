@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wkbp.battleships.model.User;
 import wkbp.battleships.dao.repository.UserRepository;
+import wkbp.battleships.model.User;
 
 /**
  * Class is responsible for exchanging information and returning the result
