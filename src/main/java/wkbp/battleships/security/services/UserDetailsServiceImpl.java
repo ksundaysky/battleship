@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import wkbp.battleships.model.User;
 import wkbp.battleships.repository.UserRepository;
 
-import java.util.Optional;
-
 /**
  * Class is responsible for exchanging information and returning the result
  * of identification of user in database {@link wkbp.battleships.model.User}.

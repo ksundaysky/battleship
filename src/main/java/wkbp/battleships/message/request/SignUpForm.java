@@ -39,7 +39,8 @@ public class SignUpForm {
         this.password = password;
     }
 
-    public SignUpForm(){}
+    public SignUpForm() {
+    }
 
     public String getName() {
         return name;

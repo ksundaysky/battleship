@@ -42,10 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     *
      * @param authenticationManagerBuilder - Keeps list of {@link AuthenticationProvider}
      * @throws Exception Note that an {@link Exception} might be thrown
-     *         if an error occurs when adding the {@link AuthenticationProvider}.
+     *                   if an error occurs when adding the {@link AuthenticationProvider}.
      */
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {

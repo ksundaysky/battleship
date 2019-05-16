@@ -61,8 +61,7 @@ public class CreateGameRestAPIs {
         String message;
         try {
             message = objectMapper.writeValueAsString(shipsRandomiser.randomizeShips());
-        }
-        catch (CantPlaceShipsException e){
+        } catch (CantPlaceShipsException e) {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
         }
