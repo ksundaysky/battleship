@@ -17,11 +17,15 @@ public class Game {
     private GameConfig gameConfig;
     private GameState gameState;
 
-    public Game(User owner, GameConfig gameConfig){ //TODO hehe
+    public Game(User owner, GameConfig gameConfig){
         currentPlayers = new HashMap<>();
         currentPlayers.put(owner, null);
         this.gameConfig = gameConfig;
         this.gameplay = new Gameplay(); //TODO coś dostanie chyba kongifg
         this.gameState = GameState.IN_PREPARATION;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 }

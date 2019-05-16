@@ -12,6 +12,7 @@ import wkbp.battleships.businesslogic.ShipsRandomiser;
 import wkbp.battleships.dto.ConfigDTO;
 import wkbp.battleships.model.*;
 import wkbp.battleships.dao.repository.UserRepository;
+import wkbp.battleships.service.GameService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,21 +31,16 @@ import java.util.List;
 public class CreateGameRestAPIs {
 
     @Autowired
-    UserRepository userRepository; //TODO do gameserwisu to zrobisz
+    private GameService gameService; //TODO do gameserwisu to zrobisz
 
     @PostMapping("/api/wkbp/config")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<String> gameAccess(Authentication authentication, @RequestBody ConfigDTO configDTO) {
 
-        System.out.println(configDTO);
 
-        System.out.println(authentication.getName());
+        long gameId = gameService.createGame(authentication.getName(), configDTO);
 
-        User owner = userRepository.findByUsername(authentication.getName()).get();
-
-        Game game = new Game(owner, configDTO.assembly() );
-
-        return new ResponseEntity<>("1",HttpStatus.OK);
+        return new ResponseEntity<>(Long.toString(gameId),HttpStatus.OK);
     }
 
     @GetMapping("/api/wkbp/get/ships_placement")
