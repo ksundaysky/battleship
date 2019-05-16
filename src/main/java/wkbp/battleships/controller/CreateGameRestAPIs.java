@@ -41,7 +41,7 @@ public class CreateGameRestAPIs {
     @Autowired
     private GameService gameService; //TODO do gameserwisu to zrobisz
 
-    @GetMapping("get/game_config")
+    @PostMapping("post/game_config")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<String> gameAccess(Authentication authentication, @RequestBody ConfigDTO configDTO) {
 
