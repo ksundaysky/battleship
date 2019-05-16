@@ -1,5 +1,6 @@
 package wkbp.battleships.businesslogic;
 
+import wkbp.battleships.exception.CantPlaceShipsException;
 import wkbp.battleships.model.*;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ShipsRandomiser {
 
+    private int couterOfAttempts = 0;
     private static final List<Compass> VALUES =
             Collections.unmodifiableList(Arrays.asList(Compass.values()));
     private final int SIZE = VALUES.size();
@@ -40,7 +42,7 @@ public class ShipsRandomiser {
      * @return List of fields with ships, which is to be sent to client
      * @see Compass
      */
-    public List<Field> randomizeShips() {
+    public List<Field> randomizeShips() throws CantPlaceShipsException {
         List<Field> randomizedShips = new ArrayList<>();
         for (Ship ship : fleet.getShipList()) {
             if (VALUES.get(ThreadLocalRandom.current().nextInt(SIZE)).equals(Compass.HORIZONTAL)) {
@@ -59,15 +61,17 @@ public class ShipsRandomiser {
      * @param randomizedShips list of fields to be sent to client
      * @param ship            ship to be placed on board
      */
-    private void putShipOnBoard(List<Field> randomizedShips, Ship ship) {
+    private void putShipOnBoard(List<Field> randomizedShips, Ship ship) throws CantPlaceShipsException {
+
         Field startingPosition = getValidFieldForShip(ship);
         for (int i = 0; i < ship.getSize(); i++) {
             int currentIndexToBeMarked = startingPosition.getId() + (i * multiplier);
             Field currentField = board.getField(currentIndexToBeMarked);
             currentField.setStateOfField(StateOfField.OCCUPIED);
             randomizedShips.add(currentField);
+            setNeighbourFieldsOfShipAsIllegal(startingPosition, ship);
         }
-        setNeighbourFieldsOfShipAsIllegal(startingPosition, ship);
+
     }
 
     /**
@@ -83,9 +87,13 @@ public class ShipsRandomiser {
      * @return valid starting field for @param ship
      * <p>
      */
-    private Field getValidFieldForShip(Ship ship) {
+    private Field getValidFieldForShip(Ship ship) throws CantPlaceShipsException {
         Field startingPosition;
         do {
+            couterOfAttempts++;
+            if (couterOfAttempts >= 1000)
+                throw new CantPlaceShipsException("Couldn't find space for ship.");
+
             startingPosition = getRandomFieldFromBoard();
         }
         while (fieldIsOccupied(startingPosition) ||
