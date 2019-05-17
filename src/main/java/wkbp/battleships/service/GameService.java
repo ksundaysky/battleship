@@ -42,11 +42,11 @@ public class GameService {
         System.out.println(configDTO);
         GameEntity gameEntity = new GameEntity(game.getGameState());
 
-        UserInGameEntity userInGameEntity = new UserInGameEntity(owner, gameEntity);
+//        UserInGameEntity userInGameEntity = new UserInGameEntity(owner, gameEntity);
 
         userRepository.save(owner);
         gameEntity = gameRepository.save(gameEntity);
-        userInGameRepository.save(userInGameEntity);
+//        userInGameRepository.save(userInGameEntity);
         game.setId(gameEntity.getId());
         games.put(gameEntity.getId(), game);
 
