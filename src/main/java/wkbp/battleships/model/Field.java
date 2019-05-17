@@ -45,4 +45,12 @@ public class Field {
         stateOfField.setHit(isHit);
     }
 
+    @Override
+    public String toString() {
+        return "Field{" +
+                "id=" + id +
+                ", stateOfField=" + stateOfField +
+                "is hit=" + stateOfField.isHit +
+                '}';
+    }
 }

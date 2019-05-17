@@ -1,11 +1,13 @@
 package wkbp.battleships.model;
 
+import wkbp.battleships.businesslogic.ShipRandomiser;
+
 /**
  * Represents current state of field on board
  * ILLEGAL_TO_PLACE is used only for purpose
  * of placing ships on board
  * <p>
- * {@link wkbp.battleships.businesslogic.ShipsRandomiser}
+ * {@link ShipRandomiser}
  *
  * @author Wiktor Rup
  */

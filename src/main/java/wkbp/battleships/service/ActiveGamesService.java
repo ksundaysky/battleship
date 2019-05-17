@@ -2,12 +2,12 @@ package wkbp.battleships.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wkbp.battleships.controller.NoAvailableGamesException;
 import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.UserInGameRepository;
 import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dao.repository.entity.UserInGameEntity;
-import wkbp.battleships.controller.NoAvailableGamesException;
 import wkbp.battleships.model.*;
 
 import java.util.HashMap;
@@ -30,34 +30,17 @@ public class ActiveGamesService {
 
     private Map<Long, Game> games = new HashMap<>();
 
-    public Field makeAShoot(Long gameId, String playersName, Field field) { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
+    public ShotOutcome makeAShoot(Long gameId, String playersName, Field field) { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
         User player = getUserFromDataBase(playersName);
         Game game = getGameById(gameId);
-        for (Map.Entry<User, Board> currentGame : game.getPlayersInGame().entrySet()) {
-            if (!currentGame.getKey().equals(player)) {
-//                Board board = currentGame.getValue();
-//                Field hitField = board.getField(field.getId());
-//                hitField.isHit(true);
-                Move move = new Move(gameId, player, field);
-                BoardUpdater boardUpdater = new BoardUpdater(move, currentGame.getValue());
-                Field updatedField = boardUpdater.updateBoard();
-                GameReferee gameReferee = new GameReferee(currentGame.getValue());
-                gameReferee.setLastMove(move);
-                if(!gameReferee.checkIfHitTheShip())
-                    System.out.println("GOSC NIE TRAFIL USTAWIAM GACZA "+currentGame.getKey());
-                    setCurrentPlayer(gameId, currentGame.getKey());
-                return updatedField;
-            }
-        }
-
-        return field; // TODO: 17.05.19 szemrana logika - do zmiany
+        return game.moveHasBeenMade(new Move(gameId, player, field));
     }
 
-    public boolean isPlayerTurn(long id, String playersName){
-        System.out.println("JESTEM W PLAJER TERN");
+    public boolean isPlayerTurn(long id, String playersName) {
+//        System.out.println("JESTEM W PLAJER TERN");
         User player = getUserFromDataBase(playersName);
 
-        System.out.println("PLAYER TO "+player);
+//        System.out.println("PLAYER TO " + player);
         Game game = games.get(id);
         return player.equals(game.getCurrentPlayer());
     }
@@ -112,11 +95,11 @@ public class ActiveGamesService {
 
     void setStartingPlayer(Game game, String playersName) {
         if (game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 0) {
-             game.setCurrentPlayer(getUserFromDataBase(playersName));
-            System.out.println("USTYWAIELEM GRACZA STARTUJACEGO NA "+game.getCurrentPlayer());
+            game.setCurrentPlayer(getUserFromDataBase(playersName));
+            System.out.println("USTYWAIELEM GRACZA STARTUJACEGO NA " + game.getCurrentPlayer());
         } else if (!game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 1) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
-            System.out.println("ELSE USTYWAIELEM GRACZA STARTUJACEGO NA "+game.getCurrentPlayer());
+            System.out.println("ELSE USTYWAIELEM GRACZA STARTUJACEGO NA " + game.getCurrentPlayer());
 
         }
     }

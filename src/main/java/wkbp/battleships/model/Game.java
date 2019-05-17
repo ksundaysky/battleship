@@ -21,7 +21,6 @@ public class Game {
     public Game(GameConfig gameConfig) {
         playersInGame = new HashMap<>();
         this.gameConfig = gameConfig;
-        this.gameplay = new Gameplay(); //TODO coś dostanie chyba kongifg
         this.gameState = GameState.IN_PREPARATION;
     }
 
@@ -70,7 +69,23 @@ public class Game {
     }
 
     public User getCurrentPlayer() {
-        System.out.println("OBECNY GRACZ TO "+currentPlayer);
+        System.out.println("OBECNY GRACZ TO " + currentPlayer);
         return currentPlayer;
+    }
+
+    public void setGameplay(Gameplay gameplay) {
+        this.gameplay = gameplay;
+    }
+
+    public ShotOutcome moveHasBeenMade(Move move) {
+        ShotOutcome outcome = gameplay.update(move);
+        for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
+            if (!entry.getKey().equals(move.getPlayer())) {
+                if (outcome.playerTurn) {
+                    setCurrentPlayer(entry.getKey());
+                }
+            }
+        }
+        return outcome;
     }
 }

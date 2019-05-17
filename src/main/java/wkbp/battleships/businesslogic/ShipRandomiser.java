@@ -1,5 +1,6 @@
 package wkbp.battleships.businesslogic;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import wkbp.battleships.controller.CantPlaceShipsException;
 import wkbp.battleships.model.*;
 
@@ -15,7 +16,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * <p>
  * Class responsible for random ship placement on board,
  */
-public class ShipsRandomiser {
+
+public class ShipRandomiser {
 
     private int counterOfAttempts = 0;
     private static final List<Compass> VALUES =
@@ -30,7 +32,8 @@ public class ShipsRandomiser {
      * @param board for ships to be placed on
      * @param fleet ships to be placed
      */
-    public ShipsRandomiser(Board board, Fleet fleet) {
+    @Autowired
+    public ShipRandomiser(Board board, Fleet fleet) {
         this.fleet = fleet;
         this.board = board;
     }

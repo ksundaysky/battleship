@@ -9,18 +9,25 @@ public class BoardUpdater {
 
     private Move move;
     private Board currentBoard;
+    private GameReferee gameReferee;
 
-    public BoardUpdater(Move move, Board currentBoard) {
-        this.move = move;
+    BoardUpdater(Board currentBoard) {
         this.currentBoard = currentBoard;
+        this.gameReferee = new GameReferee(currentBoard);
     }
 
-    public Field updateBoard() {
-
-        Field fieldToShoot = currentBoard.getFieldList().get(move.getFieldToShoot().getId());
+    ShotOutcome updateBoard(Move move) {
+        this.move = move;
+        int fieldToShootId = move.getFieldToShoot().getId();
+        Field fieldToShoot = currentBoard.getFieldList().get(fieldToShootId);
         Field updatedField = changeStateOfField(fieldToShoot);
-        currentBoard.getFieldList().set(move.getFieldToShoot().getId(), updatedField);
-        return updatedField;
+        currentBoard.getFieldList().set(fieldToShootId, updatedField);
+        return new ShotOutcome(notifyReferee(move), updatedField.getStateOfField());
+    }
+//todo jak zwrócić czy wygrał
+    private boolean notifyReferee(Move move) {
+        gameReferee.setLastMove(move);
+        return gameReferee.checkIfHitTheShip();
     }
 
 
@@ -33,4 +40,19 @@ public class BoardUpdater {
         }
     }
 
+    public void setMove(Move move) {
+        this.move = move;
+    }
+
+    public Move getMove() {
+        return move;
+    }
+
+    public Board getCurrentBoard() {
+        return currentBoard;
+    }
+
+    public GameReferee getGameReferee() {
+        return gameReferee;
+    }
 }

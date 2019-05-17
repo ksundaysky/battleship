@@ -19,7 +19,7 @@ public class Move {
         return fieldToShoot;
     }
 
-    public User getUser() {
+    public User getPlayer() {
         return user;
     }
 

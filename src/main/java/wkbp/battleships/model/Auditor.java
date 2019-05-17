@@ -32,12 +32,12 @@ public class Auditor {
             return "Game hasn't started yet.";
         } else {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(move.getUser().getName()).append("shot on a field ").append(move.getFieldToShoot().getId());
+            stringBuilder.append(move.getPlayer().getName()).append("shot on a field ").append(move.getFieldToShoot().getId());
             if (hitTheShip) {
                 stringBuilder.append(" Ship has been shot!");
             } else stringBuilder.append("Missed!");
             if (wonTheGame) {
-                stringBuilder.append(move.getUser().getName()).append(" won the game!");
+                stringBuilder.append(move.getPlayer().getName()).append(" won the game!");
             }
             return stringBuilder.toString();
         }

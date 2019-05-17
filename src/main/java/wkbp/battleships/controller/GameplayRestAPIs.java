@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.model.Field;
+import wkbp.battleships.model.ShotOutcome;
 import wkbp.battleships.service.ActiveGamesService;
 
 import java.util.List;
@@ -31,10 +32,10 @@ class GameplayRestAPIs {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<?> gameShot(Authentication authentication, @RequestBody Field field, @PathVariable("id") long id) throws JsonProcessingException {
 
-        Field shotField = activeGamesService.makeAShoot(id, authentication.getName(), field);
+        ShotOutcome shotOutcome = activeGamesService.makeAShoot(id, authentication.getName(), field);
         ObjectMapper objectMapper = new ObjectMapper();
-        String message = objectMapper.writeValueAsString(shotField);
-
+        String message = objectMapper.writeValueAsString(shotOutcome.getStateOfField());
+// TODO: 17.05.19 nie chcemy zwracać pola tylko stan w jakim sie znajdzie po strzale
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

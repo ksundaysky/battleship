@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.service.GameService;
+import wkbp.battleships.businesslogic.ShipRandomiser;
+import wkbp.battleships.service.ShipsRandomiseService;
 
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class ShipPlacementControllerAPIs {
 
     @Autowired
     private GameService gameService;
+    @Autowired
+    private ShipsRandomiseService shipsRandomiseService;
 
     @GetMapping("get/ships_placement/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -40,11 +44,12 @@ public class ShipPlacementControllerAPIs {
 
     @GetMapping("get/ship_randomize/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> randomizeFleetOnBoard(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> randomizeFleetOnBoard(Authentication authentication,
+                                                   @PathVariable("id") long id) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            List<Field> ships = gameService.randomiseShips(id, authentication.getName());
+            List<Field> ships = shipsRandomiseService.randomiseShipsForUser(id, authentication.getName());
             message = objectMapper.writeValueAsString(ships);
         } catch (CantPlaceShipsException e) {
             message = e.getMessage();

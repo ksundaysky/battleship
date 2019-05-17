@@ -2,7 +2,7 @@ package wkbp.battleships.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wkbp.battleships.businesslogic.ShipsRandomiser;
+import wkbp.battleships.businesslogic.ShipRandomiser;
 import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dto.ConfigDTO;
@@ -27,9 +27,8 @@ public class GameService {
     @Autowired
     private ActiveGamesService activeGamesService;
 
-    public long createGame(ConfigDTO configDTO) {
-        System.out.println(configDTO.toString());
 
+    public long createGame(ConfigDTO configDTO) {
         Game game = new Game(configDTO.assembly());
         GameEntity gameEntity = new GameEntity(game.getGameState());
         gameEntity = gameRepository.save(gameEntity);
@@ -47,7 +46,7 @@ public class GameService {
             activeGamesService.setStartingPlayer(game, playersName);
             activeGamesService.addPlayerToTheGame(gameId, playersName, game);
         }
-        return "Success!";
+        return "Success";
     }
 
     // TODO: 17.05.19 do innej klasy?
@@ -62,8 +61,8 @@ public class GameService {
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
 
         Board board = new BoardFactory(game.getConfig()).createBoard();
-        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
-        List<Field> ships = shipsRandomiser.randomizeShips();
+        ShipRandomiser shipRandomiser = new ShipRandomiser(board, fleet);
+        List<Field> ships = shipRandomiser.randomizeShips();
         for (Field field : ships) {
             board.getFieldList().get(field.getId()).setStateOfField(StateOfField.OCCUPIED);
         }

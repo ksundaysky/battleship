@@ -2,6 +2,9 @@ package wkbp.battleships.model;
 
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Responsible for judging players moves and deciding if game is won,
  * or if shot hit its target and whose turn comes next.
@@ -24,15 +27,17 @@ public class GameReferee {
     }
 
     public boolean checkIfWon() {
-        for (Field field : board.getFieldList()) {
-            if (field.getStateOfField().equals(StateOfField.OCCUPIED) && field.getStateOfField().isHit)
-                return false;
-        }
-        return true;
+        List<Field> hitFields = board.getFieldList().stream()
+                .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
+                .filter(field -> !field.getStateOfField().isHit)
+                .collect(Collectors.toList());
+        System.out.println(!hitFields.isEmpty());
+        return hitFields.isEmpty();
     }
 
     public boolean checkIfHitTheShip() {
-        return board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField().equals(StateOfField.OCCUPIED);
+        StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
+        return stateOfField.equals(StateOfField.OCCUPIED) && !stateOfField.isHit;
     }
 
     public void notifyAuditor() {
