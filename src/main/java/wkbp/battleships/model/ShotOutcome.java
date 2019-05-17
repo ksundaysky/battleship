@@ -6,17 +6,12 @@ package wkbp.battleships.model;
 public class ShotOutcome {
 
     boolean playerTurn;
-    StateOfField stateOfField;
-    public ShotOutcome(boolean playerTurn, StateOfField stateOfField) {
+    Field field;
+    boolean playerWon;
+
+    public ShotOutcome(boolean playerTurn, Field field, boolean playerWon) {
         this.playerTurn = playerTurn;
-        this.stateOfField = stateOfField;
-    }
-
-    public boolean isPlayerTurn() {
-        return playerTurn;
-    }
-
-    public StateOfField getStateOfField() {
-        return stateOfField;
+        this.field = field;
+        this.playerWon = playerWon;
     }
 }

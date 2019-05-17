@@ -34,8 +34,7 @@ class GameplayRestAPIs {
 
         ShotOutcome shotOutcome = activeGamesService.makeAShoot(id, authentication.getName(), field);
         ObjectMapper objectMapper = new ObjectMapper();
-        String message = objectMapper.writeValueAsString(shotOutcome.getStateOfField());
-// TODO: 17.05.19 nie chcemy zwracać pola tylko stan w jakim sie znajdzie po strzale
+        String message = objectMapper.writeValueAsString(shotOutcome);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

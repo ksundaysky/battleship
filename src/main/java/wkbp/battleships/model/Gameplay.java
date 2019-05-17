@@ -12,8 +12,8 @@ public class Gameplay {
 
     private Board board;
     private BoardUpdater boardUpdater;
-    Move lastMove;
-    List<Move> moves;
+    private Move lastMove;
+    private List<Move> moves;
     private Map<User, Board> playersInGame;
 
     public Gameplay(Board board) {

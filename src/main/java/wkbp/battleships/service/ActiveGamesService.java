@@ -37,10 +37,7 @@ public class ActiveGamesService {
     }
 
     public boolean isPlayerTurn(long id, String playersName) {
-//        System.out.println("JESTEM W PLAJER TERN");
         User player = getUserFromDataBase(playersName);
-
-//        System.out.println("PLAYER TO " + player);
         Game game = games.get(id);
         return player.equals(game.getCurrentPlayer());
     }
