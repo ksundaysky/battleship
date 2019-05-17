@@ -23,12 +23,13 @@ import java.util.List;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@RequestMapping("/api/wkbp/")
 class GameplayRestAPIs {
 
     @Autowired
     private ActiveGamesService activeGamesService;
 
-    @PostMapping("/api/wkbp/post/game/shoot")
+    @PostMapping("post/game/shoot")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<?> gameShot(@RequestBody Field field) throws JsonProcessingException {
 
