@@ -13,12 +13,13 @@ public class Game {
 
     private long id;
     private Gameplay gameplay;
-    private Map<User, Board> currentPlayers;
+    private Map<User, Board> playersInGame;
     private GameConfig gameConfig;
     private GameState gameState;
+    private User currentPlayer;
 
     public Game(GameConfig gameConfig) {
-        currentPlayers = new HashMap<>();
+        playersInGame = new HashMap<>();
         this.gameConfig = gameConfig;
         this.gameplay = new Gameplay(); //TODO coś dostanie chyba kongifg
         this.gameState = GameState.IN_PREPARATION;
@@ -33,15 +34,15 @@ public class Game {
     }
 
     public void addPlayerToTheGame(User user) {
-        currentPlayers.put(user, new BoardFactory(gameConfig).createBoard());
+        playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
     }
 
     public void addUserBoard(User user, Board board) {
-        currentPlayers.put(user, board);
+        playersInGame.put(user, board);
     }
 
     public Board getBoardByUser(User user) {
-        return currentPlayers.get(user);
+        return playersInGame.get(user);
     }
 
     public void setGameState(GameState gameState) {
@@ -53,10 +54,22 @@ public class Game {
     }
 
     public int getNumberOfPlayers() {
-        return currentPlayers.size();
+        return playersInGame.size();
     }
 
     public boolean gameContainsPlayer(User user) {
-        return currentPlayers.containsKey(user);
+        return playersInGame.containsKey(user);
+    }
+
+    public Map<User, Board> getPlayersInGame() {
+        return playersInGame;
+    }
+
+    public void setCurrentPlayer(User currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public User getCurrentPlayer() {
+        return currentPlayer;
     }
 }

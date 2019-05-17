@@ -27,8 +27,36 @@ public class ActiveGamesService {
     private UserInGameRepository userInGameRepository;
     @Autowired
     private GameRepository gameRepository;
+    @Autowired
+    private GameService gameService;
 
     private Map<Long, Game> games = new HashMap<>();
+
+    public Field makeAShoot(Long gameId, String playersName, Field field) { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
+        User player = getUserFromDataBase(playersName);
+        Game game = getGameById(gameId);
+        for (Map.Entry<User, Board> currentGame : game.getPlayersInGame().entrySet()) {
+            if (!currentGame.getKey().equals(player)) {
+                Board board = currentGame.getValue();
+                Field hitField = board.getField(field.getId());
+                hitField.isHit(true);
+                Move move = new Move(gameId, player, field);
+                GameReferee gameReferee = new GameReferee(board);
+                gameReferee.setLastMove(move);
+                if(!gameReferee.checkIfHitTheShip())
+                    setCurrentPlayer(gameId, currentGame.getKey());
+                return hitField;
+            }
+        }
+
+        return field; // TODO: 17.05.19 szemrana logika - do zmiany
+    }
+
+    public boolean isPlayerTurn(long id, String playersName){
+        User player = getUserFromDataBase(playersName);
+        Game game = games.get(id);
+        return player.equals(game.getCurrentPlayer());
+    }
 
     public List<Field> returnUserFleet(Long id, String username) { // TODO: 17.05.19 ta metoda nie tutaj xd
         User user = getUserFromDataBase(username);
@@ -78,12 +106,16 @@ public class ActiveGamesService {
         return games.get(id);
     }
 
-    User setStartingPlayer(GameConfig config, int numberOfPlayers, String playersName, User startingPlayer) {
-        if (config.doesOwnerStart() && numberOfPlayers == 0) {
-            return getUserFromDataBase(playersName);
-        } else if (!config.doesOwnerStart() && numberOfPlayers == 1) {
-            return getUserFromDataBase(playersName);
+    void setStartingPlayer(Game game, String playersName) {
+        if (game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 0) {
+             game.setCurrentPlayer(getUserFromDataBase(playersName));
+        } else if (!game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 1) {
+            game.setCurrentPlayer(getUserFromDataBase(playersName));
         }
-        return startingPlayer;
+    }
+
+    public void setCurrentPlayer(long id, User currentPlayer) {
+        Game game = games.get(id);
+        game.setCurrentPlayer(currentPlayer);
     }
 }

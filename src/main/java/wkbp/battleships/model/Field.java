@@ -41,4 +41,8 @@ public class Field {
         return stateOfField;
     }
 
+    public void isHit(boolean isHit) {
+        stateOfField.setHit(isHit);
+    }
+
 }

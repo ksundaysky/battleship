@@ -29,15 +29,15 @@ class GameplayRestAPIs {
     @Autowired
     private ActiveGamesService activeGamesService;
 
-    @PostMapping("post/game/shoot")
+    @PostMapping("post/game/shoot/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    ResponseEntity<?> gameShot(@RequestBody Field field) throws JsonProcessingException {
+    ResponseEntity<?> gameShot(Authentication authentication, @RequestBody Field field, @PathVariable("id") long id) throws JsonProcessingException {
 
-        field.setStateOfField(StateOfField.OCCUPIED);
+        Field shotField = activeGamesService.makeAShoot(id, authentication.getName(), field);
         ObjectMapper objectMapper = new ObjectMapper();
-        String s = objectMapper.writeValueAsString(field);
+        String message = objectMapper.writeValueAsString(shotField);
 
-        return new ResponseEntity<>(s, HttpStatus.OK);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @GetMapping("get/game/{id}")
@@ -53,6 +53,17 @@ class GameplayRestAPIs {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
         }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("get/game/is_my_turn/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> isUserTurn(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        message = objectMapper.writeValueAsString(activeGamesService.isPlayerTurn(id, authentication.getName()));
+
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

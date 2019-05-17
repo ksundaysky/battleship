@@ -5,10 +5,12 @@ package wkbp.battleships.model;
  */
 public class Move {
 
-    private User user;
-    private Field fieldToShoot;
+    private final long gameId;
+    private final User user;
+    private final Field fieldToShoot;
 
-    public Move(User user, Field fieldToShoot) {
+    public Move(long gameId, User user, Field fieldToShoot) {
+        this.gameId = gameId;
         this.user = user;
         this.fieldToShoot = fieldToShoot;
     }
@@ -19,5 +21,9 @@ public class Move {
 
     public User getUser() {
         return user;
+    }
+
+    public long getGameId() {
+        return gameId;
     }
 }

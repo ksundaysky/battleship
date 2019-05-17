@@ -27,8 +27,6 @@ public class GameService {
     @Autowired
     private ActiveGamesService activeGamesService;
 
-    private User startingPlayer;
-
     public long createGame(ConfigDTO configDTO) {
 
         Game game = new Game(configDTO.assembly());//stwórz nową grę na podstawie configu
@@ -44,7 +42,7 @@ public class GameService {
             throw new GameIsFullException("You cannot join. Game is full!");
         else {
             Game game = activeGamesService.getGameById(id);
-            startingPlayer = activeGamesService.setStartingPlayer(game.getConfig(), game.getNumberOfPlayers(), playersName, startingPlayer);
+            activeGamesService.setStartingPlayer(game, playersName);
             activeGamesService.addPlayerToTheGame(id, playersName, game);
         }
         return "Success!";
@@ -70,5 +68,9 @@ public class GameService {
         game.addUserBoard(activeGamesService.getUserFromDataBase(playersName), board);
 
         return ships;
+    }
+
+    public void setCurrentPlayer(long id, User currentPlayer) {
+        activeGamesService.setCurrentPlayer(id, currentPlayer);
     }
 }

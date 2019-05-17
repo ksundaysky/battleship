@@ -1,21 +1,23 @@
 package wkbp.battleships.model;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Responsible for judging players moves and deciding if game is won,
  * or if shot hit its target and whose turn comes next.
  *
  * @author Wiktor Rup
  */
+@Component
 public class GameReferee {
 
     private Board board;
-    private Move move;
+    private Move lastMove;
     private Auditor auditor;
 
-    public GameReferee(Board board, Move move, Auditor auditor) {
+    public GameReferee(Board board){
         this.board = board;
-        this.move = move;
-        this.auditor = auditor;
+        auditor = new Auditor();
     }
 
     public boolean checkIfWon() {
@@ -27,11 +29,14 @@ public class GameReferee {
     }
 
     public boolean checkIfHitTheShip() {
-        return board.getFieldList().get(move.getFieldToShoot().getId()).getStateOfField().equals(StateOfField.OCCUPIED);
+        return board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField().equals(StateOfField.OCCUPIED);
     }
 
     public void notifyAuditor() {
-        auditor.update(move, checkIfWon(), checkIfHitTheShip());
+        auditor.update(lastMove, checkIfWon(), checkIfHitTheShip());
     }
 
+    public void setLastMove(Move lastMove) {
+        this.lastMove = lastMove;
+    }
 }
