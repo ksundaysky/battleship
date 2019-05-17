@@ -69,8 +69,4 @@ public class GameService {
 
         return ships;
     }
-
-    public void setCurrentPlayer(long id, User currentPlayer) {
-        activeGamesService.setCurrentPlayer(id, currentPlayer);
-    }
 }

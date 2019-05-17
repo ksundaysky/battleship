@@ -27,8 +27,6 @@ public class ActiveGamesService {
     private UserInGameRepository userInGameRepository;
     @Autowired
     private GameRepository gameRepository;
-    @Autowired
-    private GameService gameService;
 
     private Map<Long, Game> games = new HashMap<>();
 
@@ -37,15 +35,17 @@ public class ActiveGamesService {
         Game game = getGameById(gameId);
         for (Map.Entry<User, Board> currentGame : game.getPlayersInGame().entrySet()) {
             if (!currentGame.getKey().equals(player)) {
-                Board board = currentGame.getValue();
-                Field hitField = board.getField(field.getId());
-                hitField.isHit(true);
+//                Board board = currentGame.getValue();
+//                Field hitField = board.getField(field.getId());
+//                hitField.isHit(true);
                 Move move = new Move(gameId, player, field);
-                GameReferee gameReferee = new GameReferee(board);
+                BoardUpdater boardUpdater = new BoardUpdater(move, currentGame.getValue());
+                Field updatedField = boardUpdater.updateBoard();
+                GameReferee gameReferee = new GameReferee(currentGame.getValue());
                 gameReferee.setLastMove(move);
                 if(!gameReferee.checkIfHitTheShip())
                     setCurrentPlayer(gameId, currentGame.getKey());
-                return hitField;
+                return updatedField;
             }
         }
 
@@ -114,7 +114,7 @@ public class ActiveGamesService {
         }
     }
 
-    public void setCurrentPlayer(long id, User currentPlayer) {
+    private void setCurrentPlayer(long id, User currentPlayer) {
         Game game = games.get(id);
         game.setCurrentPlayer(currentPlayer);
     }

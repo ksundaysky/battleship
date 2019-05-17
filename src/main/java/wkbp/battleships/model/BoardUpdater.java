@@ -10,11 +10,17 @@ public class BoardUpdater {
     private Move move;
     private Board currentBoard;
 
+    public BoardUpdater(Move move, Board currentBoard) {
+        this.move = move;
+        this.currentBoard = currentBoard;
+    }
 
-    public void shootGivenField() {
+    public Field updateBoard() {
 
         Field fieldToShoot = currentBoard.getFieldList().get(move.getFieldToShoot().getId());
-        currentBoard.getFieldList().set(move.getFieldToShoot().getId(), changeStateOfField(fieldToShoot));
+        Field updatedField = changeStateOfField(fieldToShoot);
+        currentBoard.getFieldList().set(move.getFieldToShoot().getId(), updatedField);
+        return updatedField;
     }
 
 
