@@ -37,4 +37,36 @@ public class ConfigDTO {
     public boolean ownerStarts() {
         return ownerStarts;
     }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
+    public int getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
+    }
+
+    public boolean isOwnerStarts() {
+        return ownerStarts;
+    }
+
+    public void setOwnerStarts(boolean ownerStarts) {
+        this.ownerStarts = ownerStarts;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
 }

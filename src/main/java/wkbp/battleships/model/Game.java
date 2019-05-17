@@ -70,6 +70,7 @@ public class Game {
     }
 
     public User getCurrentPlayer() {
+        System.out.println("OBECNY GRACZ TO "+currentPlayer);
         return currentPlayer;
     }
 }

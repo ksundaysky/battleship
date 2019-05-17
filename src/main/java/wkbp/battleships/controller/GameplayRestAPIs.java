@@ -60,6 +60,7 @@ class GameplayRestAPIs {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> isUserTurn(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
 
+        System.out.println("JESTEM W IS MAJ ROLE BICZ");
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         message = objectMapper.writeValueAsString(activeGamesService.isPlayerTurn(id, authentication.getName()));

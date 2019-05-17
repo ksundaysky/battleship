@@ -37,6 +37,7 @@ public class CreateGameRestAPIs {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<String> gameAccess(@RequestBody ConfigDTO configDTO) {
 
+        System.out.println(configDTO.toString());
         long gameId = gameService.createGame(configDTO);
 
         return new ResponseEntity<>(String.valueOf(gameId), HttpStatus.OK);

@@ -44,6 +44,7 @@ public class ActiveGamesService {
                 GameReferee gameReferee = new GameReferee(currentGame.getValue());
                 gameReferee.setLastMove(move);
                 if(!gameReferee.checkIfHitTheShip())
+                    System.out.println("GOSC NIE TRAFIL USTAWIAM GACZA "+currentGame.getKey());
                     setCurrentPlayer(gameId, currentGame.getKey());
                 return updatedField;
             }
@@ -53,7 +54,10 @@ public class ActiveGamesService {
     }
 
     public boolean isPlayerTurn(long id, String playersName){
+        System.out.println("JESTEM W PLAJER TERN");
         User player = getUserFromDataBase(playersName);
+
+        System.out.println("PLAYER TO "+player);
         Game game = games.get(id);
         return player.equals(game.getCurrentPlayer());
     }
@@ -91,7 +95,7 @@ public class ActiveGamesService {
         Game game = getGameById(id);
         if (game.gameContainsPlayer(user))
             return true;
-        else return game.getNumberOfPlayers() >= 2;
+        else return game.getNumberOfPlayers() < 2;
     }
 
     User getUserFromDataBase(String name) {
@@ -109,8 +113,11 @@ public class ActiveGamesService {
     void setStartingPlayer(Game game, String playersName) {
         if (game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 0) {
              game.setCurrentPlayer(getUserFromDataBase(playersName));
+            System.out.println("USTYWAIELEM GRACZA STARTUJACEGO NA "+game.getCurrentPlayer());
         } else if (!game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 1) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
+            System.out.println("ELSE USTYWAIELEM GRACZA STARTUJACEGO NA "+game.getCurrentPlayer());
+
         }
     }
 

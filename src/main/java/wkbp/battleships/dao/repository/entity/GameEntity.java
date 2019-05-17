@@ -46,7 +46,7 @@ public class GameEntity {
 //    @MapsId
 //    private User opponent;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "gameEntity")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gameEntity")
     private Set<UserInGameEntity> userInGameEntities = new HashSet<>();
 
     @Column(name = "GAME_STATE")

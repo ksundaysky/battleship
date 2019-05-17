@@ -28,6 +28,7 @@ public class GameService {
     private ActiveGamesService activeGamesService;
 
     public long createGame(ConfigDTO configDTO) {
+        System.out.println(configDTO.toString());
 
         Game game = new Game(configDTO.assembly());//stwórz nową grę na podstawie configu
         GameEntity gameEntity = new GameEntity(game.getGameState());
@@ -38,10 +39,13 @@ public class GameService {
     }
 
     public String joinTheGame(long id, String playersName) throws GameIsFullException {
-        if (!activeGamesService.checkIfUserCanJoinTheGame(id, playersName))
+        if (!activeGamesService.checkIfUserCanJoinTheGame(id, playersName)) {
+            System.out.println("WSZEDLEM DO STWORZONEJ GRY" + playersName);
             throw new GameIsFullException("You cannot join. Game is full!");
+        }
         else {
             Game game = activeGamesService.getGameById(id);
+            System.out.println("USTAWIAM GRACZA KTORY ZXACZYNA GRE "+playersName);
             activeGamesService.setStartingPlayer(game, playersName);
             activeGamesService.addPlayerToTheGame(id, playersName, game);
         }
