@@ -8,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import wkbp.battleships.exception.CantPlaceShipsException;
 import wkbp.battleships.model.Field;
-import wkbp.battleships.model.StateOfField;
 import wkbp.battleships.service.ActiveGamesService;
 
 import java.util.List;
@@ -48,7 +46,6 @@ class GameplayRestAPIs {
         try {
             List<Field> ships = activeGamesService.returnUserFleet(id, authentication.getName()); //todo no nie bardzo
             message = objectMapper.writeValueAsString(ships);
-            System.out.println(message);
         } catch (CantPlaceShipsException e) {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
@@ -60,7 +57,6 @@ class GameplayRestAPIs {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> isUserTurn(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
 
-        System.out.println("JESTEM W IS MAJ ROLE BICZ");
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         message = objectMapper.writeValueAsString(activeGamesService.isPlayerTurn(id, authentication.getName()));

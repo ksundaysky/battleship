@@ -6,8 +6,8 @@ import wkbp.battleships.businesslogic.ShipsRandomiser;
 import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dto.ConfigDTO;
-import wkbp.battleships.exception.CantPlaceShipsException;
-import wkbp.battleships.exception.GameIsFullException;
+import wkbp.battleships.controller.CantPlaceShipsException;
+import wkbp.battleships.controller.GameIsFullException;
 import wkbp.battleships.model.*;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class GameService {
     public long createGame(ConfigDTO configDTO) {
         System.out.println(configDTO.toString());
 
-        Game game = new Game(configDTO.assembly());//stwórz nową grę na podstawie configu
+        Game game = new Game(configDTO.assembly());
         GameEntity gameEntity = new GameEntity(game.getGameState());
         gameEntity = gameRepository.save(gameEntity);
         game.setId(gameEntity.getId());
@@ -38,16 +38,14 @@ public class GameService {
         return gameEntity.getId();
     }
 
-    public String joinTheGame(long id, String playersName) throws GameIsFullException {
-        if (!activeGamesService.checkIfUserCanJoinTheGame(id, playersName)) {
-            System.out.println("WSZEDLEM DO STWORZONEJ GRY" + playersName);
+    public String tryToJoinTheGame(long gameId, String playersName) throws GameIsFullException {
+        if (!activeGamesService.checkIfUserCanJoinTheGame(gameId, playersName)) {
             throw new GameIsFullException("You cannot join. Game is full!");
         }
         else {
-            Game game = activeGamesService.getGameById(id);
-            System.out.println("USTAWIAM GRACZA KTORY ZXACZYNA GRE "+playersName);
+            Game game = activeGamesService.getGameById(gameId);
             activeGamesService.setStartingPlayer(game, playersName);
-            activeGamesService.addPlayerToTheGame(id, playersName, game);
+            activeGamesService.addPlayerToTheGame(gameId, playersName, game);
         }
         return "Success!";
     }
@@ -69,7 +67,7 @@ public class GameService {
         for (Field field : ships) {
             board.getFieldList().get(field.getId()).setStateOfField(StateOfField.OCCUPIED);
         }
-        game.addUserBoard(activeGamesService.getUserFromDataBase(playersName), board);
+        game.addUserAndHisBoard(activeGamesService.getUserFromDataBase(playersName), board);
 
         return ships;
     }

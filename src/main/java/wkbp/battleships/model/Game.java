@@ -37,7 +37,7 @@ public class Game {
         playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
     }
 
-    public void addUserBoard(User user, Board board) {
+    public void addUserAndHisBoard(User user, Board board) {
         playersInGame.put(user, board);
     }
 
@@ -57,7 +57,7 @@ public class Game {
         return playersInGame.size();
     }
 
-    public boolean gameContainsPlayer(User user) {
+    public boolean containsPlayer(User user) {
         return playersInGame.containsKey(user);
     }
 

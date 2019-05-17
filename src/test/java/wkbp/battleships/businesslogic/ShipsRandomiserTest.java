@@ -2,7 +2,7 @@ package wkbp.battleships.businesslogic;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import wkbp.battleships.exception.CantPlaceShipsException;
+import wkbp.battleships.controller.CantPlaceShipsException;
 import wkbp.battleships.model.*;
 
 import java.util.ArrayList;

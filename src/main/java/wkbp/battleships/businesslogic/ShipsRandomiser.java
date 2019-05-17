@@ -1,6 +1,6 @@
 package wkbp.battleships.businesslogic;
 
-import wkbp.battleships.exception.CantPlaceShipsException;
+import wkbp.battleships.controller.CantPlaceShipsException;
 import wkbp.battleships.model.*;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ShipsRandomiser {
 
-    private int couterOfAttempts = 0;
+    private int counterOfAttempts = 0;
     private static final List<Compass> VALUES =
             Collections.unmodifiableList(Arrays.asList(Compass.values()));
     private final int SIZE = VALUES.size();
@@ -90,8 +90,8 @@ public class ShipsRandomiser {
     private Field getValidFieldForShip(Ship ship) throws CantPlaceShipsException {
         Field startingPosition;
         do {
-            couterOfAttempts++;
-            if (couterOfAttempts >= 60)
+            counterOfAttempts++;
+            if (counterOfAttempts >= 60)
                 throw new CantPlaceShipsException("Couldn't find space for ship.");
 
             startingPosition = getRandomFieldFromBoard();

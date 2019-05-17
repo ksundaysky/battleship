@@ -18,17 +18,17 @@ public class CreateGameRestAPIsTest {
 
 //    @Test
 //    public void testGameAccess() {
-//        assertEquals("game config", createGameRestAPIs.gameAccess());
+//        assertEquals("game config", createGameRestAPIs.createGame());
 //    }
 
 //    @Test(invocationCount = 10, successPercentage = 90)
 //    public void testRandomizeShips() throws JsonProcessingException {
-//        assertEquals(HttpStatus.OK, createGameRestAPIs.shipsPlacement().getStatusCode());
+//        assertEquals(HttpStatus.OK, createGameRestAPIs.joinTheGame().getStatusCode());
 //    }
 //
 //    @Test
 //    public void testResponseMessage() throws JsonProcessingException {
-//        ResponseEntity responseEntity = createGameRestAPIs.shipsPlacement();
+//        ResponseEntity responseEntity = createGameRestAPIs.joinTheGame();
 //        assertEquals(String.class, Objects.requireNonNull(responseEntity.getBody()).getClass());
 //    }
 }

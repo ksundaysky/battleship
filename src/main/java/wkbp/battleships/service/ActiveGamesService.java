@@ -7,7 +7,7 @@ import wkbp.battleships.dao.repository.UserInGameRepository;
 import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dao.repository.entity.UserInGameEntity;
-import wkbp.battleships.exception.NoAvailableGamesException;
+import wkbp.battleships.controller.NoAvailableGamesException;
 import wkbp.battleships.model.*;
 
 import java.util.HashMap;
@@ -90,10 +90,10 @@ public class ActiveGamesService {
         game.addPlayerToTheGame(owner);
     }
 
-    boolean checkIfUserCanJoinTheGame(long id, String username) {
-        User user = getUserFromDataBase(username);
-        Game game = getGameById(id);
-        if (game.gameContainsPlayer(user))
+    boolean checkIfUserCanJoinTheGame(long gameId, String username) {
+        User player = getUserFromDataBase(username);
+        Game game = getGameById(gameId);
+        if (game.containsPlayer(player))
             return true;
         else return game.getNumberOfPlayers() < 2;
     }

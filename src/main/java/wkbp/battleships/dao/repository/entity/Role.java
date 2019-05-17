@@ -1,6 +1,7 @@
-package wkbp.battleships.model;
+package wkbp.battleships.dao.repository.entity;
 
 import org.hibernate.annotations.NaturalId;
+import wkbp.battleships.model.RoleName;
 
 import javax.persistence.*;
 

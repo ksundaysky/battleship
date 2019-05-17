@@ -1,4 +1,4 @@
-package wkbp.battleships.exception;
+package wkbp.battleships.controller;
 
 /**
  * @author Wiktor Rup

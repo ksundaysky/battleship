@@ -1,10 +1,10 @@
 package wkbp.battleships.model;
 
 import org.testng.annotations.Test;
+import wkbp.battleships.dao.repository.entity.Role;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static org.testng.Assert.*;
 

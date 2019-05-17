@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import wkbp.battleships.exception.NoAvailableGamesException;
 import wkbp.battleships.service.ActiveGamesService;
 
-/**
+/**Controller responsible for getting list of all active games
+ *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
  */
 
 @RestController
@@ -35,7 +36,6 @@ class ListOfGamesRestAPIs {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
         }
-
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

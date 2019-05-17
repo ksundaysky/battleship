@@ -61,5 +61,4 @@ public class SignUpForm {
     public Set<String> getRole() {
         return this.role;
     }
-    //usunięte settery, jakby co nie hulało to wygenerować znowu iksde
 }
