@@ -1,6 +1,5 @@
 package wkbp.battleships.model;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,11 +32,15 @@ public class Game {
         return gameConfig;
     }
 
-    public void addPlayerToTheGame(User user, Board board) {
+    public void addPlayerToTheGame(User user) {
+        currentPlayers.put(user, new BoardFactory(gameConfig).createBoard());
+    }
+
+    public void addUserBoard(User user, Board board) {
         currentPlayers.put(user, board);
     }
 
-    public Board getBoardByUser(User user){
+    public Board getBoardByUser(User user) {
         return currentPlayers.get(user);
     }
 
@@ -49,11 +52,11 @@ public class Game {
         this.id = id;
     }
 
-    public int getNumberOfPlayers(){
+    public int getNumberOfPlayers() {
         return currentPlayers.size();
     }
 
-    public boolean gameContainsPlayer(User user){
+    public boolean gameContainsPlayer(User user) {
         return currentPlayers.containsKey(user);
     }
 }

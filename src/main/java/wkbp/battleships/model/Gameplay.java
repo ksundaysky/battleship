@@ -14,5 +14,4 @@ public class Gameplay {
     Move lastMove;
     List<Move> moves;
     Map<String, User> users;
-
 }

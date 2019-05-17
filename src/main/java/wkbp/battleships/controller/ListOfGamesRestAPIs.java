@@ -5,12 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wkbp.battleships.exception.NoAvailableGamesException;
-import wkbp.battleships.service.GameService;
+import wkbp.battleships.service.ActiveGamesService;
 
 /**
  * @author Wiktor Rup
@@ -20,18 +19,16 @@ import wkbp.battleships.service.GameService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 class ListOfGamesRestAPIs {
 
-
     @Autowired
-    private GameService gameService;
+    private ActiveGamesService activeGamesService;
 
     @GetMapping("/api/wkbp/get/gameslist")
-//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> shipsRandomize() throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            message = objectMapper.writeValueAsString(gameService.returnListOfGames());
+            message = objectMapper.writeValueAsString(activeGamesService.returnListOfGames());
         } catch (NoAvailableGamesException e) {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
@@ -39,5 +36,4 @@ class ListOfGamesRestAPIs {
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
 }

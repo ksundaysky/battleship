@@ -4,63 +4,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wkbp.battleships.businesslogic.ShipsRandomiser;
 import wkbp.battleships.dao.repository.GameRepository;
-import wkbp.battleships.dao.repository.UserInGameRepository;
-import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dto.ConfigDTO;
 import wkbp.battleships.exception.CantPlaceShipsException;
 import wkbp.battleships.exception.GameIsFullException;
-import wkbp.battleships.exception.NoAvailableGamesException;
 import wkbp.battleships.model.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
+ * Responsible for creation of the game and setting it up
+ *
  * @author krzysztof.niedzielski
  */
 @Service
 public class GameService {
 
     @Autowired
-    private
-    GameRepository gameRepository;
+    private GameRepository gameRepository;
     @Autowired
-    private
-    UserRepository userRepository;
-    @Autowired
-    private UserInGameRepository userInGameRepository;
+    private ActiveGamesService activeGamesService;
 
-    private Map<Long, Game> games = new HashMap<>();
+    private User startingPlayer;
 
+    public long createGame(ConfigDTO configDTO) {
 
-    public long createGame(String name, ConfigDTO configDTO) {
-
-        User owner = userRepository.findByUsername(name).get();
-
-        Game game = new Game(configDTO.assembly());
-        System.out.println(configDTO);
+        Game game = new Game(configDTO.assembly());//stwórz nową grę na podstawie configu
         GameEntity gameEntity = new GameEntity(game.getGameState());
-
-//        UserInGameEntity userInGameEntity = new UserInGameEntity(owner, gameEntity);
-
-        userRepository.save(owner);
         gameEntity = gameRepository.save(gameEntity);
-//        userInGameRepository.save(userInGameEntity);
         game.setId(gameEntity.getId());
-        games.put(gameEntity.getId(), game);
-
+        activeGamesService.addGameToActiveGames(gameEntity.getId(), game);
         return gameEntity.getId();
-
     }
 
+    public String joinTheGame(long id, String playersName) throws GameIsFullException {
+        if (!activeGamesService.checkIfUserCanJoinTheGame(id, playersName))
+            throw new GameIsFullException("You cannot join. Game is full!");
+        else {
+            Game game = activeGamesService.getGameById(id);
+            startingPlayer = activeGamesService.setStartingPlayer(game.getConfig(), game.getNumberOfPlayers(), playersName, startingPlayer);
+            activeGamesService.addPlayerToTheGame(id, playersName, game);
+        }
+        return "Success!";
+    }
 
-    public List<Field> randomShips(Long id, String username) throws CantPlaceShipsException {
-        User owner = userRepository.findByUsername(username).get();
-        Game game = games.get(id);
-        GameEntity gameEntity = gameRepository.getOne(id);
-        UserInGameEntity userInGameEntity = new UserInGameEntity(owner, gameEntity);
-        userInGameRepository.save(userInGameEntity);
+    // TODO: 17.05.19 do innej klasy?
+    public List<Field> randomiseShips(Long gameId, String playersName) throws CantPlaceShipsException {
+        Game game = activeGamesService.getGameById(gameId);
+
+        // TODO: 17.05.19 zamiana na FleetFactory
         Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
                 new Ship(4),
                 new Ship(3), new Ship(3),
@@ -68,55 +62,13 @@ public class GameService {
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
 
         Board board = new BoardFactory(game.getConfig()).createBoard();
-        System.out.println(board.toString());
         ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
         List<Field> ships = shipsRandomiser.randomizeShips();
-
-
         for (Field field : ships) {
             board.getFieldList().get(field.getId()).setStateOfField(StateOfField.OCCUPIED);
         }
-        game.addPlayerToTheGame(owner, board);
+        game.addUserBoard(activeGamesService.getUserFromDataBase(playersName), board);
 
         return ships;
-    }
-
-    public List<Field> returnUserFleet(Long id, String username) {
-        System.out.println("Mapa gier: " + games);
-        System.out.println(id + " " + username);
-        User user = userRepository.findByUsername(username).get();
-        Game game = games.get(id);
-        game.setGameState(GameState.IN_PROGRESS);
-        System.out.println("GRA :" + game);
-        Board userBoard = game.getBoardByUser(user);
-        System.out.println("USER BOARD: " + userBoard);
-
-        List<Field> collect = userBoard.getFieldList()
-                .stream()
-                .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
-                .collect(Collectors.toList());
-        System.out.println(collect);
-        return collect;
-    }
-
-    public Map<Long, Game> returnListOfGames(){
-        if (games.isEmpty()) {
-            throw new NoAvailableGamesException("No available games to display!");
-        }
-        return games;
-    }
-
-    public String joinGame(long id, String username) throws GameIsFullException {
-        if(!checkIfUserCanJoinTheGame(id, username))
-            throw new GameIsFullException("You cannot join. Game is full!");
-        return "User has joined the game.";
-    }
-
-    private boolean checkIfUserCanJoinTheGame(long id, String username) {
-        User user = userRepository.findByUsername(username).get();
-        Game game = games.get(id);
-        if(game.gameContainsPlayer(user))
-            return true;
-        else return game.getNumberOfPlayers() < 2;
     }
 }

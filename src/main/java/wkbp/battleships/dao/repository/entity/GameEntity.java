@@ -1,7 +1,6 @@
 package wkbp.battleships.dao.repository.entity;
 
 import wkbp.battleships.model.GameState;
-import wkbp.battleships.model.UserInGameEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,7 +14,8 @@ import java.util.Set;
 @Table(name = "GAME_ENTITY")
 public class GameEntity {
 
-    public GameEntity(){}
+    public GameEntity() {
+    }
 
     public GameEntity(GameState gameState) {
         this.gameState = gameState;

@@ -10,13 +10,13 @@ public class ConfigDTO {
 
     private String gameName;
     private int dimension;
-    private boolean doesOwnerStart;
+    private boolean ownerStarts;
     private GameMode gameMode;
 
-    public ConfigDTO(String gameName, int dimension, boolean doesOwnerStart, GameMode gameMode) {
+    public ConfigDTO(String gameName, int dimension, boolean ownerStarts, GameMode gameMode) {
         this.gameName = gameName;
         this.dimension = dimension;
-        this.doesOwnerStart = doesOwnerStart;
+        this.ownerStarts = ownerStarts;
         this.gameMode = gameMode;
     }
 
@@ -25,12 +25,16 @@ public class ConfigDTO {
         return "ConfigDTO{" +
                 "gameName='" + gameName + '\'' +
                 ", dimension=" + dimension +
-                ", doesOwnerStart=" + doesOwnerStart +
+                ", ownerStarts=" + ownerStarts +
                 ", gameMode=" + gameMode +
                 '}';
     }
 
     public GameConfig assembly() {
-        return new GameConfig(gameName, dimension, gameMode, doesOwnerStart);
+        return new GameConfig(gameName, dimension, gameMode, ownerStarts);
+    }
+
+    public boolean ownerStarts() {
+        return ownerStarts;
     }
 }

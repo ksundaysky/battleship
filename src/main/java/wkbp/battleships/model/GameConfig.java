@@ -12,7 +12,7 @@ public class GameConfig {
     private GameMode gameMode;
     private Fleet fleet;
     private Board board;
-    boolean doesOwnerStart;
+    private boolean ownerStarts;
 
     public int getDimension() {
         return dimension;
@@ -26,10 +26,14 @@ public class GameConfig {
         return gameMode;
     }
 
-    public GameConfig(String gameName, int dimension, GameMode gameMode, boolean doesOwnerStart) {
+    public GameConfig(String gameName, int dimension, GameMode gameMode, boolean ownerStarts) {
         this.gameName = gameName;
         this.dimension = dimension;
         this.gameMode = gameMode;
-        this.doesOwnerStart = doesOwnerStart;
+        this.ownerStarts = ownerStarts;
+    }
+
+    public boolean doesOwnerStart() {
+        return ownerStarts;
     }
 }

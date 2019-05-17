@@ -1,6 +1,7 @@
 package wkbp.battleships.model;
 
 import org.hibernate.annotations.NaturalId;
+import wkbp.battleships.dao.repository.entity.UserInGameEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

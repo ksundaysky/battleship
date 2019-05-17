@@ -1,6 +1,6 @@
-package wkbp.battleships.model;
+package wkbp.battleships.dao.repository.entity;
 
-import wkbp.battleships.dao.repository.entity.GameEntity;
+import wkbp.battleships.model.User;
 
 import javax.persistence.*;
 
@@ -12,7 +12,8 @@ import javax.persistence.*;
 public
 class UserInGameEntity {
 
-    UserInGameEntity(){}
+    UserInGameEntity() {
+    }
 
     public UserInGameEntity(User user, GameEntity gameEntity) {
         this.gameEntity = gameEntity;

@@ -8,10 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import wkbp.battleships.dto.ConfigDTO;
 import wkbp.battleships.exception.CantPlaceShipsException;
 import wkbp.battleships.exception.GameIsFullException;
@@ -26,61 +22,46 @@ import java.util.List;
  *
  * @author Wiktor Wrup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/wkbp/")
-// TODO: 13.05.19 Rozbicie na osobne klasy : konfig, rozstawianie statków, rozgrywka
 public class CreateGameRestAPIs {
 
     @Autowired
-    private GameService gameService; //TODO do gameserwisu to zrobisz
+    private GameService gameService;
 
     @PostMapping("post/game_config")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<String> gameAccess(Authentication authentication, @RequestBody ConfigDTO configDTO) {
+    public ResponseEntity<String> gameAccess(@RequestBody ConfigDTO configDTO) {
 
-        long gameId = gameService.createGame(authentication.getName(), configDTO);
+        long gameId = gameService.createGame(configDTO);
 
         return new ResponseEntity<>(String.valueOf(gameId), HttpStatus.OK);
     }
 
-    @GetMapping("get/ships_placement/{id}")
+    @GetMapping("get/ships_placement/{id}") // TODO: 17.05.19 ship placement controller
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> shipsPlacement(Authentication authentication, @PathVariable("id") long id) {
         String message;
         try {
-            message = gameService.joinGame(id, authentication.getName());
+            message = gameService.joinTheGame(id, authentication.getName());
         } catch (GameIsFullException e) {
             message = e.getMessage();
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @GetMapping("get/ship_randomize/{id}")
+    @GetMapping("get/ship_randomize/{id}")// TODO: 17.05.19 ship placement controller
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> shipsRandomize(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            List<Field> ships = gameService.randomShips(id, authentication.getName());
+            List<Field> ships = gameService.randomiseShips(id, authentication.getName());
             message = objectMapper.writeValueAsString(ships);
-        } catch (CantPlaceShipsException e) {
-            message = e.getMessage();
-            return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
-        }
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @GetMapping("get/game/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> userFleet(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String message;
-        try {
-            List<Field> ships = gameService.returnUserFleet(id, authentication.getName());
-            message = objectMapper.writeValueAsString(ships);
-            System.out.println(message);
         } catch (CantPlaceShipsException e) {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
