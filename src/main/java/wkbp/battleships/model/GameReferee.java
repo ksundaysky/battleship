@@ -20,6 +20,9 @@ public class GameReferee {
         auditor = new Auditor();
     }
 
+    public GameReferee() {
+    }
+
     public boolean checkIfWon() {
         for (Field field : board.getFieldList()) {
             if (field.getStateOfField().equals(StateOfField.OCCUPIED) && field.getStateOfField().isHit)

@@ -91,7 +91,7 @@ public class ActiveGamesService {
         Game game = getGameById(id);
         if (game.gameContainsPlayer(user))
             return true;
-        else return game.getNumberOfPlayers() <= 2;
+        else return game.getNumberOfPlayers() >= 2;
     }
 
     User getUserFromDataBase(String name) {
