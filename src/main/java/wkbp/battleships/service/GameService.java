@@ -58,6 +58,9 @@ public class GameService {
     public List<Field> randomShips(Long id, String username) throws CantPlaceShipsException {
         User owner = userRepository.findByUsername(username).get();
         Game game = games.get(id);
+        GameEntity gameEntity = gameRepository.getOne(id);
+        UserInGameEntity userInGameEntity = new UserInGameEntity(owner, gameEntity);
+        userInGameRepository.save(userInGameEntity);
         Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
                 new Ship(4),
                 new Ship(3), new Ship(3),
@@ -103,11 +106,17 @@ public class GameService {
         return games;
     }
 
-    public long checkIfUserCanJoinGame(long id) {
-        Game game = games.get(id);
-        if(game.getNumberOfPlayers() >=2){
+    public String joinGame(long id, String username) throws GameIsFullException {
+        if(!checkIfUserCanJoinTheGame(id, username))
             throw new GameIsFullException("You cannot join. Game is full!");
-        }
-        return id;
+        return "User has joined the game.";
+    }
+
+    private boolean checkIfUserCanJoinTheGame(long id, String username) {
+        User user = userRepository.findByUsername(username).get();
+        Game game = games.get(id);
+        if(game.gameContainsPlayer(user))
+            return true;
+        else return game.getNumberOfPlayers() < 2;
     }
 }

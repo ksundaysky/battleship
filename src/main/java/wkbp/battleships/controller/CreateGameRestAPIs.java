@@ -6,24 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import wkbp.battleships.businesslogic.ShipsRandomiser;
 import wkbp.battleships.dto.ConfigDTO;
 import wkbp.battleships.exception.CantPlaceShipsException;
-import wkbp.battleships.model.Board;
+import wkbp.battleships.exception.GameIsFullException;
 import wkbp.battleships.model.Field;
-import wkbp.battleships.model.Fleet;
-import wkbp.battleships.model.Ship;
 import wkbp.battleships.service.GameService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -53,9 +47,14 @@ public class CreateGameRestAPIs {
 
     @GetMapping("get/ships_placement/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> shipsPlacement(@PathVariable("id") long id) {
-        long gameId = gameService.checkIfUserCanJoinGame(id);
-        return new ResponseEntity<>(String.valueOf(gameId), HttpStatus.OK);
+    public ResponseEntity<?> shipsPlacement(Authentication authentication, @PathVariable("id") long id) {
+        String message;
+        try {
+            message = gameService.joinGame(id, authentication.getName());
+        } catch (GameIsFullException e) {
+            message = e.getMessage();
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @GetMapping("get/ship_randomize/{id}")

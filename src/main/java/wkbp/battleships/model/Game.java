@@ -52,4 +52,8 @@ public class Game {
     public int getNumberOfPlayers(){
         return currentPlayers.size();
     }
+
+    public boolean gameContainsPlayer(User user){
+        return currentPlayers.containsKey(user);
+    }
 }
