@@ -78,14 +78,15 @@ public class Game {
     }
 
     public ShotOutcome moveHasBeenMade(Move move) {
-        ShotOutcome outcome = gameplay.update(move);
+        ShotOutcome outcome;
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
+                outcome = gameplay.update(move, entry.getValue());
                 if (outcome.playerTurn) {
                     setCurrentPlayer(entry.getKey());
                 }
             }
         }
-        return outcome;
+        return null; //todo nigdy się nie wykona
     }
 }

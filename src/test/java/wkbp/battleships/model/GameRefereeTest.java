@@ -42,15 +42,13 @@ public class GameRefereeTest {
     }
 
     public int getFirstShipId(Board board){
-        for (Field f :
-                board.getFieldList()) {
+        for (Field f : board.getFieldList()) {
             if (f.getStateOfField().equals(StateOfField.OCCUPIED)){
                 return f.getId();
             }
         }
         return 1;
     }
-
 
     @Test
     public void test_shouldReturnFalse_NotAllFieldsAreHit() {

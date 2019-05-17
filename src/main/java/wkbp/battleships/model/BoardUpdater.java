@@ -10,18 +10,19 @@ public class BoardUpdater {
     private Move lastMove;
     private Board currentBoard;
     private GameReferee gameReferee;
+    private Board refereeBoard;
 
     BoardUpdater(Board currentBoard) {
         this.currentBoard = currentBoard;
         this.gameReferee = new GameReferee(currentBoard);
     }
 
-    ShotOutcome updateBoard(Move move) {
+    ShotOutcome updateBoard(Move move, Board board) {
         this.lastMove = move;
         int fieldToShootId = move.getFieldToShoot().getId();
-        Field fieldToShoot = currentBoard.getFieldList().get(fieldToShootId);
+        Field fieldToShoot = board.getFieldList().get(fieldToShootId);
         Field updatedField = changeStateOfField(fieldToShoot);
-        currentBoard.getFieldList().set(fieldToShootId, updatedField);
+        board.getFieldList().set(fieldToShootId, updatedField);
         notifyReferee(move);
         return new ShotOutcome(gameReferee.checkIfHitTheShip(), updatedField, gameReferee.checkIfWon());
     }
@@ -37,5 +38,9 @@ public class BoardUpdater {
             field.getStateOfField().setHit(true);
             return field;
         }
+    }
+
+    public void setRefereeBoard(Board board) {
+        gameReferee.setBoard(board);
     }
 }

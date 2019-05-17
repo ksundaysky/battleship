@@ -31,7 +31,6 @@ public class GameReferee {
                 .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
                 .filter(field -> !field.getStateOfField().isHit)
                 .collect(Collectors.toList());
-        System.out.println(!hitFields.isEmpty());
         return hitFields.isEmpty();
     }
 
@@ -46,5 +45,9 @@ public class GameReferee {
 
     public void setLastMove(Move lastMove) {
         this.lastMove = lastMove;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 }

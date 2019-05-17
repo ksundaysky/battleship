@@ -73,9 +73,7 @@ public class ActiveGamesService {
     boolean checkIfUserCanJoinTheGame(long gameId, String username) {
         User player = getUserFromDataBase(username);
         Game game = getGameById(gameId);
-        if (game.containsPlayer(player))
-            return true;
-        else return game.getNumberOfPlayers() < 2;
+        return game.containsPlayer(player) || game.getNumberOfPlayers() < 2;
     }
 
     User getUserFromDataBase(String name) {
@@ -97,7 +95,6 @@ public class ActiveGamesService {
         } else if (!game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 1) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
             System.out.println("ELSE USTYWAIELEM GRACZA STARTUJACEGO NA " + game.getCurrentPlayer());
-
         }
     }
 

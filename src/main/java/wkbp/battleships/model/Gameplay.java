@@ -1,7 +1,5 @@
 package wkbp.battleships.model;
 
-import org.springframework.ui.Model;
-
 import java.util.List;
 import java.util.Map;
 
@@ -41,9 +39,11 @@ public class Gameplay {
         return playersInGame;
     }
 
-    public ShotOutcome update(Move move) {
+    public ShotOutcome update(Move move, Board board) {
+        this.board = board;
+        boardUpdater.setRefereeBoard(board);
         addMove(move);
-        return boardUpdater.updateBoard(move);
+        return boardUpdater.updateBoard(move, board);
     }
 
     private void addMove (Move move){
