@@ -36,6 +36,7 @@ public class GameReferee {
 
     public boolean checkIfHitTheShip() {
         StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
+        System.out.println("STAN SPRAWDZANEGO POLA PRZEZ SEDZIEGO: " + stateOfField);
         return stateOfField.equals(StateOfField.OCCUPIED); //&& !stateOfField.isHit; - przez to zawsze zwraca false, bo sprawdzamy to juz na zakutalizowanej tablicy ?
     }
 
@@ -44,6 +45,7 @@ public class GameReferee {
     }
 
     public void setLastMove(Move lastMove) {
+        System.out.println("PRZEKAZANY RUCH DO SEDZIEGO " + lastMove.toString()) ;
         this.lastMove = lastMove;
     }
 

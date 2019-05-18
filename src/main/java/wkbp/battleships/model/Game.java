@@ -81,8 +81,11 @@ public class Game {
         ShotOutcome outcome;
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
+                System.out.println("PRZEKAZUJE BOARD GRACZA:" + entry.getKey());
                 outcome = gameplay.update(move, entry.getValue());
+                System.out.println("JAKI JEST TEN OUTCOME : " + outcome.toString());
                 if (!outcome.playerTurn) {
+                    System.out.println("NIE TRAFIL WIEC USTAWIAM GRACZA NA " + entry.getKey());
                     setCurrentPlayer(entry.getKey());
                 }
             }
