@@ -11,7 +11,7 @@ public class Auditor {
     private boolean hitTheShip;
     private boolean wonTheGame;
 
-    public Auditor() {
+    Auditor() {
         this.wonTheGame = false;
         this.hitTheShip = false;
     }
@@ -34,7 +34,7 @@ public class Auditor {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append(move.getPlayer().getName()).append("shot on a field ").append(move.getFieldToShoot().getId());
             if (hitTheShip) {
-                stringBuilder.append(" Ship has been shot!");
+                stringBuilder.append("Ship has been shot!");
             } else stringBuilder.append("Missed!");
             if (wonTheGame) {
                 stringBuilder.append(move.getPlayer().getName()).append(" won the game!");

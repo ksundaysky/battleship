@@ -31,22 +31,14 @@ import javax.validation.Valid;
 @RequestMapping("/api/wkbp/auth")
 class AuthenticationRestAPIs {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtProvider jwtProvider;
+
     @Autowired
     private AuthenticationService authenticationService;
 
     @PostMapping("/sign_in")
     ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtProvider.generateJwtToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+        JwtResponse jwtResponse = authenticationService.login(loginRequest);
+        return ResponseEntity.ok(jwtResponse);
     }
 
     @PostMapping("/sign_up")

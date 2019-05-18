@@ -21,30 +21,9 @@ public class GameEntity {
         this.gameState = gameState;
     }
 
-//    public GameEntity(User owner, GameState gameState) {
-//        this.owner = owner;
-//        this.gameState = gameState;
-//    }
-//
-//    public GameEntity(User owner, User opponent, GameState gameState) {
-//        this.owner = owner;
-//        this.opponent = opponent;
-//        this.gameState = gameState;
-//    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//
-//    @Column(name = "OWNER")
-//    @OneToOne
-//    @MapsId
-//    private User owner;
-//
-//    @Column(name = "OPPONENT")
-//    @OneToOne
-//    @MapsId
-//    private User opponent;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gameEntity")
     private Set<UserInGameEntity> userInGameEntities = new HashSet<>();
@@ -56,14 +35,6 @@ public class GameEntity {
     public Long getId() {
         return id;
     }
-
-//    public User getOwner() {
-//        return owner;
-//    }
-//
-//    public User getOpponent() {
-//        return opponent;
-//    }
 
     public GameState getGameState() {
         return gameState;

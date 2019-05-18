@@ -5,7 +5,7 @@ package wkbp.battleships.model;
  *
  * @author Wiktor Rup
  */
-public class BoardUpdater {
+class BoardUpdater {
 
     private Move lastMove;
     private Board currentBoard;
@@ -40,7 +40,7 @@ public class BoardUpdater {
         }
     }
 
-    public void setRefereeBoard(Board board) {
+    void setRefereeBoard(Board board) {
         gameReferee.setBoard(board);
     }
 }

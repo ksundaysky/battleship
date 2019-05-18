@@ -48,26 +48,4 @@ public class GameService {
         }
         return "Success";
     }
-
-    // TODO: 17.05.19 do innej klasy?
-    public List<Field> randomiseShips(Long gameId, String playersName) throws CantPlaceShipsException {
-        Game game = activeGamesService.getGameById(gameId);
-
-        // TODO: 17.05.19 zamiana na FleetFactory
-        Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
-                new Ship(4),
-                new Ship(3), new Ship(3),
-                new Ship(2), new Ship(2), new Ship(2),
-                new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
-
-        Board board = new BoardFactory(game.getConfig()).createBoard();
-        ShipRandomiser shipRandomiser = new ShipRandomiser(board, fleet);
-        List<Field> ships = shipRandomiser.randomizeShips();
-        for (Field field : ships) {
-            board.getFieldList().get(field.getId()).setStateOfField(StateOfField.OCCUPIED);
-        }
-        game.addUserAndHisBoard(activeGamesService.getUserFromDataBase(playersName), board);
-
-        return ships;
-    }
 }

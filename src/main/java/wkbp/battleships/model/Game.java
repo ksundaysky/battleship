@@ -69,7 +69,6 @@ public class Game {
     }
 
     public User getCurrentPlayer() {
-        System.out.println("OBECNY GRACZ TO " + currentPlayer);
         return currentPlayer;
     }
 
@@ -77,19 +76,22 @@ public class Game {
         this.gameplay = gameplay;
     }
 
+    /**
+     * This method is responsible for marking changes on opponent's components basing on Move parameter.
+     * Negations inside conditional sentences are used for extracting proper Player from the Game.
+     * @param move - {@link Move}
+     * @return outcome - {@link ShotOutcome}
+     */
     public ShotOutcome moveHasBeenMade(Move move) {
-        ShotOutcome outcome;
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
-                System.out.println("PRZEKAZUJE BOARD GRACZA:" + entry.getKey());
-                outcome = gameplay.update(move, entry.getValue());
-                System.out.println("JAKI JEST TEN OUTCOME : " + outcome.toString());
+                ShotOutcome outcome = gameplay.update(move, entry.getValue());
                 if (!outcome.playerTurn) {
-                    System.out.println("NIE TRAFIL WIEC USTAWIAM GRACZA NA " + entry.getKey());
                     setCurrentPlayer(entry.getKey());
                 }
+                return outcome;
             }
         }
-        return null; //todo nigdy się nie wykona
+        return null; // TODO: 2019-05-18 - ta linijka nigdy nie zostanie wykonana
     }
 }

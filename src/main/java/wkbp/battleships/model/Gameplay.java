@@ -43,7 +43,7 @@ public class Gameplay {
         return playersInGame;
     }
 
-    public ShotOutcome update(Move move, Board board) {
+    ShotOutcome update(Move move, Board board) {
         this.lastMove = move;
         this.board = board;
         boardUpdater.setRefereeBoard(board);

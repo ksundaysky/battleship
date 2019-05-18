@@ -33,5 +33,4 @@ public class LoginForm {
     public String getPassword() {
         return password;
     }
-    // usunięte settery jakby co nie hulało to wygenerować znowu
 }

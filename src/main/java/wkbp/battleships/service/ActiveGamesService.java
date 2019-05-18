@@ -91,10 +91,8 @@ public class ActiveGamesService {
     void setStartingPlayer(Game game, String playersName) {
         if (game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 0) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
-            System.out.println("USTYWAIELEM GRACZA STARTUJACEGO NA " + game.getCurrentPlayer());
         } else if (!game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 1) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
-            System.out.println("ELSE USTYWAIELEM GRACZA STARTUJACEGO NA " + game.getCurrentPlayer());
         }
     }
 
