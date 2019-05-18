@@ -19,11 +19,10 @@ public class BoardFactory {
     private GameConfig gameConfig;
 
     public Board createBoard() {
-        List<Field> boardFileds = new ArrayList<>();
+        List<Field> boardFields = new ArrayList<>();
         for (int i = 0; i < Math.pow(gameConfig.getDimension(), 2); i++)
-            boardFileds.add(new Field(i));
+            boardFields.add(new Field(i));
 
-
-        return new Board(boardFileds);
+        return new Board(boardFields);
     }
 }

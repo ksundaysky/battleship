@@ -14,8 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "USER_IN_GAME")
-public
-class UserInGameEntity {
+public class UserInGameEntity {
 
     public UserInGameEntity(User user, GameEntity gameEntity) {
         this.gameEntity = gameEntity;

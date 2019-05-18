@@ -24,7 +24,6 @@ public class GameService {
     @Autowired
     private ActiveGamesService activeGamesService;
 
-
     public long createGame(ConfigDTO configDTO) {
         Game game = new Game(configDTO.assembly());
         GameEntity gameEntity = new GameEntity(game.getGameState());

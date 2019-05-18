@@ -13,7 +13,7 @@ class BoardUpdater {
     private Move lastMove;
     private Board currentBoard;
     private GameReferee gameReferee;
-    private Board refereeBoard;
+    private Board refereeBoard; //todo czemu to jest nieużywane?
 
     BoardUpdater(Board currentBoard) {
         this.currentBoard = currentBoard;
