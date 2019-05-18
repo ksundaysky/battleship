@@ -12,6 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Class responsible for random ship placement on board.
+ *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski

@@ -21,14 +21,13 @@ import wkbp.battleships.security.services.UserDetailsServiceImpl;
 /**
  * Configuration class responsible for user authentication and authorization.
  *
- * @see wkbp.battleships.model.User
- * @see wkbp.battleships.security.jwt.JwtAuthTokenFilter
- * @see wkbp.battleships.security.jwt.JwtAuthEntryPoint
- *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
+ * @see wkbp.battleships.model.User
+ * @see wkbp.battleships.security.jwt.JwtAuthTokenFilter
+ * @see wkbp.battleships.security.jwt.JwtAuthEntryPoint
  */
 @Configuration
 @EnableWebSecurity
