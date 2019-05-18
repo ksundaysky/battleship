@@ -1,8 +1,6 @@
 package wkbp.battleships.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import wkbp.battleships.model.GameConfig;
 import wkbp.battleships.model.GameMode;
 
@@ -12,6 +10,8 @@ import wkbp.battleships.model.GameMode;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class ConfigDTO {
 
     private String gameName;
