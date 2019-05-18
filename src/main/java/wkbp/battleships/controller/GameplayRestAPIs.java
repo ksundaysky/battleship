@@ -17,8 +17,10 @@ import java.util.List;
 /**
  * Contains endpoints used during actual game play between two players
  *
+ * @author Wiktor Rup
  * @author Patryk Kucharski
- * @author Wiktor Wrup
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

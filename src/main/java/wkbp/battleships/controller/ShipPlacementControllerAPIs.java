@@ -17,7 +17,10 @@ import java.util.List;
 /**
  * Controller responsible for requests from ship placement view on client side
  *
+ * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

@@ -10,6 +10,9 @@ import java.util.List;
  * Consists of List of fields with given state
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Getter
 public class Ship {

@@ -9,6 +9,9 @@ import java.util.Map;
 
 /**
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Getter
 public class Gameplay {

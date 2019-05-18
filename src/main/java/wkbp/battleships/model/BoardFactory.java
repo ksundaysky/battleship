@@ -9,6 +9,9 @@ import java.util.List;
  * Class which creates Boards {@link Board}
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @AllArgsConstructor
 public class BoardFactory {

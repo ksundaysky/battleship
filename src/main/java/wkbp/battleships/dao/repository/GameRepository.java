@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 
 /**
- * @author krzysztof.niedzielski
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Repository
 public interface GameRepository extends JpaRepository<GameEntity, Long> {

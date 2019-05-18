@@ -16,6 +16,8 @@ import wkbp.battleships.service.ActiveGamesService;
  *
  * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 
 @RestController

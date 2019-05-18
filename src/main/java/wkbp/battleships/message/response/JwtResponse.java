@@ -10,8 +10,10 @@ import java.util.Collection;
 /**
  * Content of server response for logging request
  *
- * @author Wiktor Wrup
+ * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Setter
 @Getter

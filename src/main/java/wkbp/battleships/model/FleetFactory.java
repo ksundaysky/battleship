@@ -8,6 +8,9 @@ import java.util.Map;
  * Class which creates Boards {@link Fleet}
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 public class FleetFactory {
 

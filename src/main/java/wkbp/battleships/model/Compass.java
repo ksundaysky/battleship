@@ -5,8 +5,12 @@ import wkbp.battleships.businesslogic.ShipRandomiser;
 /**
  * Represents direction, used for random ship placement
  *
- * @author Wiktor Rup
  * @see ShipRandomiser
+ *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 public enum Compass {
 

@@ -19,6 +19,8 @@ import javax.validation.Valid;
  *
  * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

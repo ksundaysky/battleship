@@ -9,6 +9,8 @@ import java.util.List;
  *
  * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Data
 public class Board {

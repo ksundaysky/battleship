@@ -9,7 +9,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author krzysztof.niedzielski
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 
 @NoArgsConstructor

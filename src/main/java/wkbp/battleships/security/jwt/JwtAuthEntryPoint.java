@@ -14,8 +14,12 @@ import java.io.IOException;
 /**
  * Class which is responsible for handling unauthorized requests.
  *
- * @author Wiktor Rup
  * @see org.springframework.security.web.AuthenticationEntryPoint
+ *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {

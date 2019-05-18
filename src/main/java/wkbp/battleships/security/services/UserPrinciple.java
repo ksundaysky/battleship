@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
  * UserPrinciple is returned after successful authentication in {@link UserDetailsServiceImpl}.
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Getter
 @AllArgsConstructor

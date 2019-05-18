@@ -11,8 +11,10 @@ import java.util.Set;
 /**
  * Represents register form on the client side
  *
+ * @author Wiktor Rup
  * @author Patryk Kucharski
- * @author Wiktor Wrup
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Getter
 @NoArgsConstructor

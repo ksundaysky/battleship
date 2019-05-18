@@ -9,8 +9,10 @@ import lombok.Setter;
  * Docker for a messages which are to
  * be sent between server and client
  *
- * @author Wiktor Wrup
+ * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Getter
 @Setter

@@ -6,6 +6,9 @@ import wkbp.battleships.dao.repository.entity.UserInGameEntity;
 
 /**
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Repository
 public interface UserInGameRepository extends JpaRepository<UserInGameEntity, Long> {

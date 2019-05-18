@@ -17,8 +17,10 @@ import java.util.Set;
 /**
  * User entity that represents user table in database
  *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
- * @author Bartek Kupajski
+ * @author Bartosz Kupajski
  */
 
 @Entity

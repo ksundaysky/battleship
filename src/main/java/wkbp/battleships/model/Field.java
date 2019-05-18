@@ -9,8 +9,10 @@ import lombok.Data;
  * as board object {@link Board} has a List of fields, each field has it's own unique id
  * also field has a state {@link StateOfField}
  *
- * @author Krzysztof Niedzielski
+ * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Data
 @AllArgsConstructor

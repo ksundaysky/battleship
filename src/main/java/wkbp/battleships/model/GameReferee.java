@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
  * or if shot hit its target and whose turn comes next.
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Component
 @Setter

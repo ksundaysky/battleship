@@ -10,8 +10,10 @@ import java.util.Optional;
 /**
  * Repository responsible for retrieving role
  *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
- * @author Bartek Kupajski
+ * @author Bartosz Kupajski
  */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {

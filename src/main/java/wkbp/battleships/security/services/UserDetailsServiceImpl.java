@@ -16,6 +16,9 @@ import wkbp.battleships.model.User;
  * for true identity.
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

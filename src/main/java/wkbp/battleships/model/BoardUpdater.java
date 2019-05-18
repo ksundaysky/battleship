@@ -4,6 +4,9 @@ package wkbp.battleships.model;
  * Updates board based on given lastMove {@link Move}.
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 class BoardUpdater {
 

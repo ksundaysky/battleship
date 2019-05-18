@@ -4,6 +4,9 @@ package wkbp.battleships.model;
  * Responsible for transcripting flow of the game.
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 public class Auditor {
 

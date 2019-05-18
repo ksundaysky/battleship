@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Contains basic server endpoints for user board depending on role
  *
+ * @author Wiktor Rup
  * @author Patryk Kucharski
- * @author Wiktor Wrup
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

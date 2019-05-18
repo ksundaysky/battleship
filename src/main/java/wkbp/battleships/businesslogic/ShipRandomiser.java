@@ -11,10 +11,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * Class responsible for random ship placement on board.
  * @author Wiktor Rup
  * @author Patryk Kucharski
- * <p>
- * Class responsible for random ship placement on board,
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 
 public class ShipRandomiser {

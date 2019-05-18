@@ -6,6 +6,9 @@ import lombok.Getter;
  * Contains all necessary informations to initialize game {@link Game}
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Getter
 public class GameConfig {

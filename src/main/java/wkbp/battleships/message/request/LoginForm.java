@@ -9,8 +9,10 @@ import javax.validation.constraints.Size;
 /**
  * Represents login form on the client side
  *
- * @author Patryk Kucharski
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @NoArgsConstructor
 @Getter

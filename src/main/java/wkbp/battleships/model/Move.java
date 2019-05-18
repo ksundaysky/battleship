@@ -5,6 +5,9 @@ import lombok.Getter;
 
 /**
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Getter
 @AllArgsConstructor

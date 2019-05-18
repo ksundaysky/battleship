@@ -17,7 +17,10 @@ import java.util.Objects;
 import static org.testng.Assert.assertEquals;
 
 /**
- * @author krzysztof.niedzielski
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 public class CreateGameRestAPIsTest {
 }

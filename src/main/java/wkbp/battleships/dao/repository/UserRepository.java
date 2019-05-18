@@ -10,8 +10,10 @@ import java.util.Optional;
  * Repository responsible for retrieving user from database and
  * checking if given user exists while registering a new account
  *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
- * @author Bartek Kupajski
+ * @author Bartosz Kupajski
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

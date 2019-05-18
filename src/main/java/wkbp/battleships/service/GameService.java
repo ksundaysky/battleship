@@ -11,7 +11,10 @@ import wkbp.battleships.model.Game;
 /**
  * Responsible for creation of the game and setting it up
  *
- * @author krzysztof.niedzielski
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Service
 public class GameService {

@@ -11,8 +11,10 @@ import javax.persistence.*;
  * Represents role of users which determines permissions and
  * authorization for given actions on the client and server side
  *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
- * @author Bartek Kupajski
+ * @author Bartosz Kupajski
  */
 @Data
 @NoArgsConstructor

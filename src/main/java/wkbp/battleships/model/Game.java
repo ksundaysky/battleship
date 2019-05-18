@@ -11,6 +11,9 @@ import java.util.Map;
  * and creating necessary components
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Getter
 @Setter

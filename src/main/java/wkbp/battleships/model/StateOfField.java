@@ -10,6 +10,9 @@ import wkbp.battleships.businesslogic.ShipRandomiser;
  * {@link ShipRandomiser}
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 public enum StateOfField {
 

@@ -15,6 +15,8 @@ import java.util.Date;
  * It generates and provides JWT (JSON Web Tokens).
  * Please check {@link JwtAuthTokenFilter} to see its usage cases.
  *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */

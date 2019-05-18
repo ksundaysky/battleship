@@ -24,7 +24,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Service
 public class AuthenticationService {

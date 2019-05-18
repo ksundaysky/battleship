@@ -16,7 +16,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @Service
 public class ActiveGamesService {

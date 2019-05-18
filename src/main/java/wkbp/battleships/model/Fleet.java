@@ -10,6 +10,9 @@ import java.util.List;
  * Consists of List of ships {@link Ship}
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 @AllArgsConstructor
 @Getter

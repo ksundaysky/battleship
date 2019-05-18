@@ -21,9 +21,13 @@ import java.io.IOException;
  * Class which guarantees that user will be
  * authenticated only once per request.
  *
- * @author Wiktor Rup
  * @see JwtProvider
  * @see org.springframework.web.filter.OncePerRequestFilter
+ *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
