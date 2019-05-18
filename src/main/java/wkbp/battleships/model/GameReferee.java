@@ -36,7 +36,7 @@ public class GameReferee {
 
     public boolean checkIfHitTheShip() {
         StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
-        return stateOfField.equals(StateOfField.OCCUPIED) && !stateOfField.isHit;
+        return stateOfField.equals(StateOfField.OCCUPIED); //&& !stateOfField.isHit; - przez to zawsze zwraca false, bo sprawdzamy to juz na zakutalizowanej tablicy ?
     }
 
     public void notifyAuditor() {

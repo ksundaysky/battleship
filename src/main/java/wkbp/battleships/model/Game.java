@@ -82,7 +82,7 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 outcome = gameplay.update(move, entry.getValue());
-                if (outcome.playerTurn) {
+                if (!outcome.playerTurn) {
                     setCurrentPlayer(entry.getKey());
                 }
             }

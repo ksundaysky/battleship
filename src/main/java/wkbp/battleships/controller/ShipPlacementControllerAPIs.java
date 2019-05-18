@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.service.GameService;
-import wkbp.battleships.businesslogic.ShipRandomiser;
 import wkbp.battleships.service.ShipsRandomiseService;
 
 import java.util.List;
