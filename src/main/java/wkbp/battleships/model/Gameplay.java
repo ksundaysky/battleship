@@ -1,5 +1,7 @@
 package wkbp.battleships.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,8 @@ public class Gameplay {
     public Gameplay(Board board) {
         this.board = board;
         this.boardUpdater = new BoardUpdater(board);
+        this.moves = new ArrayList<>();
+        this.playersInGame = new HashMap<>();
     }
 
     public Board getBoard() {
@@ -40,6 +44,7 @@ public class Gameplay {
     }
 
     public ShotOutcome update(Move move, Board board) {
+        this.lastMove = move;
         this.board = board;
         boardUpdater.setRefereeBoard(board);
         addMove(move);
