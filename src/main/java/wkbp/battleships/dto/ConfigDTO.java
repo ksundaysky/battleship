@@ -19,16 +19,6 @@ public class ConfigDTO {
     private boolean ownerStarts;
     private GameMode gameMode;
 
-    @Override
-    public String toString() {
-        return "ConfigDTO{" +
-                "gameName='" + gameName + '\'' +
-                ", dimension=" + dimension +
-                ", ownerStarts=" + ownerStarts +
-                ", gameMode=" + gameMode +
-                '}';
-    }
-
     public GameConfig assembly() {
         return new GameConfig(gameName, dimension, gameMode, ownerStarts);
     }

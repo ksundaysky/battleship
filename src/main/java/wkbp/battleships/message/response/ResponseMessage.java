@@ -1,6 +1,9 @@
 package wkbp.battleships.message.response;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Docker for a messages which are to
@@ -9,7 +12,10 @@ import lombok.Data;
  * @author Wiktor Wrup
  * @author Patryk Kucharski
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResponseMessage {
 
     private String message;

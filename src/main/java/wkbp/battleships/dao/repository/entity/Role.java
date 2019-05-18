@@ -1,7 +1,7 @@
 package wkbp.battleships.dao.repository.entity;
 
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 import wkbp.battleships.model.RoleName;
 
@@ -15,6 +15,7 @@ import javax.persistence.*;
  * @author Bartek Kupajski
  */
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class Role {

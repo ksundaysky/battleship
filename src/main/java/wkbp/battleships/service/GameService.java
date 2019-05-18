@@ -2,17 +2,11 @@ package wkbp.battleships.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wkbp.battleships.businesslogic.ShipRandomiser;
+import wkbp.battleships.controller.GameIsFullException;
 import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dto.ConfigDTO;
-import wkbp.battleships.controller.CantPlaceShipsException;
-import wkbp.battleships.controller.GameIsFullException;
-import wkbp.battleships.model.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import wkbp.battleships.model.Game;
 
 /**
  * Responsible for creation of the game and setting it up
@@ -40,8 +34,7 @@ public class GameService {
     public String tryToJoinTheGame(long gameId, String playersName) throws GameIsFullException {
         if (!activeGamesService.checkIfUserCanJoinTheGame(gameId, playersName)) {
             throw new GameIsFullException("You cannot join. Game is full!");
-        }
-        else {
+        } else {
             Game game = activeGamesService.getGameById(gameId);
             activeGamesService.setStartingPlayer(game, playersName);
             activeGamesService.addPlayerToTheGame(gameId, playersName, game);

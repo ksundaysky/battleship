@@ -1,6 +1,7 @@
 package wkbp.battleships.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 import wkbp.battleships.dao.repository.entity.Role;
 import wkbp.battleships.dao.repository.entity.UserInGameEntity;
@@ -19,7 +20,7 @@ import java.util.Set;
  * @author Krzysztof Niedzielski
  * @author Bartek Kupajski
  */
-@Data
+
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
@@ -29,6 +30,8 @@ import java.util.Set;
                 "email"
         })
 })
+@Data
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +63,13 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<UserInGameEntity> userInGameEntities = new HashSet<>();
+
+    public User(String name, String username, String email, String password) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public boolean equals(Object o) {

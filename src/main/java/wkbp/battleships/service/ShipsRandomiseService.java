@@ -29,7 +29,7 @@ public class ShipsRandomiseService {
                 new Ship(2), new Ship(2), new Ship(2),
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
 
-        Board board = new BoardFactory(game.getConfig()).createBoard();
+        Board board = new BoardFactory(game.getGameConfig()).createBoard();
         ShipRandomiser shipRandomiser = new ShipRandomiser(board, fleet);
         List<Field> ships = shipRandomiser.randomizeShips();
         for (Field field : ships) {

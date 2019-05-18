@@ -1,6 +1,5 @@
 package wkbp.battleships.service;
 
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wkbp.battleships.controller.NoAvailableGamesException;
@@ -90,9 +89,9 @@ public class ActiveGamesService {
     }
 
     void setStartingPlayer(Game game, String playersName) {
-        if (game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 0) {
+        if (game.getGameConfig().isOwnerStarts() && game.getNumberOfPlayers() == 0) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
-        } else if (!game.getConfig().doesOwnerStart() && game.getNumberOfPlayers() == 1) {
+        } else if (!game.getGameConfig().isOwnerStarts() && game.getNumberOfPlayers() == 1) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
         }
     }

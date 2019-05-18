@@ -1,6 +1,6 @@
 package wkbp.battleships.model;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * @author Wiktor Rup
  * @author Patryk Kucharski
  */
-@Getter
+@Data
 public class Board {
 
     private List<Field> fieldList;
@@ -29,7 +29,15 @@ public class Board {
         dimension = (int) Math.sqrt(fieldList.size());
     }
 
+    public Field getField(int fieldId) {
+        return fieldList.get(fieldId);
+    }
+
     public boolean indexExists(final int index) {
         return index >= 0 && index < fieldList.size();
+    }
+
+    public int getSize() {
+        return fieldList.size();
     }
 }

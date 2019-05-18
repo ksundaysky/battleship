@@ -28,6 +28,7 @@ public class Game {
         this.gameConfig = gameConfig;
         this.gameState = GameState.IN_PREPARATION;
     }
+
     public void addPlayerToTheGame(User user) {
         playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
     }
@@ -51,6 +52,7 @@ public class Game {
     /**
      * This method is responsible for marking changes on opponent's components basing on Move parameter.
      * Negations inside conditional sentences are used for extracting proper Player from the Game.
+     *
      * @param move - {@link Move}
      * @return outcome - {@link ShotOutcome}
      */

@@ -1,9 +1,7 @@
 package wkbp.battleships.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * Represents single cell of the board which can be shot at
@@ -14,8 +12,7 @@ import lombok.Setter;
  * @author Krzysztof Niedzielski
  * @author Patryk Kucharski
  */
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class Field {
 

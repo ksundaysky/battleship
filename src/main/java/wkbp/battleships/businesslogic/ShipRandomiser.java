@@ -74,7 +74,6 @@ public class ShipRandomiser {
             randomizedShips.add(currentField);
             setNeighbourFieldsOfShipAsIllegal(startingPosition, ship);
         }
-
     }
 
     /**

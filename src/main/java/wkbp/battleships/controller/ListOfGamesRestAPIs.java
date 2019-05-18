@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wkbp.battleships.service.ActiveGamesService;
 
-/**Controller responsible for getting list of all active games
+/**
+ * Controller responsible for getting list of all active games
  *
  * @author Wiktor Rup
  * @author Patryk Kucharski

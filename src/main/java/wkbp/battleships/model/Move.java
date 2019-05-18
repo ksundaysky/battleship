@@ -11,6 +11,6 @@ import lombok.Getter;
 public class Move {
 
     private long gameId;
-    private User user;
+    private User player;
     private Field fieldToShoot;
 }

@@ -47,20 +47,6 @@ public class UserPrinciple implements UserDetails {
                 authorities
         );
     }
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -90,4 +76,6 @@ public class UserPrinciple implements UserDetails {
         UserPrinciple user = (UserPrinciple) o;
         return Objects.equals(id, user.id);
     }
+
+
 }

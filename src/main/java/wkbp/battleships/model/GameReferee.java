@@ -22,7 +22,7 @@ public class GameReferee {
     private Move lastMove;
     private Auditor auditor;
 
-    public GameReferee(Board board){
+    public GameReferee(Board board) {
         this.board = board;
         auditor = new Auditor();
     }
@@ -37,7 +37,6 @@ public class GameReferee {
 
     public boolean checkIfHitTheShip() {
         StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
-        System.out.println("STAN SPRAWDZANEGO POLA PRZEZ SEDZIEGO: " + stateOfField);
         return stateOfField.equals(StateOfField.OCCUPIED);
     }
 

@@ -3,17 +3,11 @@ package wkbp.battleships.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.message.request.LoginForm;
 import wkbp.battleships.message.request.SignUpForm;
 import wkbp.battleships.message.response.JwtResponse;
 import wkbp.battleships.message.response.ResponseMessage;
-import wkbp.battleships.security.jwt.JwtProvider;
 import wkbp.battleships.service.AuthenticationService;
 
 import javax.validation.Valid;

@@ -34,7 +34,7 @@ public class Gameplay {
         return boardUpdater.updateBoard(move, board);
     }
 
-    private void addMove (Move move){
+    private void addMove(Move move) {
         moves.add(move);
     }
 }

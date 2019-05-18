@@ -1,6 +1,5 @@
 package wkbp.battleships.dao.repository.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import wkbp.battleships.model.User;
 
