@@ -1,19 +1,16 @@
 package wkbp.battleships.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Map;
 
 /**
  * @author Wiktor Rup
  */
+@AllArgsConstructor
+@Getter
 public class FleetConfig {
 
     private Map<Integer, Integer> fleetConfig;
-
-    public FleetConfig(Map<Integer, Integer> fleetConfig) {
-        this.fleetConfig = fleetConfig;
-    }
-
-    public Map<Integer, Integer> getFleetConfig() {
-        return fleetConfig;
-    }
 }

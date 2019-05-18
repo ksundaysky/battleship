@@ -1,10 +1,13 @@
 package wkbp.battleships.model;
 
+import lombok.Getter;
+
 /**
  * Contains all necessary informations to initialize game {@link Game}
  *
  * @author Wiktor Rup
  */
+@Getter
 public class GameConfig {
 
     private String gameName;
@@ -14,26 +17,10 @@ public class GameConfig {
     private Board board;
     private boolean ownerStarts;
 
-    public int getDimension() {
-        return dimension;
-    }
-
-    public String getGameName() {
-        return gameName;
-    }
-
-    public GameMode getGameMode() {
-        return gameMode;
-    }
-
     public GameConfig(String gameName, int dimension, GameMode gameMode, boolean ownerStarts) {
         this.gameName = gameName;
         this.dimension = dimension;
         this.gameMode = gameMode;
         this.ownerStarts = ownerStarts;
-    }
-
-    public boolean doesOwnerStart() {
-        return ownerStarts;
     }
 }

@@ -1,5 +1,7 @@
 package wkbp.battleships.model;
 
+import lombok.AllArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +10,10 @@ import java.util.List;
  *
  * @author Wiktor Rup
  */
+@AllArgsConstructor
 public class BoardFactory {
 
     private GameConfig gameConfig;
-
-    public BoardFactory(GameConfig gameConfig) {
-        this.gameConfig = gameConfig;
-    }
 
     public Board createBoard() {
         List<Field> boardFileds = new ArrayList<>();

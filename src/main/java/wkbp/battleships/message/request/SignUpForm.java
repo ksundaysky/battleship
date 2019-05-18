@@ -1,5 +1,8 @@
 package wkbp.battleships.message.request;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -11,6 +14,8 @@ import java.util.Set;
  * @author Patryk Kucharski
  * @author Wiktor Wrup
  */
+@Getter
+@NoArgsConstructor
 public class SignUpForm {
     @NotBlank
     @Size(min = 3, max = 50)
@@ -37,28 +42,5 @@ public class SignUpForm {
         this.email = email;
         this.role = role;
         this.password = password;
-    }
-
-    public SignUpForm() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Set<String> getRole() {
-        return this.role;
     }
 }

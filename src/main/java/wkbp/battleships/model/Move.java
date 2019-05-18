@@ -1,29 +1,16 @@
 package wkbp.battleships.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author Wiktor Rup
  */
+@Getter
+@AllArgsConstructor
 public class Move {
 
-    private final long gameId;
-    private final User user;
-    private final Field fieldToShoot;
-
-    public Move(long gameId, User user, Field fieldToShoot) {
-        this.gameId = gameId;
-        this.user = user;
-        this.fieldToShoot = fieldToShoot;
-    }
-
-    public Field getFieldToShoot() {
-        return fieldToShoot;
-    }
-
-    public User getPlayer() {
-        return user;
-    }
-
-    public long getGameId() {
-        return gameId;
-    }
+    private long gameId;
+    private User user;
+    private Field fieldToShoot;
 }

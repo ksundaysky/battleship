@@ -1,5 +1,7 @@
 package wkbp.battleships.model;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
  * @author Wiktor Rup
  */
 @Component
+@Setter
+@NoArgsConstructor
 public class GameReferee {
 
     private Board board;
@@ -21,9 +25,6 @@ public class GameReferee {
     public GameReferee(Board board){
         this.board = board;
         auditor = new Auditor();
-    }
-
-    public GameReferee() {
     }
 
     public boolean checkIfWon() {
@@ -37,19 +38,11 @@ public class GameReferee {
     public boolean checkIfHitTheShip() {
         StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
         System.out.println("STAN SPRAWDZANEGO POLA PRZEZ SEDZIEGO: " + stateOfField);
-        return stateOfField.equals(StateOfField.OCCUPIED); //&& !stateOfField.isHit; - przez to zawsze zwraca false, bo sprawdzamy to juz na zakutalizowanej tablicy ?
+        return stateOfField.equals(StateOfField.OCCUPIED);
     }
 
     public void notifyAuditor() {
         auditor.update(lastMove, checkIfWon(), checkIfHitTheShip());
     }
 
-    public void setLastMove(Move lastMove) {
-        System.out.println("PRZEKAZANY RUCH DO SEDZIEGO " + lastMove.toString()) ;
-        this.lastMove = lastMove;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
 }

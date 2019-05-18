@@ -1,5 +1,10 @@
 package wkbp.battleships.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Represents single cell of the board which can be shot at
  * <p>
@@ -9,15 +14,13 @@ package wkbp.battleships.model;
  * @author Krzysztof Niedzielski
  * @author Patryk Kucharski
  */
+@Getter
+@Setter
+@AllArgsConstructor
 public class Field {
 
     private int id;
     private StateOfField stateOfField;
-
-    public Field(int id, StateOfField stateOfField) {
-        this.id = id;
-        this.stateOfField = stateOfField;
-    }
 
     public Field(int id) {
         this.id = id;
@@ -25,32 +28,7 @@ public class Field {
         stateOfField.isHit = false;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setStateOfField(StateOfField stateOfField) {
-        this.stateOfField = stateOfField;
-    }
-
-    public StateOfField getStateOfField() {
-        return stateOfField;
-    }
-
     void isHit(boolean isHit) {
         stateOfField.setHit(isHit);
-    }
-
-    @Override
-    public String toString() {
-        return "Field{" +
-                "id=" + id +
-                ", stateOfField=" + stateOfField +
-                "is hit=" + stateOfField.isHit +
-                '}';
     }
 }

@@ -1,5 +1,7 @@
 package wkbp.battleships.model;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.Map;
 /**
  * @author Wiktor Rup
  */
+@Getter
 public class Gameplay {
 
     private Board board;
@@ -21,26 +24,6 @@ public class Gameplay {
         this.boardUpdater = new BoardUpdater(board);
         this.moves = new ArrayList<>();
         this.playersInGame = new HashMap<>();
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public BoardUpdater getBoardUpdater() {
-        return boardUpdater;
-    }
-
-    public Move getLastMove() {
-        return lastMove;
-    }
-
-    public List<Move> getMoves() {
-        return moves;
-    }
-
-    public Map<User, Board> getPlayersInGame() {
-        return playersInGame;
     }
 
     ShotOutcome update(Move move, Board board) {

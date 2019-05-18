@@ -1,5 +1,7 @@
 package wkbp.battleships.dao.repository.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import wkbp.battleships.model.GameState;
 
 import javax.persistence.*;
@@ -10,12 +12,11 @@ import java.util.Set;
  * @author krzysztof.niedzielski
  */
 
+@NoArgsConstructor
+@Getter
 @Entity
 @Table(name = "GAME_ENTITY")
 public class GameEntity {
-
-    public GameEntity() {
-    }
 
     public GameEntity(GameState gameState) {
         this.gameState = gameState;
@@ -30,13 +31,4 @@ public class GameEntity {
 
     @Column(name = "GAME_STATE")
     private GameState gameState;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public GameState getGameState() {
-        return gameState;
-    }
 }

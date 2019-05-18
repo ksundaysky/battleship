@@ -1,5 +1,6 @@
 package wkbp.battleships.service;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wkbp.battleships.controller.NoAvailableGamesException;

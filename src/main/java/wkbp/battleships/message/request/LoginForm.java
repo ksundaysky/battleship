@@ -1,5 +1,8 @@
 package wkbp.battleships.message.request;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -7,8 +10,10 @@ import javax.validation.constraints.Size;
  * Represents login form on the client side
  *
  * @author Patryk Kucharski
- * @author Wiktor Wrup
+ * @author Wiktor Rup
  */
+@NoArgsConstructor
+@Getter
 public class LoginForm {
     @NotBlank
     @Size(min = 3, max = 60)
@@ -21,16 +26,5 @@ public class LoginForm {
     public LoginForm(@NotBlank @Size(min = 3, max = 60) String username, @NotBlank @Size(min = 6, max = 40) String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public LoginForm() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

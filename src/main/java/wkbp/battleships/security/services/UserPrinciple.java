@@ -1,6 +1,8 @@
 package wkbp.battleships.security.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
  *
  * @author Wiktor Rup
  */
+@Getter
+@AllArgsConstructor
 public class UserPrinciple implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -28,17 +32,6 @@ public class UserPrinciple implements UserDetails {
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
-
-    public UserPrinciple(Long id, String name,
-                         String username, String email, String password,
-                         Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.authorities = authorities;
-    }
 
     public static UserPrinciple build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
@@ -54,19 +47,6 @@ public class UserPrinciple implements UserDetails {
                 authorities
         );
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
     @Override
     public String getUsername() {
         return username;

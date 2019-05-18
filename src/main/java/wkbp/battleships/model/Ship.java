@@ -1,5 +1,7 @@
 package wkbp.battleships.model;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
  *
  * @author Wiktor Rup
  */
+@Getter
 public class Ship {
 
     private int size;
@@ -17,9 +20,5 @@ public class Ship {
     public Ship(int size) {
         this.size = size;
         this.fieldsOfShip = new ArrayList<>();
-    }
-
-    public int getSize() {
-        return size;
     }
 }

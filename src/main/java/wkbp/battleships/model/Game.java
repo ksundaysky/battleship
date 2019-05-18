@@ -1,5 +1,8 @@
 package wkbp.battleships.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +12,8 @@ import java.util.Map;
  *
  * @author Wiktor Rup
  */
+@Getter
+@Setter
 public class Game {
 
     private long id;
@@ -23,15 +28,6 @@ public class Game {
         this.gameConfig = gameConfig;
         this.gameState = GameState.IN_PREPARATION;
     }
-
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public GameConfig getConfig() {
-        return gameConfig;
-    }
-
     public void addPlayerToTheGame(User user) {
         playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
     }
@@ -44,36 +40,12 @@ public class Game {
         return playersInGame.get(user);
     }
 
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public int getNumberOfPlayers() {
         return playersInGame.size();
     }
 
     public boolean containsPlayer(User user) {
         return playersInGame.containsKey(user);
-    }
-
-    public Map<User, Board> getPlayersInGame() {
-        return playersInGame;
-    }
-
-    public void setCurrentPlayer(User currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public User getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setGameplay(Gameplay gameplay) {
-        this.gameplay = gameplay;
     }
 
     /**

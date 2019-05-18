@@ -1,5 +1,7 @@
 package wkbp.battleships.dao.repository.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import wkbp.battleships.model.User;
 
 import javax.persistence.*;
@@ -7,13 +9,11 @@ import javax.persistence.*;
 /**
  * @author Wiktor Rup
  */
+@NoArgsConstructor
 @Entity
 @Table(name = "USER_IN_GAME")
 public
 class UserInGameEntity {
-
-    UserInGameEntity() {
-    }
 
     public UserInGameEntity(User user, GameEntity gameEntity) {
         this.gameEntity = gameEntity;
