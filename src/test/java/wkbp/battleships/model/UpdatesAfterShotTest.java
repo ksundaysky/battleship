@@ -2,6 +2,10 @@ package wkbp.battleships.model;
 
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertFalse;
+
 /**
  * @author Wiktor Rup
  */
@@ -12,16 +16,16 @@ public class UpdatesAfterShotTest {
     private BoardUpdater boardUpdater = new BoardUpdater(board);
 
 
-    // TODO: 2019-05-19 Coś jest spraprany BoardUpdater i aktualizuje wszystkie pola OCCUPIED na trafione ???
     @Test
     public void testUpdateBoard() {
-        board.getField(13).setStateOfField(StateOfField.OCCUPIED);
-        board.getField(17).setStateOfField(StateOfField.OCCUPIED);
-        ShotOutcome shotOutcome = boardUpdater.updateBoard(new Move(1, new User(), new Field(13)), board);
-        Field testField = new Field(13);
-        testField.isHit(true);
-        assert shotOutcome.playerTurn;// TODO: 2019-05-19 nie działa to, a powinno, przez BoardUpdater prawdopodobnie
-        assert !shotOutcome.playerWon;
-        assert testField.equals(shotOutcome.field);
+        board.getField(0).setStateOfField(StateOfField.OCCUPIED);
+        board.getField(1).setStateOfField(StateOfField.OCCUPIED);
+        ShotOutcome shotOutcome = boardUpdater.updateBoard(new Move(1, new User(), new Field(1)));
+        Field testField = new Field(1);
+        testField.setStateOfField(StateOfField.OCCUPIED);
+        testField.setIsHit(true);
+        assertTrue(shotOutcome.playerTurn);
+        assertFalse(shotOutcome.playerWon);
+        assertEquals(testField, shotOutcome.field);
     }
 }

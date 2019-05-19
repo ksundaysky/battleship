@@ -17,6 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
+ *
  */
 
 public class ShipRandomiser {

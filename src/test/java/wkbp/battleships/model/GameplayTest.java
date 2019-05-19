@@ -30,11 +30,10 @@ public class GameplayTest {
     public void testUpdate() {
         Field resultShotField = new Field(2);
         resultShotField.setStateOfField(StateOfField.OCCUPIED);
-        resultShotField.isHit(true);
+        resultShotField.setIsHit(true);
 
-        ShotOutcome expectedShotOutcome = new ShotOutcome(false, resultShotField, false);
+        ShotOutcome expectedShotOutcome = new ShotOutcome(true, resultShotField, false);
         ShotOutcome actualShotOutcome = gameplay.update(new Move(1, new User(), new Field(2)), board);
-
         assert expectedShotOutcome.equals(actualShotOutcome);
     }
 

@@ -38,7 +38,7 @@ public class GameRefereeTest {
         List<Field> fleet = board.getFieldList();
         for (Field field : fleet) {
             if (field.getStateOfField().equals(StateOfField.OCCUPIED)) {
-                field.isHit(true);
+                field.setIsHit(true);
             }
         }
         return board;

@@ -16,7 +16,7 @@ public class ShotOutcomeTest {
     @BeforeMethod
     public void initialize(){
         field.setStateOfField(StateOfField.OCCUPIED);
-        field.isHit(true);
+        field.setIsHit(true);
         shotOutcome = new ShotOutcome(true, field, false);
     }
 
@@ -67,7 +67,7 @@ public class ShotOutcomeTest {
 
         Field expectedField = new Field(2);
         expectedField.setStateOfField(StateOfField.OCCUPIED);
-        expectedField.getStateOfField().setHit(true);
+        expectedField.setIsHit(true);
 
         Field actualField = shotOutcome.getField();
 

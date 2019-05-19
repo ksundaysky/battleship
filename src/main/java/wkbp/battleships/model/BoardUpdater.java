@@ -20,16 +20,15 @@ class BoardUpdater {
 
     BoardUpdater(Board currentBoard) {
         this.currentBoard = currentBoard;
-        this.gameReferee = new GameReferee(currentBoard);
+        this.gameReferee = new GameReferee(this.currentBoard);
     }
 
-    ShotOutcome updateBoard(Move move, Board board) {
+    ShotOutcome updateBoard(Move move) {
         this.lastMove = move;
         int fieldToShootId = move.getFieldToShoot().getId();
-        Field fieldToShoot = board.getFieldList().get(fieldToShootId);
-        Field updatedField = changeStateOfField(fieldToShoot);
-        board.getFieldList().get(fieldToShootId).setStateOfField(StateOfField.OCCUPIED);
-        notifyReferee(move);// TODO: 19.05.2019 naprawione
+        changeStateOfField(currentBoard.getFieldList().get(fieldToShootId));
+        Field updatedField = currentBoard.getFieldList().get(fieldToShootId);
+        notifyReferee(move);
         return new ShotOutcome(gameReferee.checkIfHitTheShip(), updatedField, gameReferee.checkIfWon());
     }
 
@@ -37,13 +36,9 @@ class BoardUpdater {
         gameReferee.setLastMove(move);
     }
 
-    private Field changeStateOfField(Field field) {
-        if (field.getStateOfField().isHit)
-            return field;
-        else {
-            field.getStateOfField().setHit(true);
-            return field;
-        }
+    private void changeStateOfField(Field field) {
+        if (!field.isHit())
+            field.setIsHit(true);
     }
 
     void setRefereeBoard(Board board) {

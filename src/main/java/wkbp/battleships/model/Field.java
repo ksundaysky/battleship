@@ -20,14 +20,19 @@ public class Field {
 
     private int id;
     private StateOfField stateOfField;
+    private boolean hit;
 
     public Field(int id) {
         this.id = id;
         stateOfField = StateOfField.EMPTY;
-        stateOfField.isHit = false;
+        hit = false;
     }
 
-    void isHit(boolean isHit) {
-        stateOfField.setHit(isHit);
+    public boolean isHit() {
+        return hit;
+    }
+
+    public void setIsHit(boolean hit) {
+        this.hit = hit;
     }
 }

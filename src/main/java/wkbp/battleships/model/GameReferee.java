@@ -35,14 +35,15 @@ public class GameReferee {
     public boolean checkIfWon() {
         List<Field> hitFields = board.getFieldList().stream()
                 .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
-                .filter(field -> !field.getStateOfField().isHit)
+                .filter(field -> !field.isHit())
                 .collect(Collectors.toList());
         return hitFields.isEmpty();
     }
 
     public boolean checkIfHitTheShip() {
+
         StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
-        return stateOfField.equals(StateOfField.OCCUPIED);
+        return stateOfField.equals(StateOfField.OCCUPIED) && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit();
     }
 
     public void notifyAuditor() {

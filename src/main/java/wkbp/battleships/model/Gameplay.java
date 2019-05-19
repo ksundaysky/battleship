@@ -34,7 +34,7 @@ public class   Gameplay {
         this.board = board;
         boardUpdater.setRefereeBoard(board);
         addMove(move);
-        return boardUpdater.updateBoard(move, board);
+        return boardUpdater.updateBoard(move);
     }
 
     private void addMove(Move move) {
