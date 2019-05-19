@@ -1,5 +1,6 @@
 package wkbp.battleships.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
@@ -11,6 +12,7 @@ import lombok.Getter;
  * @author Bartosz Kupajski
  */
 @Getter
+@EqualsAndHashCode
 public class GameConfig {
 
     private String gameName;

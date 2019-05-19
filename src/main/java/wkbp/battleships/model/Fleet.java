@@ -1,6 +1,7 @@
 package wkbp.battleships.model;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class Fleet {
 
     private List<Ship> shipList;

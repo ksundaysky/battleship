@@ -44,9 +44,9 @@ public class GameRefereeTest {
         return board;
     }
 
-    public int getFirstShipId(Board board){
+    public int getFirstShipId(Board board) {
         for (Field f : board.getFieldList()) {
-            if (f.getStateOfField().equals(StateOfField.OCCUPIED)){
+            if (f.getStateOfField().equals(StateOfField.OCCUPIED)) {
                 return f.getId();
             }
         }
@@ -71,11 +71,11 @@ public class GameRefereeTest {
     }
 
     @Test(invocationCount = 100, successPercentage = 90)
-    public void test_shouldBeTrue_WhenHit(){
+    public void test_shouldBeTrue_WhenHit() {
         Board board = initializeBoard();
         addFleetToBoard(board);
         GameReferee gameReferee = new GameReferee(board);
-        gameReferee.setLastMove(new Move(1,null, board.getFieldList().get(getFirstShipId(board))));
+        gameReferee.setLastMove(new Move(1, null, board.getFieldList().get(getFirstShipId(board))));
         assert gameReferee.checkIfHitTheShip() : "Referee should claim field is hit";
     }
 }

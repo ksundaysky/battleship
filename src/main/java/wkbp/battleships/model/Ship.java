@@ -1,5 +1,6 @@
 package wkbp.battleships.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Bartosz Kupajski
  */
 @Getter
+@EqualsAndHashCode
 public class Ship {
 
     private int size;
