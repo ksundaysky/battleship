@@ -25,8 +25,8 @@ class BoardUpdater {
         int fieldToShootId = move.getFieldToShoot().getId();
         Field fieldToShoot = board.getFieldList().get(fieldToShootId);
         Field updatedField = changeStateOfField(fieldToShoot);
-        board.getFieldList().set(fieldToShootId, updatedField);
-        notifyReferee(move);
+        board.getFieldList().get(fieldToShootId).setStateOfField(StateOfField.OCCUPIED);
+        notifyReferee(move);// TODO: 19.05.2019 naprawione
         return new ShotOutcome(gameReferee.checkIfHitTheShip(), updatedField, gameReferee.checkIfWon());
     }
 
