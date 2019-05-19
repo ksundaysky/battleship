@@ -1,5 +1,7 @@
 package wkbp.battleships.model;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * Updates board based on given lastMove {@link Move}.
  *
@@ -8,6 +10,7 @@ package wkbp.battleships.model;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
+@EqualsAndHashCode
 class BoardUpdater {
 
     private Move lastMove;

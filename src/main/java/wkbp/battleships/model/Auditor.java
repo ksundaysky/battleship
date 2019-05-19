@@ -1,5 +1,7 @@
 package wkbp.battleships.model;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * Responsible for transcripting flow of the game.
  *
@@ -8,6 +10,7 @@ package wkbp.battleships.model;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
+@EqualsAndHashCode
 public class Auditor {
 
     private Move move;

@@ -20,8 +20,8 @@ public class UpdatesAfterShotTest {
         ShotOutcome shotOutcome = boardUpdater.updateBoard(new Move(1, new User(), new Field(13)), board);
         Field testField = new Field(13);
         testField.isHit(true);
-        //assertTrue(shotOutcome.playerTurn); // TODO: 2019-05-19 nie działa to, a powinno, przez BoardUpdater prawdopodobnie
-        //assertFalse(shotOutcome.playerWon);
-        //assertEquals(testField, shotOutcome.field);
+        assert shotOutcome.playerTurn;// TODO: 2019-05-19 nie działa to, a powinno, przez BoardUpdater prawdopodobnie
+        assert !shotOutcome.playerWon;
+        assert testField.equals(shotOutcome.field);
     }
 }

@@ -1,5 +1,6 @@
 package wkbp.battleships.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @Component
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class GameReferee {
 
     private Board board;
