@@ -39,11 +39,17 @@ class BoardUpdater {
     }
 
     private void changeStateOfField(Field field) {
-        if (!field.isHit())
+        if (!field.isHit()) {
             field.setIsHit(true);
+            gameReferee.setLastShootHit(true);
+        }else {
+            gameReferee.setLastShootHit(false);
+        }
     }
 
     void setRefereeBoard(Board board) {
         gameReferee.setBoard(board);
     }
+
+
 }

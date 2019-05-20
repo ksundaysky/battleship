@@ -36,7 +36,6 @@ public class ActiveGamesService {
     public ShotOutcome makeAShoot(Long gameId, String playersName, Field field) { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
         User player = getUserFromDataBase(playersName);
         Game game = getGameById(gameId);
-        System.out.println("lece dalej " + field);
         return game.moveHasBeenMade(new Move(gameId, player, field));
     }
 

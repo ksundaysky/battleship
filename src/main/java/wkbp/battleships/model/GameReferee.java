@@ -26,6 +26,7 @@ public class GameReferee {
     private Board board;
     private Move lastMove;
     private Auditor auditor;
+    private boolean lastShootHit;
 
     public GameReferee(Board board) {
         this.board = board;
@@ -43,11 +44,10 @@ public class GameReferee {
     public boolean checkIfHitTheShip() {
 
         StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
-        return stateOfField.equals(StateOfField.OCCUPIED) && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit();
+        return stateOfField.equals(StateOfField.OCCUPIED) && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit() && lastShootHit;
     }
 
     public void notifyAuditor() {
         auditor.update(lastMove, checkIfWon(), checkIfHitTheShip());
     }
-
 }
