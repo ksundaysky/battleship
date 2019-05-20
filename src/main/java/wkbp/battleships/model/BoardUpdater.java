@@ -1,7 +1,9 @@
 package wkbp.battleships.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Updates board based on given lastMove {@link Move}.
@@ -13,6 +15,8 @@ import lombok.NoArgsConstructor;
  */
 @EqualsAndHashCode
 @NoArgsConstructor
+@Getter
+@Setter
 class BoardUpdater {
 
     private Move lastMove;
