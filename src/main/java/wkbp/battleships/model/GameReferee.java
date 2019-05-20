@@ -34,7 +34,6 @@ public class GameReferee {
     }
 
     public boolean checkIfWon() {
-        System.out.println(board.get);
         List<Field> hitFields = board.getFieldList().stream()
                 .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
                 .filter(field -> !field.isHit())
