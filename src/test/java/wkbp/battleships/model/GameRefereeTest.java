@@ -77,6 +77,7 @@ public class GameRefereeTest {
         GameReferee gameReferee = new GameReferee(board);
         board.getFieldList().get(getFirstShipId(board)).setHit(true);
         gameReferee.setLastMove(new Move(1, null, board.getFieldList().get(getFirstShipId(board))));
+        gameReferee.setLastShootHit(true);
         assert gameReferee.checkIfHitTheShip() : "Referee should claim field is hit";
     }
 }
