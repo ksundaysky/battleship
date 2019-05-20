@@ -34,6 +34,7 @@ public class GameReferee {
     }
 
     public boolean checkIfWon() {
+        System.out.println(board.get);
         List<Field> hitFields = board.getFieldList().stream()
                 .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
                 .filter(field -> !field.isHit())
@@ -44,7 +45,7 @@ public class GameReferee {
     public boolean checkIfHitTheShip() {
 
         StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
-        return stateOfField.equals(StateOfField.OCCUPIED) && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit() && lastShootHit;
+        return stateOfField.equals(StateOfField.OCCUPIED); // TODO: 20.05.19 błędny warunek do poprawy && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit() && lastShootHit;
     }
 
     public void notifyAuditor() {
