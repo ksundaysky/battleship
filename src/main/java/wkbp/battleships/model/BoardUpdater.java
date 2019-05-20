@@ -1,6 +1,7 @@
 package wkbp.battleships.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Updates board based on given lastMove {@link Move}.
@@ -11,12 +12,13 @@ import lombok.EqualsAndHashCode;
  * @author Bartosz Kupajski
  */
 @EqualsAndHashCode
+@NoArgsConstructor
 class BoardUpdater {
 
     private Move lastMove;
     private Board currentBoard;
     private GameReferee gameReferee;
-    private Board refereeBoard; //todo czemu to jest nieużywane?
+
 
     BoardUpdater(Board currentBoard) {
         this.currentBoard = currentBoard;
