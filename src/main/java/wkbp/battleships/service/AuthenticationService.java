@@ -1,5 +1,7 @@
 package wkbp.battleships.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +19,7 @@ import wkbp.battleships.message.request.SignUpForm;
 import wkbp.battleships.message.response.JwtResponse;
 import wkbp.battleships.model.RoleName;
 import wkbp.battleships.model.User;
+import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 import wkbp.battleships.security.jwt.JwtProvider;
 
 import javax.validation.Valid;
@@ -42,6 +45,7 @@ public class AuthenticationService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     public boolean userExistsByUsername(String username) {
         return userRepository.existsByUsername(username);
@@ -61,9 +65,9 @@ public class AuthenticationService {
         strRoles.forEach(role -> {
             if ("admin".equals(role)) {
                 Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                        .orElseThrow(() -> new RuntimeException("User Role not found."));
+                        .orElseThrow(() -> new RuntimeException("Admin Role not found."));
                 roles.add(adminRole);
-            } else {
+            } else if ("user".equals(role)) {
                 Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                         .orElseThrow(() -> new RuntimeException("User Role not found."));
                 roles.add(userRole);
@@ -72,6 +76,7 @@ public class AuthenticationService {
 
         user.setRoles(roles);
         userRepository.save(user);
+        logger.info("created new account: " + user.toString());
     }
 
     public JwtResponse login(@Valid @RequestBody LoginForm loginRequest) {

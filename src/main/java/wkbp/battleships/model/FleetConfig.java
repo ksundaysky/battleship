@@ -13,7 +13,7 @@ import java.util.Map;
  */
 @AllArgsConstructor
 @Getter
-public class FleetConfig {
+class FleetConfig {
 
     private Map<Integer, Integer> fleetConfig;
 }

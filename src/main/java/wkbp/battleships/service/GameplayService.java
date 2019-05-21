@@ -1,11 +1,14 @@
 package wkbp.battleships.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.UserInGameRepository;
 import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.model.*;
+import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 
 import javax.naming.NoPermissionException;
 
@@ -23,11 +26,14 @@ public class GameplayService {
     private UserRepository userRepository;
     @Autowired
     private UserInGameRepository userInGameRepository;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
-    public ShotOutcome makeAShoot(Long gameId, String playersName, Field field) throws NoPermissionException { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
+    public ShotOutcome makeAShoot(Long gameId, String playersName, Field field) throws NoPermissionException {
         User player = getUserFromDataBase(playersName);
         Game game = getGameById(gameId);
         if (!game.getPlayersInGame().containsKey(player)) {
+            logger.error("class GameplayService, method makeAShoot(); game with id: " +
+                    " doesn't contain player: " + playersName);
             throw new NoPermissionException("No permissions for such action");
         }
         return game.moveHasBeenMade(new Move(gameId, player, field));

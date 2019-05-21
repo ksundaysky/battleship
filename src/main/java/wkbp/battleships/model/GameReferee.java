@@ -3,7 +3,10 @@ package wkbp.battleships.model;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,25 +30,29 @@ public class GameReferee {
     private Move lastMove;
     private Auditor auditor;
     private boolean lastShootHit;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
-    public GameReferee(Board board) {
+    GameReferee(Board board) {
         this.board = board;
         auditor = new Auditor();
     }
 
-    public boolean checkIfWon() {
+    boolean checkIfWon() {
         List<Field> hitFields = board.getFieldList().stream()
                 .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
                 .filter(field -> !field.isHit())
                 .collect(Collectors.toList());
-        return hitFields.isEmpty();
+        boolean won = hitFields.isEmpty();
+        logger.info("player won = " + won);
+        return won;
     }
 
-    public boolean checkIfHitTheShip() {
-
+    boolean checkIfHitTheShip() {
         Field fieldToShoot = lastMove.getFieldToShoot();
         StateOfField stateOfField = board.getField(fieldToShoot.getId()).getStateOfField();
-        return stateOfField.equals(StateOfField.OCCUPIED); // TODO: 20.05.19 błędny warunek do poprawy && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit() && lastShootHit;
+        boolean isOccupied = stateOfField.equals(StateOfField.OCCUPIED);
+        logger.info("shot hit the ship: " + isOccupied);
+        return isOccupied; // TODO: 20.05.19 błędny warunek do poprawy && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit() && lastShootHit;
     }
 
     public void notifyAuditor() {

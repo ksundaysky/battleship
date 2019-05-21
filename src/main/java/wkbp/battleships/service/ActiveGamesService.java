@@ -1,5 +1,7 @@
 package wkbp.battleships.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wkbp.battleships.controller.NoAvailableGamesException;
@@ -8,6 +10,7 @@ import wkbp.battleships.dao.repository.UserInGameRepository;
 import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.model.Game;
 import wkbp.battleships.model.User;
+import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,18 +30,23 @@ public class ActiveGamesService {
     private UserInGameRepository userInGameRepository;
     @Autowired
     private GameRepository gameRepository;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     private Map<Long, Game> games = new HashMap<>();
 
     public Map<Long, Game> getListOfGames() {
         if (games.isEmpty()) {
+            logger.error("class ActiveGameService, method getListOfGames; games.isEmpty = true; throwing NoAvailableGamesException");
             throw new NoAvailableGamesException("No available games to display");
         }
+        logger.info("class ActiveGameService, method getListOfGames; returning Map<Long, Game> games: " + games.toString());
         return games;
     }
 
     public boolean isGameReady(long gameId) {
-        return games.get(gameId).getNumberOfPlayers() == 2;
+        boolean isGameReady = games.get(gameId).getNumberOfPlayers() == 2;
+        logger.info("class ActiveGameService, method isGameReady(); returning " + isGameReady);
+        return isGameReady;
     }
 
     User getUserFromDataBase(String username) {

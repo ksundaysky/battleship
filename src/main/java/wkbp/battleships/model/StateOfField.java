@@ -17,5 +17,4 @@ import wkbp.battleships.businesslogic.ShipRandomiser;
 public enum StateOfField {
 
     EMPTY, OCCUPIED, ILLEGAL_TO_PLACE
-
 }

@@ -39,9 +39,10 @@ class ListOfGamesRestAPIs {
         String message;
         try {
             message = objectMapper.writeValueAsString(activeGamesService.getListOfGames());
+            logger.info("class ListOfGamesRestAPIs, method gamesList(); sending Map<Long, Game> games as a response " + message);
         } catch (NoAvailableGamesException e) {
             message = e.getMessage();
-            logger.error("Failed to retrive list of games. " + e.getMessage());
+            logger.error("class ListOfGamesRestAPIs, method gamesList(); failed to retreive list of games. " + e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);

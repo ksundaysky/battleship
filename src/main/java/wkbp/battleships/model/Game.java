@@ -2,6 +2,9 @@ package wkbp.battleships.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +28,7 @@ public class Game {
     private GameConfig gameConfig;
     private GameState gameState;
     private User currentPlayer;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     public Game(GameConfig gameConfig) {
         playersInGame = new HashMap<>();
@@ -65,10 +69,12 @@ public class Game {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
+                    logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().toString());
                 }
+                logger.info("class Game, method moveHasBeenMade(); returning " + outcome.toString());
                 return outcome;
             }
         }
-        return null; // TODO: 2019-05-18 - ta linijka nigdy nie zostanie wykonana
+        return null; //this line will never be reached
     }
 }

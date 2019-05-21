@@ -18,4 +18,13 @@ public class Move {
     private long gameId;
     private User player;
     private Field fieldToShoot;
+
+    @Override
+    public String toString() {
+        return "Move{" +
+                "gameId=" + gameId +
+                ", player=" + player +
+                ", fieldToShoot=" + fieldToShoot +
+                '}';
+    }
 }

@@ -28,11 +28,20 @@ public class Field {
         hit = false;
     }
 
-    public boolean isHit() {
+    boolean isHit() {
         return hit;
     }
 
-    public void setIsHit(boolean hit) {
+    void setIsHit(boolean hit) {
         this.hit = hit;
+    }
+
+    @Override
+    public String toString() {
+        return "Field{" +
+                "id=" + id +
+                ", stateOfField=" + stateOfField +
+                ", hit=" + hit +
+                '}';
     }
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-public class MoveValidator {
+class MoveValidator {
 
     private Move move;
     private GameConfig gameConfig;

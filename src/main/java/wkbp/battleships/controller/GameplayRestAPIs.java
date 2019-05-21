@@ -42,21 +42,23 @@ class GameplayRestAPIs {
     private GameService gameService;
     @Autowired
     private GameplayService gameplayService;
-
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
 
     @GetMapping("get/game/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> gameInit(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> gameInit(Authentication authentication,
+                                      @PathVariable("id") long id) throws JsonProcessingException {
+
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
             boolean isPlayerGame = gameService.isPlayersGame(id, authentication.getName());
             message = objectMapper.writeValueAsString(isPlayerGame);
+            logger.info("class GameplayRestAPIs, method gameInit(); returning isPlayersGame = " + isPlayerGame);
         } catch (NoPermissionException e) {
-            logger.error("Player: " + authentication.getName() + " tried to join game with id: " + id + ". " + e.getMessage());
             message = e.getMessage();
+            logger.error("Player: " + authentication.getName() + " tried to join game with id: " + id + ". " + message);
             return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
@@ -65,31 +67,39 @@ class GameplayRestAPIs {
     @GetMapping("get/game/is_game_ready/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> isGameReady(@PathVariable("id") long id) throws JsonProcessingException {
+
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         boolean isGameReady = activeGamesService.isGameReady(id);
         message = objectMapper.writeValueAsString(isGameReady);
+        logger.info("class GameplayRestAPIs, method isGameReady(); gameId: " + id + ",sending response: " + message);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @GetMapping("get/game/fleet/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> userFleet(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> userFleet(Authentication authentication,
+                                       @PathVariable("id") long id) throws JsonProcessingException {
+
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         List<Field> ships = shipPlacementService.getUserFleet(id, authentication.getName());
         message = objectMapper.writeValueAsString(ships);
+        logger.info("class GameplayRestAPIs, method userFleet(); sending response: " + message);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PostMapping("post/game/shoot/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    ResponseEntity<?> gameShot(Authentication authentication, @RequestBody Field field, @PathVariable("id") long id) throws JsonProcessingException {
+    ResponseEntity<?> gameShot(Authentication authentication, @RequestBody Field field,
+                               @PathVariable("id") long id) throws JsonProcessingException {
+
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
             ShotOutcome shotOutcome = gameplayService.makeAShoot(id, authentication.getName(), field);
             message = objectMapper.writeValueAsString(shotOutcome);
+            logger.info("class GameplayRestAPIs, method gameShot(); sending response: " + message);
         } catch (NoPermissionException e) {
             message = e.getMessage();
             logger.error("Player: " + authentication.getName() + " tried to make a shot in game with id: " + id + ". " + e.getMessage());
@@ -105,7 +115,7 @@ class GameplayRestAPIs {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         message = objectMapper.writeValueAsString(gameplayService.isPlayerTurn(id, authentication.getName()));
-
+        logger.info("class GameplayRestAPIs, method isUserTurn(); sending response: " + message);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
