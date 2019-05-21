@@ -73,7 +73,7 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
-                gameQueues.get(entry.getKey()).add(outcome);
+                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(), outcome.isPlayerWon()));
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
                 }
