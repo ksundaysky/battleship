@@ -52,7 +52,6 @@ public class ActiveGamesService {
     public List<Field> getUserFleet(Long id, String username) { // TODO: 17.05.19 ta metoda nie tutaj xd
         User user = getUserFromDataBase(username);
         Game game = getGameById(id);
-        game.setGameState(GameState.IN_PROGRESS);
         Board userBoard = game.getBoardByUser(user);
 
         return userBoard.getFieldList()
@@ -109,6 +108,7 @@ public class ActiveGamesService {
         if (game.getGameConfig().isOwnerStarts() && game.getNumberOfPlayers() == 0) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
         } else if (!game.getGameConfig().isOwnerStarts() && game.getNumberOfPlayers() == 1) {
+            game.setGameState(GameState.IN_PROGRESS);
             game.setCurrentPlayer(getUserFromDataBase(playersName));
         }
     }

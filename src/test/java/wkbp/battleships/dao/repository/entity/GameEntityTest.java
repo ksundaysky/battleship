@@ -10,11 +10,11 @@ import static org.testng.Assert.assertEquals;
  */
 public class GameEntityTest {
 
-    private GameEntity gameEntity = new GameEntity(GameState.IN_PREPARATION);
+    private GameEntity gameEntity = new GameEntity(GameState.WAITING_FOR_PLAYER);
 
     @Test
     public void testGetGameState() {
-        GameState expectedGameState = GameState.IN_PREPARATION;
+        GameState expectedGameState = GameState.WAITING_FOR_PLAYER;
         GameState actualGameState = gameEntity.getGameState();
 
         assertEquals(expectedGameState, actualGameState);
