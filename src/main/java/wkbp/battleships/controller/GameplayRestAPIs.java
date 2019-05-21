@@ -62,7 +62,7 @@ class GameplayRestAPIs {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @GetMapping("get/wkbp/get/game/is_game_ready/{id}")
+    @GetMapping("get/game/is_game_ready/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> isGameReady(@PathVariable("id") long id) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
