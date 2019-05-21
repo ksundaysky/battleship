@@ -55,6 +55,7 @@ public class ShipPlacementService {
     public List<Field> getUserFleet(Long id, String username) {
         User user = userRepository.findByUsername(username).get();
         Game game = activeGamesService.getGameById(id);
+        game.addReadyPlayer();
         Board userBoard = game.getBoardByUser(user);
 
         return userBoard.getFieldList()

@@ -38,7 +38,7 @@ public class ActiveGamesService {
     }
 
     public boolean isGameReady(long gameId) {
-        return games.get(gameId).getNumberOfPlayers() == 2;
+        return games.get(gameId).getHowManyPlayersAreReady() == 2;
     }
 
     User getUserFromDataBase(String username) {
