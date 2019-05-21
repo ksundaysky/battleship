@@ -15,6 +15,7 @@ import wkbp.battleships.model.ShotOutcome;
 import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 import wkbp.battleships.service.ActiveGamesService;
 import wkbp.battleships.service.GameService;
+import wkbp.battleships.service.GameplayService;
 import wkbp.battleships.service.ShipPlacementService;
 
 import javax.naming.NoPermissionException;
@@ -39,7 +40,11 @@ class GameplayRestAPIs {
     private ShipPlacementService shipPlacementService;
     @Autowired
     private GameService gameService;
+    @Autowired
+    private GameplayService gameplayService;
+
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
+
 
     @GetMapping("get/game/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -83,7 +88,7 @@ class GameplayRestAPIs {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            ShotOutcome shotOutcome = activeGamesService.makeAShoot(id, authentication.getName(), field);
+            ShotOutcome shotOutcome = gameplayService.makeAShoot(id, authentication.getName(), field);
             message = objectMapper.writeValueAsString(shotOutcome);
         } catch (NoPermissionException e) {
             message = e.getMessage();
@@ -99,7 +104,7 @@ class GameplayRestAPIs {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
-        message = objectMapper.writeValueAsString(gameService.isPlayerTurn(id, authentication.getName()));
+        message = objectMapper.writeValueAsString(gameplayService.isPlayerTurn(id, authentication.getName()));
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

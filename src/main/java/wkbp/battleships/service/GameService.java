@@ -55,16 +55,10 @@ public class GameService {
         return "Success";
     }
 
-    public boolean isPlayerTurn(long id, String playersName) {
-        User player = getUserFromDataBase(playersName);
-        Game game = getGameById(id);
-        return player.equals(game.getCurrentPlayer());
-    }
-
     public boolean isPlayersGame(long id, String user) throws NoPermissionException {
         User player = getUserFromDataBase(user);
         Game game = getGameById(id);
-        if(!game.getPlayersInGame().containsKey(player))
+        if (!game.getPlayersInGame().containsKey(player))
             throw new NoPermissionException("No permissions for such action");
         else
             return true;

@@ -13,7 +13,7 @@ import javax.naming.NoPermissionException;
  * @author Patryk Kucharski
  */
 @Service
-public class GamplayService {
+public class GameplayService {
 
     @Autowired
     private GameRepository gameRepository;
@@ -31,5 +31,19 @@ public class GamplayService {
             throw new NoPermissionException("No permissions for such action");
         }
         return game.moveHasBeenMade(new Move(gameId, player, field));
+    }
+
+    public boolean isPlayerTurn(long id, String playersName) {
+        User player = getUserFromDataBase(playersName);
+        Game game = getGameById(id);
+        return player.equals(game.getCurrentPlayer());
+    }
+
+    private Game getGameById(Long gameId) {
+        return activeGamesService.getGameById(gameId);
+    }
+
+    private User getUserFromDataBase(String playersName) {
+        return userRepository.findByUsername(playersName).get();
     }
 }

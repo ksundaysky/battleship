@@ -6,15 +6,11 @@ import wkbp.battleships.controller.NoAvailableGamesException;
 import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.UserInGameRepository;
 import wkbp.battleships.dao.repository.UserRepository;
-import wkbp.battleships.dao.repository.entity.GameEntity;
-import wkbp.battleships.dao.repository.entity.UserInGameEntity;
-import wkbp.battleships.model.*;
+import wkbp.battleships.model.Game;
+import wkbp.battleships.model.User;
 
-import javax.naming.NoPermissionException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author Wiktor Rup
@@ -34,24 +30,15 @@ public class ActiveGamesService {
 
     private Map<Long, Game> games = new HashMap<>();
 
-    public ShotOutcome makeAShoot(Long gameId, String playersName, Field field) throws NoPermissionException { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
-        User player = getUserFromDataBase(playersName);
-        Game game = getGameById(gameId);
-        if (!game.getPlayersInGame().containsKey(player)) {
-            throw new NoPermissionException("No permissions for such action");
-        }
-        return game.moveHasBeenMade(new Move(gameId, player, field));
-    }
-
-    public boolean isGameReady(long gameId) {
-        return games.get(gameId).getNumberOfPlayers() == 2;
-    }
-
     public Map<Long, Game> getListOfGames() {
         if (games.isEmpty()) {
             throw new NoAvailableGamesException("No available games to display");
         }
         return games;
+    }
+
+    public boolean isGameReady(long gameId) {
+        return games.get(gameId).getNumberOfPlayers() == 2;
     }
 
     User getUserFromDataBase(String username) {

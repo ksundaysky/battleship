@@ -2,7 +2,6 @@ package wkbp.battleships.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.testng.annotations.Test;
 import wkbp.battleships.businesslogic.ShipRandomiser;
 import wkbp.battleships.controller.CantPlaceShipsException;
 import wkbp.battleships.dao.repository.GameRepository;
