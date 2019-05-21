@@ -34,9 +34,12 @@ public class ActiveGamesService {
 
     private Map<Long, Game> games = new HashMap<>();
 
-    public ShotOutcome makeAShoot(Long gameId, String playersName, Field field) { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
+    public ShotOutcome makeAShoot(Long gameId, String playersName, Field field) throws NoPermissionException { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
         User player = getUserFromDataBase(playersName);
         Game game = getGameById(gameId);
+        if (!game.getPlayersInGame().containsKey(player)) {
+            throw new NoPermissionException("You have no permission to join this game!");
+        }
         return game.moveHasBeenMade(new Move(gameId, player, field));
     }
 

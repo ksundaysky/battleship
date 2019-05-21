@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.model.ShotOutcome;
 import wkbp.battleships.service.ActiveGamesService;
+import javax.naming.NoPermissionException;
 
 import java.util.List;
 
@@ -33,9 +34,16 @@ class GameplayRestAPIs {
     @PostMapping("post/game/shoot/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<?> gameShot(Authentication authentication, @RequestBody Field field, @PathVariable("id") long id) throws JsonProcessingException {
-        ShotOutcome shotOutcome = activeGamesService.makeAShoot(id, authentication.getName(), field);
         ObjectMapper objectMapper = new ObjectMapper();
-        String message = objectMapper.writeValueAsString(shotOutcome);
+        String message;
+
+        try {
+            ShotOutcome shotOutcome = activeGamesService.makeAShoot(id, authentication.getName(), field);
+            message = objectMapper.writeValueAsString(shotOutcome);
+        } catch (NoPermissionException e) {
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
@@ -47,7 +55,7 @@ class GameplayRestAPIs {
         try {
             boolean isPlayerGame = activeGamesService.isPlayersGame(id, authentication.getName());
             message = objectMapper.writeValueAsString(isPlayerGame);
-        } catch (javax.naming.NoPermissionException e) {
+        } catch (NoPermissionException e) {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
