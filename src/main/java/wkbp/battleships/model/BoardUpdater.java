@@ -30,7 +30,7 @@ class BoardUpdater {
     }
 
     ShotOutcome updateBoard(Move move) {
-        this.lastMove = move;
+        lastMove = move;
         int fieldToShootId = move.getFieldToShoot().getId();
         changeStateOfField(currentBoard.getFieldList().get(fieldToShootId));
         Field updatedField = currentBoard.getFieldList().get(fieldToShootId);

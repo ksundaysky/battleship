@@ -33,7 +33,6 @@ class GameplayRestAPIs {
     @PostMapping("post/game/shoot/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     ResponseEntity<?> gameShot(Authentication authentication, @RequestBody Field field, @PathVariable("id") long id) throws JsonProcessingException {
-        System.out.println("strzelam " + field);
         ShotOutcome shotOutcome = activeGamesService.makeAShoot(id, authentication.getName(), field);
         ObjectMapper objectMapper = new ObjectMapper();
         String message = objectMapper.writeValueAsString(shotOutcome);
@@ -46,7 +45,7 @@ class GameplayRestAPIs {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            List<Field> ships = activeGamesService.returnUserFleet(id, authentication.getName()); //todo no nie bardzo
+            List<Field> ships = activeGamesService.getUserFleet(id, authentication.getName()); //todo no nie bardzo
             message = objectMapper.writeValueAsString(ships);
         } catch (CantPlaceShipsException e) {
             message = e.getMessage();

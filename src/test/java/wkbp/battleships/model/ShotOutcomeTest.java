@@ -26,7 +26,7 @@ public class ShotOutcomeTest {
         shotOutcome.setPlayerTurn(false);
         boolean actualPlayerTurn = shotOutcome.isPlayerTurn();
 
-        assert expectedPlayerTurn == actualPlayerTurn;
+        assertEquals(expectedPlayerTurn, actualPlayerTurn);
 
     }
 
@@ -37,7 +37,7 @@ public class ShotOutcomeTest {
         shotOutcome.setField(expectedField);
         Field actualField = shotOutcome.getField();
 
-        assert expectedField.equals(actualField);
+        assertEquals(expectedField, actualField);
 
     }
 
@@ -49,7 +49,7 @@ public class ShotOutcomeTest {
 
         boolean actualPlayerWon = shotOutcome.isPlayerWon();
 
-        assert expectedPlayerWon == actualPlayerWon;
+        assertEquals(expectedPlayerWon, actualPlayerWon);
 
     }
 
@@ -59,7 +59,7 @@ public class ShotOutcomeTest {
         boolean expectedPlayerTurn = true;
         boolean actualPlayerTurn = shotOutcome.isPlayerTurn();
 
-        assert expectedPlayerTurn == actualPlayerTurn;
+        assertEquals(expectedPlayerTurn, actualPlayerTurn);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ShotOutcomeTest {
 
         Field actualField = shotOutcome.getField();
 
-        assert expectedField.equals(actualField);
+        assertEquals(expectedField, actualField);
     }
 
     @Test
@@ -80,6 +80,6 @@ public class ShotOutcomeTest {
         boolean expectedPlayerWon = false;
         boolean actualPlayerWon = shotOutcome.isPlayerWon();
 
-        assert expectedPlayerWon == actualPlayerWon;
+        assertEquals(expectedPlayerWon, actualPlayerWon);
     }
 }

@@ -9,7 +9,7 @@ import static org.testng.Assert.*;
  */
 public class LoginFormTest {
 
-    LoginForm loginForm = new LoginForm("username1", "passwd1234");
+    private LoginForm loginForm = new LoginForm("username1", "passwd1234");
 
 
     @Test
@@ -17,14 +17,14 @@ public class LoginFormTest {
         String expectedUsername = "username1";
         String actualUsername = loginForm.getUsername();
 
-        assert expectedUsername.equals(actualUsername);
+        assertEquals(expectedUsername, actualUsername);
     }
 
     @Test
     public void testGetPassword() {
         String expectedPassword = "passwd1234";
-        String actualPasswrod = loginForm.getPassword();
+        String actualPassword = loginForm.getPassword();
 
-        assert expectedPassword.equals(actualPasswrod);
+        assertEquals(expectedPassword, actualPassword);
     }
 }

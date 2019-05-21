@@ -34,7 +34,7 @@ public class GameplayTest {
 
         ShotOutcome expectedShotOutcome = new ShotOutcome(true, resultShotField, false);
         ShotOutcome actualShotOutcome = gameplay.update(new Move(1, new User(), new Field(2)), board);
-        assert expectedShotOutcome.equals(actualShotOutcome);
+        assertEquals(expectedShotOutcome, actualShotOutcome);
     }
 
     @Test
@@ -47,9 +47,7 @@ public class GameplayTest {
         BoardUpdater expectedBoardUpdater = new BoardUpdater(board);
         BoardUpdater actualBoardUpdater = gameplay.getBoardUpdater();
 
-        System.out.println(expectedBoardUpdater);
-        System.out.println(actualBoardUpdater);
-        assert expectedBoardUpdater.equals(actualBoardUpdater);
+        assertEquals(expectedBoardUpdater, actualBoardUpdater);
 
     }
 
@@ -59,7 +57,7 @@ public class GameplayTest {
         gameplay.update(expectedMove, board);
         Move actualMove = gameplay.getLastMove();
 
-        assert expectedMove.equals(actualMove);
+        assertEquals(expectedMove, actualMove);
     }
 
     @Test
@@ -70,6 +68,6 @@ public class GameplayTest {
         gameplay.update(new Move(1, new User(), new Field(2)), board);
         List<Move> actualMoves = gameplay.getMoves();
 
-        assert expectedMoves.equals(actualMoves);
+        assertEquals(expectedMoves, actualMoves);
     }
 }

@@ -34,7 +34,7 @@ class ListOfGamesRestAPIs {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            message = objectMapper.writeValueAsString(activeGamesService.returnListOfGames());
+            message = objectMapper.writeValueAsString(activeGamesService.getListOfGames());
         } catch (NoAvailableGamesException e) {
             message = e.getMessage();
             return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);

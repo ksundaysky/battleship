@@ -17,6 +17,6 @@ public class GameEntityTest {
         GameState expectedGameState = GameState.IN_PREPARATION;
         GameState actualGameState = gameEntity.getGameState();
 
-        assert expectedGameState.equals(actualGameState);
+        assertEquals(expectedGameState,actualGameState);
     }
 }

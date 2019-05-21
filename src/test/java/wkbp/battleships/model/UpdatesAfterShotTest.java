@@ -24,8 +24,8 @@ public class UpdatesAfterShotTest {
         Field testField = new Field(1);
         testField.setStateOfField(StateOfField.OCCUPIED);
         testField.setIsHit(true);
-        assertTrue(shotOutcome.playerTurn);
-        assertFalse(shotOutcome.playerWon);
-        assertEquals(testField, shotOutcome.field);
+        assertTrue(shotOutcome.isPlayerTurn());
+        assertFalse(shotOutcome.isPlayerWon());
+        assertEquals(testField, shotOutcome.getField());
     }
 }

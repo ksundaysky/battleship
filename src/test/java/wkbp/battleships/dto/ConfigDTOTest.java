@@ -6,6 +6,8 @@ import wkbp.battleships.model.Game;
 import wkbp.battleships.model.GameConfig;
 import wkbp.battleships.model.GameMode;
 
+import static org.testng.AssertJUnit.assertEquals;
+
 /**
  * @author Wiktor Rup
  */
@@ -23,7 +25,7 @@ public class ConfigDTOTest {
     public void testAssembly() {
 
         GameConfig gameConfig = new GameConfig("game1", 10, GameMode.STANDARD, true);
-        assert gameConfig.equals(configDTO.assembly()) : "Returned GameConfig object is not proper";
+        assertEquals(gameConfig, configDTO.assembly());
 
     }
 
@@ -31,7 +33,7 @@ public class ConfigDTOTest {
     public void testGetGameName() {
         String expectedName = "game1";
         String actualName = configDTO.getGameName();
-        assert expectedName.equals(actualName);
+        assertEquals(expectedName, actualName);
     }
 
     @Test
@@ -39,7 +41,7 @@ public class ConfigDTOTest {
         int expectedDimension = 10;
         int actualDimension = configDTO.getDimension();
 
-        assert expectedDimension == actualDimension;
+        assertEquals(expectedDimension, actualDimension);
     }
 
     @Test
@@ -48,7 +50,7 @@ public class ConfigDTOTest {
         boolean expectedIsOwnerStarts = true;
         boolean actualIsOwnerStarts = configDTO.isOwnerStarts();
 
-        assert expectedIsOwnerStarts == actualIsOwnerStarts;
+        assertEquals(expectedIsOwnerStarts, actualIsOwnerStarts);
     }
 
     @Test
@@ -57,7 +59,7 @@ public class ConfigDTOTest {
         GameMode expectedGameMode = GameMode.STANDARD;
         GameMode actualGameMode = configDTO.getGameMode();
 
-        assert expectedGameMode.equals(actualGameMode);
+        assertEquals(expectedGameMode, actualGameMode);
     }
 
     @Test
@@ -67,7 +69,7 @@ public class ConfigDTOTest {
 
         String actualName = configDTO.getGameName();
 
-        assert expectedName.equals(actualName);
+        assertEquals(expectedName, actualName);
     }
 
     @Test
@@ -76,7 +78,7 @@ public class ConfigDTOTest {
         configDTO.setDimension(expectedDimension);
         int actualDimension = configDTO.getDimension();
 
-        assert expectedDimension == actualDimension;
+        assertEquals(expectedDimension, actualDimension);
     }
 
     @Test
@@ -85,7 +87,7 @@ public class ConfigDTOTest {
         configDTO.setOwnerStarts(expectedIsOwnerStarts);
         boolean actualIsOwnerStarts = configDTO.isOwnerStarts();
 
-        assert expectedIsOwnerStarts == actualIsOwnerStarts;
+        assertEquals(expectedIsOwnerStarts, actualIsOwnerStarts);
     }
 
     @Test
@@ -95,6 +97,6 @@ public class ConfigDTOTest {
         configDTO.setGameMode(expectedGameMode);
         GameMode actualGameMode = configDTO.getGameMode();
 
-        assert expectedGameMode.equals(actualGameMode);
+        assertEquals(expectedGameMode, actualGameMode);
     }
 }

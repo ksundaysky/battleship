@@ -43,7 +43,8 @@ public class GameReferee {
 
     public boolean checkIfHitTheShip() {
 
-        StateOfField stateOfField = board.getFieldList().get(lastMove.getFieldToShoot().getId()).getStateOfField();
+        Field fieldToShoot = lastMove.getFieldToShoot();
+        StateOfField stateOfField = board.getField(fieldToShoot.getId()).getStateOfField();
         return stateOfField.equals(StateOfField.OCCUPIED); // TODO: 20.05.19 błędny warunek do poprawy && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit() && lastShootHit;
     }
 

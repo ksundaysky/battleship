@@ -15,9 +15,9 @@ import lombok.*;
 @EqualsAndHashCode
 public class ShotOutcome {
 
-    boolean playerTurn;
-    Field field;
-    boolean playerWon;
+    private boolean playerTurn;
+    private Field field;
+    private boolean playerWon;
 
     @Override
     public String toString() {

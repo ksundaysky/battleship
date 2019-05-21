@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.testng.AssertJUnit.assertEquals;
+
 /**
  * @author Wiktor Rup
  */
@@ -26,7 +28,7 @@ public class SignUpFormTest {
         String expectedName = "Name1";
         String actualName = signUpForm.getName();
 
-        assert expectedName.equals(actualName);
+        assertEquals(expectedName, actualName);
     }
 
     @Test
@@ -35,7 +37,7 @@ public class SignUpFormTest {
         String expectedUsername = "Username1";
         String actualUsername = signUpForm.getUsername();
 
-        assert expectedUsername.equals(actualUsername);
+        assertEquals(expectedUsername, actualUsername);
     }
 
     @Test
@@ -44,7 +46,7 @@ public class SignUpFormTest {
         String expectedEmail = "email@gmail.com";
         String actualEmail = signUpForm.getEmail();
 
-        assert expectedEmail.equals(actualEmail);
+        assertEquals(expectedEmail, actualEmail);
     }
 
     @Test
@@ -55,7 +57,7 @@ public class SignUpFormTest {
 
         Set<String> actualRole = signUpForm.getRole();
 
-        assert expectedRole.equals(actualRole);
+        assertEquals(expectedRole, actualRole);
     }
 
     @Test
@@ -64,6 +66,6 @@ public class SignUpFormTest {
         String expectedPassword = "passwd1234";
         String actualPasswrod = signUpForm.getPassword();
 
-        assert expectedPassword.equals(actualPasswrod);
+        assertEquals(expectedPassword, actualPasswrod);
     }
 }

@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * @author Bartosz Kupajski
  */
 @EqualsAndHashCode
-public class Auditor {
+class Auditor {
 
     private Move move;
     private boolean hitTheShip;

@@ -6,6 +6,9 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
+
 /**
  * @author Wiktor Rup
  */
@@ -25,7 +28,7 @@ public class GameTest {
         user.setName("user1");
         game.addPlayerToTheGame(user);
 
-        assert game.getPlayersInGame().containsKey(user);
+        assertTrue(game.getPlayersInGame().containsKey(user));
     }
 
     @Test
@@ -37,7 +40,7 @@ public class GameTest {
 
         game.addUserAndHisBoard(user, board);
 
-        assert board.equals(game.getBoardByUser(user));
+        assertEquals(board, game.getBoardByUser(user));
     }
 
     @Test
@@ -52,7 +55,7 @@ public class GameTest {
 
         System.out.println(game.getNumberOfPlayers());
 
-        assert game.getNumberOfPlayers() == 2;
+        assertEquals(game.getNumberOfPlayers(),2);
     }
 
     @Test
@@ -61,13 +64,13 @@ public class GameTest {
         player1.setUsername("player1");
         game.addPlayerToTheGame(player1);
 
-        assert game.containsPlayer(player1);
+        assertTrue(game.containsPlayer(player1));
     }
 
     @Test
     public void testGetId() {
         game.setId(1);
-        assert game.getId() == 1;
+        assertEquals(game.getId(),1);
     }
 
     @Test
@@ -75,7 +78,7 @@ public class GameTest {
         Gameplay gameplay = new Gameplay(new BoardFactory(gameConfig).createBoard());
         game.setGameplay(gameplay);
 
-        assert gameplay.equals(game.getGameplay());
+        assertEquals(gameplay, game.getGameplay());
     }
 
     @Test
@@ -83,12 +86,12 @@ public class GameTest {
         Map<User, Board> currentPlayers = new HashMap<>();
         currentPlayers.put(new User(), new BoardFactory(gameConfig).createBoard());
         game.setPlayersInGame(currentPlayers);
-        assert game.getPlayersInGame().equals(currentPlayers);
+        assertEquals(game.getPlayersInGame(), currentPlayers);
 
     }
 
     @Test
     public void testGetGameConfig() {
-        assert game.getGameConfig().equals(gameConfig);
+        assertEquals(game.getGameConfig(), gameConfig);
     }
 }

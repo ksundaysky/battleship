@@ -45,7 +45,7 @@ public class ActiveGamesService {
         return player.equals(game.getCurrentPlayer());
     }
 
-    public List<Field> returnUserFleet(Long id, String username) { // TODO: 17.05.19 ta metoda nie tutaj xd
+    public List<Field> getUserFleet(Long id, String username) { // TODO: 17.05.19 ta metoda nie tutaj xd
         User user = getUserFromDataBase(username);
         Game game = getGameById(id);
         game.setGameState(GameState.IN_PROGRESS);
@@ -57,7 +57,7 @@ public class ActiveGamesService {
                 .collect(Collectors.toList());
     }
 
-    public Map<Long, Game> returnListOfGames() {
+    public Map<Long, Game> getListOfGames() {
         if (games.isEmpty()) {
             throw new NoAvailableGamesException("No available games to display!");
         }

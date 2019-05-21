@@ -17,7 +17,7 @@ public class ResponseMessageTest {
         responseMessage.setMessage(expectedMessage);
         String actualMessage = responseMessage.getMessage();
 
-        assert expectedMessage.equals(actualMessage);
+        assertEquals(expectedMessage, actualMessage);
 
     }
 
@@ -27,6 +27,6 @@ public class ResponseMessageTest {
         String expectedMessage = "message";
         String actualMessage = responseMessage.getMessage();
 
-        assert expectedMessage.equals(actualMessage);
+        assertEquals(expectedMessage, actualMessage);
     }
 }

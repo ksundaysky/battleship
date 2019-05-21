@@ -3,9 +3,13 @@ package wkbp.battleships.model;
 import org.testng.annotations.Test;
 import wkbp.battleships.businesslogic.ShipRandomiser;
 
+import javax.validation.constraints.AssertFalse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertFalse;
 
 /**
  * @author Wiktor Rup
@@ -58,7 +62,7 @@ public class GameRefereeTest {
         Board board = initializeBoard();
         addFleetToBoard(board);
         GameReferee gameReferee = new GameReferee(board);
-        assert !gameReferee.checkIfWon() : "Referee should claim game is not won";
+        assertFalse(gameReferee.checkIfWon());
     }
 
     @Test
@@ -67,7 +71,7 @@ public class GameRefereeTest {
         addFleetToBoard(board);
         board = burnFleet(board);
         GameReferee gameReferee = new GameReferee(board);
-        assert gameReferee.checkIfWon() : "Referee should claim game is won";
+        assertTrue(gameReferee.checkIfWon());
     }
 
     @Test(invocationCount = 100, successPercentage = 90)
@@ -78,6 +82,6 @@ public class GameRefereeTest {
         board.getFieldList().get(getFirstShipId(board)).setHit(true);
         gameReferee.setLastMove(new Move(1, null, board.getFieldList().get(getFirstShipId(board))));
         gameReferee.setLastShootHit(true);
-        assert gameReferee.checkIfHitTheShip() : "Referee should claim field is hit";
+        assertTrue(gameReferee.checkIfHitTheShip());
     }
 }

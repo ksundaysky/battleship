@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.testng.AssertJUnit.assertEquals;
+
 /**
  * @author Wiktor Rup
  */
@@ -24,6 +26,6 @@ public class FleetFactoryTest {
         FleetConfig fleetConfig = new FleetConfig(configMap);
         Fleet factoryFleet = new FleetFactory().generateFleet(fleetConfig);
 
-        assert fleet.equals(factoryFleet);
+        assertEquals(fleet, factoryFleet);
     }
 }

@@ -27,7 +27,7 @@ public class UserTest {
         String expectedName = "Staszek";
         String actualName = user.getName();
 
-        assert expectedName.equals(actualName);
+        assertEquals(expectedName, actualName);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class UserTest {
         String expectedUsername = "stachu";
         String actualUsername = user.getUsername();
 
-        assert expectedUsername.equals(actualUsername);
+        assertEquals(expectedUsername, actualUsername);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class UserTest {
         String expectedEmail = "stachu@gmail.com";
         String actualEmail = user.getEmail();
 
-        assert expectedEmail.equals(actualEmail);
+        assertEquals(expectedEmail, actualEmail);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class UserTest {
         String expectedPassword = "passwd1234";
         String actualPassword = user.getPassword();
 
-        assert expectedPassword.equals(actualPassword);
+        assertEquals(expectedPassword, actualPassword);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class UserTest {
         user.setName(expectedName);
         String actualName = user.getName();
 
-        assert expectedName.equals(actualName);
+        assertEquals(expectedName, actualName);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class UserTest {
         user.setUsername(expectedUsername);
         String actualUsername = user.getUsername();
 
-        assert expectedUsername.equals(actualUsername);
+        assertEquals(expectedUsername, actualUsername);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class UserTest {
         user.setEmail(expectedEmail);
         String actualEmail = user.getEmail();
 
-        assert expectedEmail.equals(actualEmail);
+        assertEquals(expectedEmail, actualEmail);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class UserTest {
         user.setPassword(expectedPassword);
         String actualPassword = user.getPassword();
 
-        assert expectedPassword.equals(actualPassword);
+        assertEquals(expectedPassword, actualPassword);
     }
 
 }

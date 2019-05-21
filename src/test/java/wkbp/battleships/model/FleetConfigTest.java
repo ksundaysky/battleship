@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.testng.AssertJUnit.assertEquals;
+
 /**
  * @author Wiktor Rup
  */
@@ -17,6 +19,6 @@ public class FleetConfigTest {
         map.put(1, 3);
         FleetConfig fleetConfig = new FleetConfig(map);
 
-        assert fleetConfig.getFleetConfig().equals(map);
+        assertEquals(fleetConfig.getFleetConfig(), map);
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
 
 @Test
 public class BoardTest {
@@ -65,7 +66,7 @@ public class BoardTest {
         List<Field> list = new ArrayList<>();
         for (int i = 0; i < Math.pow(board.getDimension(), 2); i++)
             list.add(new Field(i));
-        assert board.getFieldList().equals(list);
+        assertEquals(board.getFieldList(), list);
     }
 
     @Test
@@ -80,20 +81,20 @@ public class BoardTest {
             list.add(new Field(i));
         board.setFieldList(list);
 
-        assert board.getFieldList().equals(list);
+        assertEquals(board.getFieldList(), list);
     }
 
     @Test
     public void testSetDimension() {
         board.setDimension(13);
-        assert board.getDimension() == 13;
+        assertEquals(board.getDimension(), 13);
     }
 
     @Test
     public void testEquals1() {
         Board testBoard = new BoardFactory(gameConfig).createBoard();
 
-        assert testBoard.equals(board);
+        assertEquals(testBoard, board);
 
     }
 }
