@@ -88,6 +88,7 @@ class GameplayRestAPIs {
     public ResponseEntity<?> userFleet(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
+        activeGamesService.addReadyPlayer(id);
         List<Field> ships = activeGamesService.getUserFleet(id, authentication.getName());
         message = objectMapper.writeValueAsString(ships);
         return new ResponseEntity<>(message, HttpStatus.OK);

@@ -25,6 +25,7 @@ public class Game {
     private GameConfig gameConfig;
     private GameState gameState;
     private User currentPlayer;
+    private int howManyPlayersAreReady = 0;
 
     public Game(GameConfig gameConfig) {
         playersInGame = new HashMap<>();
@@ -50,6 +51,10 @@ public class Game {
 
     public boolean containsPlayer(User user) {
         return playersInGame.containsKey(user);
+    }
+
+    public void addReadyPlayer(){
+        howManyPlayersAreReady++;
     }
 
     /**

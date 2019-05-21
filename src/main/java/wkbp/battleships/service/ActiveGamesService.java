@@ -119,6 +119,14 @@ public class ActiveGamesService {
     }
 
     public boolean isGameReady(long id) {
-        return games.get(id).getNumberOfPlayers() == 2;
+        if(games.get(id).getHowManyPlayersAreReady() == 2) {
+            games.get(id).setHowManyPlayersAreReady(0);
+            return true;
+        }
+        else return false;
+    }
+
+    public void addReadyPlayer(long id){
+        games.get(id).addReadyPlayer();
     }
 }
