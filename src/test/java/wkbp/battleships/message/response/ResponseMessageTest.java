@@ -5,23 +5,28 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * @author krzysztof.niedzielski
+ * @author Wiktor Rup
  */
 public class ResponseMessageTest {
 
     private ResponseMessage responseMessage = new ResponseMessage("message");
 
     @Test
-    public void testGetResponseMessage(){
-        assertEquals("message",responseMessage.getMessage());
-    }
+    public void testSetMessage() {
+        String expectedMessage = "new_message";
+        responseMessage.setMessage(expectedMessage);
+        String actualMessage = responseMessage.getMessage();
 
+        assertEquals(expectedMessage, actualMessage);
+
+    }
 
     @Test
-    public void testSetResponseMessage(){
-        responseMessage.setMessage("new_message");
-        assertEquals("new_message",responseMessage.getMessage());
+    public void testGetMessage() {
 
+        String expectedMessage = "message";
+        String actualMessage = responseMessage.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
     }
-
 }

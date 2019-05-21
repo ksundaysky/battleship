@@ -1,5 +1,8 @@
 package wkbp.battleships.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +11,12 @@ import java.util.List;
  * Consists of List of fields with given state
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
+@Getter
+@EqualsAndHashCode
 public class Ship {
 
     private int size;
@@ -17,9 +25,5 @@ public class Ship {
     public Ship(int size) {
         this.size = size;
         this.fieldsOfShip = new ArrayList<>();
-    }
-
-    public int getSize() {
-        return size;
     }
 }

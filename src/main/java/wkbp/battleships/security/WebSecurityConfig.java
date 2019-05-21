@@ -22,6 +22,9 @@ import wkbp.battleships.security.services.UserDetailsServiceImpl;
  * Configuration class responsible for user authentication and authorization.
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  * @see wkbp.battleships.model.User
  * @see wkbp.battleships.security.jwt.JwtAuthTokenFilter
  * @see wkbp.battleships.security.jwt.JwtAuthEntryPoint
@@ -69,6 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().
                 authorizeRequests()
                 .antMatchers("/api/wkbp/auth/**").permitAll()
+                .antMatchers("/api/wkbp/get/gameslist").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

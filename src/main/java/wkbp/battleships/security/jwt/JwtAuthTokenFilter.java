@@ -22,6 +22,9 @@ import java.io.IOException;
  * authenticated only once per request.
  *
  * @author Wiktor Rup
+ * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  * @see JwtProvider
  * @see org.springframework.web.filter.OncePerRequestFilter
  */

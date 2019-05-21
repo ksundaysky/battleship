@@ -2,7 +2,7 @@ package wkbp.battleships.businesslogic;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import wkbp.battleships.exception.CantPlaceShipsException;
+import wkbp.battleships.controller.CantPlaceShipsException;
 import wkbp.battleships.model.*;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import static org.testng.AssertJUnit.assertEquals;
  * @author Bartosz Kupajski
  */
 @Test
-public class ShipsRandomiserTest {
+public class ShipRandomiserTest {
 
     private List<Field> fullFleetList;
     private Board board;
@@ -43,13 +43,13 @@ public class ShipsRandomiserTest {
                 new Ship(3), new Ship(3),
                 new Ship(2), new Ship(2), new Ship(2),
                 new Ship(1), new Ship(1), new Ship(1), new Ship(1)));
-        fullFleetList = new ShipsRandomiser(board, fleet).randomizeShips();
+        fullFleetList = new ShipRandomiser(board, fleet).randomizeShips();
     }
 
     @Test(invocationCount = 10000, successPercentage = 90)
     public void shouldPlaceGivenFleet() {
         initializeBoard();
-        new ShipsRandomiser(board, fleet).randomizeShips();
+        new ShipRandomiser(board, fleet).randomizeShips();
     }
 
     @Test
@@ -75,8 +75,8 @@ public class ShipsRandomiserTest {
         for (Field field : board.getFieldList()) {
             field.setStateOfField(StateOfField.OCCUPIED);
         }
-        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
-        shipsRandomiser.randomizeShips();
+        ShipRandomiser shipRandomiser = new ShipRandomiser(board, fleet);
+        shipRandomiser.randomizeShips();
     }
 
     @Test(expectedExceptions = CantPlaceShipsException.class)
@@ -84,8 +84,8 @@ public class ShipsRandomiserTest {
         for (Field field : board.getFieldList()) {
             field.setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
         }
-        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, fleet);
-        shipsRandomiser.randomizeShips();
+        ShipRandomiser shipRandomiser = new ShipRandomiser(board, fleet);
+        shipRandomiser.randomizeShips();
     }
 
     @Test(expectedExceptions = CantPlaceShipsException.class)
@@ -95,15 +95,14 @@ public class ShipsRandomiserTest {
                 new Ship(4), new Ship(4), new Ship(4),
                 new Ship(4), new Ship(4), new Ship(4),
                 new Ship(4), new Ship(4)));
-        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, tooBigFleet);
-        shipsRandomiser.randomizeShips();
+        ShipRandomiser shipRandomiser = new ShipRandomiser(board, tooBigFleet);
+        shipRandomiser.randomizeShips();
     }
 
     @Test(expectedExceptions = CantPlaceShipsException.class)
     public void shouldThrowCantPlaceShipsExceptionWhenShipCannotFitOnBoard() {
         Fleet containingTooBigShip = new Fleet(Arrays.asList(new Ship(11)));
-        ShipsRandomiser shipsRandomiser = new ShipsRandomiser(board, containingTooBigShip);
-        shipsRandomiser.randomizeShips();
+        ShipRandomiser shipRandomiser = new ShipRandomiser(board, containingTooBigShip);
+        shipRandomiser.randomizeShips();
     }
-
 }

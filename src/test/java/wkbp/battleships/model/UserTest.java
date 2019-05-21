@@ -1,81 +1,94 @@
 package wkbp.battleships.model;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import wkbp.battleships.dao.repository.entity.Role;
+import wkbp.battleships.dao.repository.entity.UserInGameEntity;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static org.testng.Assert.*;
 
 /**
- * @author krzysztof.niedzielski
+ * @author Wiktor Rup
  */
 public class UserTest {
 
-    User user = new User("name","username","email","password");
+    private User user;
 
-
-    @Test
-    public void testSetId() {
-        user.setId(1L);
-        assertEquals(java.util.Optional.of(1L).get(), user.getId());
-    }
-    @Test
-    public void testGetId() {
-        user.setId(2L);
-        assertEquals(java.util.Optional.of(2L).get(), user.getId());
-    }
-
-    @Test
-    public void testGetUsername() {
-        assertEquals("username",user.getUsername());
-    }
-
-    @Test
-    public void testSetUsername() {
-        user.setUsername("new username");
-        assertEquals("new username",user.getUsername());
+    @BeforeMethod
+    public void initializeUser(){
+        user = new User("Staszek", "stachu", "stachu@gmail.com", "passwd1234");
     }
 
     @Test
     public void testGetName() {
-        assertEquals("name",user.getName());
+        String expectedName = "Staszek";
+        String actualName = user.getName();
+
+        assertEquals(expectedName, actualName);
     }
 
     @Test
-    public void testSetName() {
-        user.setName("new name");
-        assertEquals("new name",user.getName());
+    public void testGetUsername() {
+        String expectedUsername = "stachu";
+        String actualUsername = user.getUsername();
+
+        assertEquals(expectedUsername, actualUsername);
     }
 
     @Test
     public void testGetEmail() {
-        assertEquals("email",user.getEmail());
-    }
+        String expectedEmail = "stachu@gmail.com";
+        String actualEmail = user.getEmail();
 
-    @Test
-    public void testSetEmail() {
-        user.setEmail("new email");
-        assertEquals("new email",user.getEmail());
+        assertEquals(expectedEmail, actualEmail);
     }
 
     @Test
     public void testGetPassword() {
-        assertEquals("password",user.getPassword());
+
+        String expectedPassword = "passwd1234";
+        String actualPassword = user.getPassword();
+
+        assertEquals(expectedPassword, actualPassword);
+    }
+
+    @Test
+    public void testSetName() {
+        String expectedName = "Zbyszek";
+        user.setName(expectedName);
+        String actualName = user.getName();
+
+        assertEquals(expectedName, actualName);
+    }
+
+    @Test
+    public void testSetUsername() {
+        String expectedUsername = "zbychu";
+        user.setUsername(expectedUsername);
+        String actualUsername = user.getUsername();
+
+        assertEquals(expectedUsername, actualUsername);
+    }
+
+    @Test
+    public void testSetEmail() {
+        String expectedEmail = "zbychu@gmail.com";
+        user.setEmail(expectedEmail);
+        String actualEmail = user.getEmail();
+
+        assertEquals(expectedEmail, actualEmail);
     }
 
     @Test
     public void testSetPassword() {
-        user.setPassword("new password");
-        assertEquals("new password",user.getPassword());
-    }
+        String expectedPassword = "qwerty1234";
+        user.setPassword(expectedPassword);
+        String actualPassword = user.getPassword();
 
-    @Test
-    public void testGetRoles() {
-        User user1 = new User();
-        Set<Role> roles = new HashSet<>();
-        assertEquals(roles ,user1.getRoles());
+        assertEquals(expectedPassword, actualPassword);
     }
 
 }

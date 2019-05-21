@@ -1,14 +1,21 @@
 package wkbp.battleships.message.request;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
  * Represents login form on the client side
  *
+ * @author Wiktor Rup
  * @author Patryk Kucharski
- * @author Wiktor Wrup
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
+@NoArgsConstructor
+@Getter
 public class LoginForm {
     @NotBlank
     @Size(min = 3, max = 60)
@@ -22,16 +29,4 @@ public class LoginForm {
         this.username = username;
         this.password = password;
     }
-
-    public LoginForm() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-    // usunięte settery jakby co nie hulało to wygenerować znowu
 }

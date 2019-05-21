@@ -5,23 +5,26 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * @author krzysztof.niedzielski
+ * @author Wiktor Rup
  */
 public class LoginFormTest {
 
+    private LoginForm loginForm = new LoginForm("username1", "passwd1234");
+
 
     @Test
-    private void testCreatingLoginForm(){
-         LoginForm loginForm = new LoginForm("username","password");
-         assertEquals("username",loginForm.getUsername());
-         assertEquals("password",loginForm.getPassword());
+    public void testGetUsername() {
+        String expectedUsername = "username1";
+        String actualUsername = loginForm.getUsername();
+
+        assertEquals(expectedUsername, actualUsername);
     }
 
     @Test
-    private void testCreatingLoginFormEmptyConstructor(){
-        LoginForm loginForm = new LoginForm();
-        assertNull(loginForm.getPassword());
-        assertNull(loginForm.getUsername());
-    }
+    public void testGetPassword() {
+        String expectedPassword = "passwd1234";
+        String actualPassword = loginForm.getPassword();
 
+        assertEquals(expectedPassword, actualPassword);
+    }
 }

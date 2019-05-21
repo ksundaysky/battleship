@@ -1,34 +1,71 @@
 package wkbp.battleships.message.request;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.Set;
 
-import static org.testng.Assert.*;
+import static org.testng.AssertJUnit.assertEquals;
 
 /**
- * @author krzysztof.niedzielski
+ * @author Wiktor Rup
  */
 public class SignUpFormTest {
 
-    @Test
-    private void testCreateSignupForm(){
-        SignUpForm signUpForm = new SignUpForm("name","username","email",Collections.singleton("role"),"password");
-        assertEquals("name",signUpForm.getName());
-        assertEquals("username",signUpForm.getUsername());
-        assertEquals("email",signUpForm.getEmail());
-        assertEquals(1,signUpForm.getRole().size());
-        assertEquals("password",signUpForm.getPassword());
+
+    private Set<String> role = new HashSet<>();
+    private SignUpForm signUpForm;
+    @BeforeMethod
+    public void initializeSignUpForm() {
+        role.add("USER_ROLE");
+        signUpForm = new SignUpForm("Name1", "Username1", "email@gmail.com", role, "passwd1234");
     }
 
     @Test
-    private void testCreateSignupFormEmpty(){
-        SignUpForm signUpForm = new SignUpForm();
-        assertNull(signUpForm.getName());
-        assertNull(signUpForm.getUsername());
-        assertNull(signUpForm.getEmail());
-        assertNull(signUpForm.getPassword());
+    public void testGetName() {
+
+        String expectedName = "Name1";
+        String actualName = signUpForm.getName();
+
+        assertEquals(expectedName, actualName);
     }
 
+    @Test
+    public void testGetUsername() {
+
+        String expectedUsername = "Username1";
+        String actualUsername = signUpForm.getUsername();
+
+        assertEquals(expectedUsername, actualUsername);
+    }
+
+    @Test
+    public void testGetEmail() {
+
+        String expectedEmail = "email@gmail.com";
+        String actualEmail = signUpForm.getEmail();
+
+        assertEquals(expectedEmail, actualEmail);
+    }
+
+    @Test
+    public void testGetRole() {
+
+        Set<String> expectedRole = new HashSet<>();
+        expectedRole.add("USER_ROLE");
+
+        Set<String> actualRole = signUpForm.getRole();
+
+        assertEquals(expectedRole, actualRole);
+    }
+
+    @Test
+    public void testGetPassword() {
+
+        String expectedPassword = "passwd1234";
+        String actualPasswrod = signUpForm.getPassword();
+
+        assertEquals(expectedPassword, actualPasswrod);
+    }
 }

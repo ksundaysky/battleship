@@ -15,6 +15,8 @@ import java.util.Date;
  * It generates and provides JWT (JSON Web Tokens).
  * Please check {@link JwtAuthTokenFilter} to see its usage cases.
  *
+ * @author Wiktor Rup
+ * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
@@ -41,7 +43,7 @@ public class JwtProvider {
                 .compact();
     }
 
-    public boolean validateJwtToken(String authToken) {
+    boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
@@ -60,7 +62,7 @@ public class JwtProvider {
         return false;
     }
 
-    public String getUserNameFromJwtToken(String token) {
+    String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)

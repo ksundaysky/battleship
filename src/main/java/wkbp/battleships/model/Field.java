@@ -1,44 +1,38 @@
 package wkbp.battleships.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 /**
  * Represents single cell of the board which can be shot at
  * <p>
  * as board object {@link Board} has a List of fields, each field has it's own unique id
  * also field has a state {@link StateOfField}
  *
- * @author Krzysztof Niedzielski
+ * @author Wiktor Rup
  * @author Patryk Kucharski
+ * @author Krzysztof Niedzielski
+ * @author Bartosz Kupajski
  */
+@Data
+@AllArgsConstructor
 public class Field {
 
     private int id;
     private StateOfField stateOfField;
-
-    public Field(int id, StateOfField stateOfField) {
-        this.id = id;
-        this.stateOfField = stateOfField;
-    }
+    private boolean hit;
 
     public Field(int id) {
         this.id = id;
         stateOfField = StateOfField.EMPTY;
-        stateOfField.isHit = false;
+        hit = false;
     }
 
-    public int getId() {
-        return id;
+    public boolean isHit() {
+        return hit;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIsHit(boolean hit) {
+        this.hit = hit;
     }
-
-    public void setStateOfField(StateOfField stateOfField) {
-        this.stateOfField = stateOfField;
-    }
-
-    public StateOfField getStateOfField() {
-        return stateOfField;
-    }
-
 }
