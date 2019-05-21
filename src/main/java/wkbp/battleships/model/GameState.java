@@ -7,8 +7,7 @@ package wkbp.battleships.model;
  * @author Bartosz Kupajski
  */
 public enum GameState {
-    IN_PREPARATION,
-    WAITING,
+    WAITING_FOR_PLAYER,
     IN_PROGRESS,
     FINISHED
 }
