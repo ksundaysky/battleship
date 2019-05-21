@@ -33,10 +33,10 @@ public class GameplayService {
         return game.moveHasBeenMade(new Move(gameId, player, field));
     }
 
-    public boolean isPlayerTurn(long id, String playersName) {
+    public ShotOutcome isPlayerTurn(long id, String playersName) {
         User player = getUserFromDataBase(playersName);
         Game game = getGameById(id);
-        return player.equals(game.getCurrentPlayer());
+        return game.getGameQueues().get(player).poll();
     }
 
     private Game getGameById(Long gameId) {

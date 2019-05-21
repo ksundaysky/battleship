@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * Represents single game, and is responsible for initializing
@@ -22,6 +24,7 @@ public class Game {
     private long id;
     private Gameplay gameplay;
     private Map<User, Board> playersInGame;
+    private Map<User, Queue<ShotOutcome>> gameQueues;
     private GameConfig gameConfig;
     private GameState gameState;
     private User currentPlayer;
@@ -29,12 +32,14 @@ public class Game {
 
     public Game(GameConfig gameConfig) {
         playersInGame = new HashMap<>();
+        gameQueues = new HashMap<>();
         this.gameConfig = gameConfig;
         this.gameState = GameState.WAITING_FOR_PLAYER;
     }
 
     public void addPlayerToTheGame(User user) {
         playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
+        gameQueues.put(user, new LinkedList<>());
     }
 
     public void addUserAndHisBoard(User user, Board board) {
@@ -68,6 +73,7 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
+                gameQueues.get(entry.getKey()).add(outcome);
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
                 }
