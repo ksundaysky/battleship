@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.service.GameService;
-import wkbp.battleships.service.ShipsRandomiseService;
+import wkbp.battleships.service.ShipPlacementService;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class ShipPlacementControllerAPIs {
     @Autowired
     private GameService gameService;
     @Autowired
-    private ShipsRandomiseService shipsRandomiseService;
+    private ShipPlacementService shipPlacementService;
 
     @GetMapping("get/ships_placement/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -52,7 +52,7 @@ public class ShipPlacementControllerAPIs {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            List<Field> ships = shipsRandomiseService.randomiseShipsForUser(id, authentication.getName());
+            List<Field> ships = shipPlacementService.randomiseShipsForUser(id, authentication.getName());
             message = objectMapper.writeValueAsString(ships);
         } catch (CantPlaceShipsException e) {
             message = e.getMessage();
