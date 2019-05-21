@@ -29,7 +29,7 @@ public class Game {
     public Game(GameConfig gameConfig) {
         playersInGame = new HashMap<>();
         this.gameConfig = gameConfig;
-        this.gameState = GameState.IN_PREPARATION;
+        this.gameState = GameState.WAITING_FOR_PLAYER;
     }
 
     public void addPlayerToTheGame(User user) {

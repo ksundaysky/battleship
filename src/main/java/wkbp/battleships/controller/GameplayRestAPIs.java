@@ -62,6 +62,16 @@ class GameplayRestAPIs {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @GetMapping("get/wkbp/get/game/is_game_ready/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> isGameReady(@PathVariable("id") long id) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        boolean isGameReady = activeGamesService.isGameReady(id);
+        message = objectMapper.writeValueAsString(isGameReady);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @GetMapping("get/game/is_my_turn/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> isUserTurn(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {

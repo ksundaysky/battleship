@@ -118,4 +118,7 @@ public class ActiveGamesService {
         game.setCurrentPlayer(currentPlayer);
     }
 
+    public boolean isGameReady(long id) {
+        return games.get(id).getNumberOfPlayers() == 2;
+    }
 }
