@@ -3,7 +3,7 @@ package wkbp.battleships.model;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Wiktor Rup
@@ -14,7 +14,7 @@ public class ShotOutcomeTest {
     private ShotOutcome shotOutcome;
 
     @BeforeMethod
-    public void initialize(){
+    public void initialize() {
         field.setStateOfField(StateOfField.OCCUPIED);
         field.setIsHit(true);
         shotOutcome = new ShotOutcome(true, field, false);

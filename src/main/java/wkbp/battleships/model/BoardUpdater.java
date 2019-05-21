@@ -46,7 +46,7 @@ class BoardUpdater {
         if (!field.isHit()) {
             field.setIsHit(true);
             gameReferee.setLastShootHit(true);
-        }else {
+        } else {
             gameReferee.setLastShootHit(false);
         }
     }

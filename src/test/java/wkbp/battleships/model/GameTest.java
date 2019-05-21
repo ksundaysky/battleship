@@ -55,7 +55,7 @@ public class GameTest {
 
         System.out.println(game.getNumberOfPlayers());
 
-        assertEquals(game.getNumberOfPlayers(),2);
+        assertEquals(game.getNumberOfPlayers(), 2);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class GameTest {
     @Test
     public void testGetId() {
         game.setId(1);
-        assertEquals(game.getId(),1);
+        assertEquals(game.getId(), 1);
     }
 
     @Test

@@ -3,7 +3,7 @@ package wkbp.battleships.dao.repository.entity;
 import org.testng.annotations.Test;
 import wkbp.battleships.model.GameState;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Wiktor Rup
@@ -17,6 +17,6 @@ public class GameEntityTest {
         GameState expectedGameState = GameState.IN_PREPARATION;
         GameState actualGameState = gameEntity.getGameState();
 
-        assertEquals(expectedGameState,actualGameState);
+        assertEquals(expectedGameState, actualGameState);
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Bartosz Kupajski
  */
 @Getter
-public class   Gameplay {
+public class Gameplay {
 
     private Board board;
     private BoardUpdater boardUpdater;

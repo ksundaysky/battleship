@@ -2,13 +2,8 @@ package wkbp.battleships.model;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import wkbp.battleships.dao.repository.entity.Role;
-import wkbp.battleships.dao.repository.entity.UserInGameEntity;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Wiktor Rup
@@ -18,7 +13,7 @@ public class UserTest {
     private User user;
 
     @BeforeMethod
-    public void initializeUser(){
+    public void initializeUser() {
         user = new User("Staszek", "stachu", "stachu@gmail.com", "passwd1234");
     }
 

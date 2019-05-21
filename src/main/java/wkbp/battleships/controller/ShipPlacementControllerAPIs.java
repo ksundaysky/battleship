@@ -40,6 +40,7 @@ public class ShipPlacementControllerAPIs {
             message = gameService.tryToJoinTheGame(id, authentication.getName());
         } catch (GameIsFullException e) {
             message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

@@ -2,7 +2,6 @@ package wkbp.battleships.dto;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import wkbp.battleships.model.Game;
 import wkbp.battleships.model.GameConfig;
 import wkbp.battleships.model.GameMode;
 
@@ -16,7 +15,7 @@ public class ConfigDTOTest {
     private ConfigDTO configDTO;
 
     @BeforeMethod
-    public void initializeConfigDTO(){
+    public void initializeConfigDTO() {
         configDTO = new ConfigDTO("game1", 10, true, GameMode.STANDARD);
     }
 

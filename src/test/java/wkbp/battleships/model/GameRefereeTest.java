@@ -3,7 +3,6 @@ package wkbp.battleships.model;
 import org.testng.annotations.Test;
 import wkbp.battleships.businesslogic.ShipRandomiser;
 
-import javax.validation.constraints.AssertFalse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

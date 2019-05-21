@@ -10,6 +10,7 @@ import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dao.repository.entity.UserInGameEntity;
 import wkbp.battleships.model.*;
 
+import javax.naming.NoPermissionException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,16 @@ public class ActiveGamesService {
         return games;
     }
 
+
+    public boolean isPlayersGame(long id, String user) throws NoPermissionException {
+        User player = getUserFromDataBase(user);
+        Game game = games.get(id);
+        if(!game.getPlayersInGame().containsKey(player))
+            throw new NoPermissionException("You have no permission to join this game!");
+        else
+            return true;
+    }
+
     void addPlayerToTheGame(Long gameId, String playersName, Game game) {
 
         User owner = getUserFromDataBase(playersName);
@@ -103,4 +114,5 @@ public class ActiveGamesService {
         Game game = games.get(id);
         game.setCurrentPlayer(currentPlayer);
     }
+
 }

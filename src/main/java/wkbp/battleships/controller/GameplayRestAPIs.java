@@ -41,15 +41,15 @@ class GameplayRestAPIs {
 
     @GetMapping("get/game/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> userFleet(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> gameInit(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            List<Field> ships = activeGamesService.getUserFleet(id, authentication.getName()); //todo no nie bardzo
-            message = objectMapper.writeValueAsString(ships);
-        } catch (CantPlaceShipsException e) {
+            boolean isPlayerGame = activeGamesService.isPlayersGame(id, authentication.getName());
+            message = objectMapper.writeValueAsString(isPlayerGame);
+        } catch (javax.naming.NoPermissionException e) {
             message = e.getMessage();
-            return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -62,6 +62,16 @@ class GameplayRestAPIs {
         String message;
         message = objectMapper.writeValueAsString(activeGamesService.isPlayerTurn(id, authentication.getName()));
 
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("get/game/fleet/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> userFleet(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        List<Field> ships = activeGamesService.getUserFleet(id, authentication.getName());
+        message = objectMapper.writeValueAsString(ships);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
