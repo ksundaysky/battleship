@@ -1,6 +1,8 @@
 package wkbp.battleships.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Responsible for transcripting flow of the game.
@@ -11,18 +13,20 @@ import lombok.EqualsAndHashCode;
  * @author Bartosz Kupajski
  */
 @EqualsAndHashCode
+@Getter
+@Setter
 class Auditor {
 
     private Move move;
     private boolean hitTheShip;
     private boolean wonTheGame;
 
-    Auditor() {
+    public Auditor() {
         this.wonTheGame = false;
         this.hitTheShip = false;
     }
 
-    void update(Move move, boolean hitTheShip, boolean wonTheGame) {
+    public void update(Move move, boolean hitTheShip, boolean wonTheGame) {
         this.move = move;
         this.hitTheShip = hitTheShip;
         this.wonTheGame = wonTheGame;
@@ -49,7 +53,7 @@ class Auditor {
         }
     }
 
-    public String getMessage() {
+    public String getMessageFromAuditor() {
         return "Player " + move.getPlayer() +
                 " fired at field: " + getCoordinatesOfField(move.getFieldToShoot()) +
                 "\nresult: hit the ship: " + hitTheShip + ", won: " + wonTheGame;

@@ -43,7 +43,7 @@ class BoardUpdater {
         boolean hitTheShip = gameReferee.checkIfHitTheShip();
         boolean ifWon = gameReferee.checkIfWon();
         notifyAuditor(move, ifWon, hitTheShip);
-        ShotOutcome shotOutcome = new ShotOutcome(hitTheShip, updatedField, ifWon, auditor.getMessage());
+        ShotOutcome shotOutcome = new ShotOutcome(hitTheShip, updatedField, ifWon, auditor.getMessageFromAuditor());
         logger.info("class BoardUpdater, method updateBoard(); returning shotOutcome: " + shotOutcome.toString());
         return shotOutcome;
     }

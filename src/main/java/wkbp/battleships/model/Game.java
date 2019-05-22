@@ -28,6 +28,8 @@ public class Game {
     private Gameplay gameplay;
     private Map<User, Board> playersInGame;
     private Map<User, Queue<ShotOutcome>> gameQueues;
+    private LinkedList<String> messagesForOwner;
+    private LinkedList<String> messagesForOpponent;
     private GameConfig gameConfig;
     private GameState gameState;
     private User currentPlayer;
@@ -41,9 +43,37 @@ public class Game {
         this.gameState = GameState.WAITING_FOR_PLAYER;
     }
 
+    /**
+     * This method is responsible for marking changes on opponent's components basing on Move parameter.
+     * Negations inside conditional sentences are used for extracting proper Player from the Game.
+     *
+     * @param move - {@link Move}
+     * @return outcome - {@link ShotOutcome}
+     */
+    public ShotOutcome moveHasBeenMade(Move move) {
+        for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
+            if (!entry.getKey().equals(move.getPlayer())) {
+                ShotOutcome outcome = gameplay.update(move, entry.getValue());
+                messagesForOwner.add(outcome.getMessage());
+                messagesForOpponent.add(outcome.getMessage());
+                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
+                        outcome.isPlayerWon(), null));
+                if (!outcome.isPlayerTurn()) {
+                    setCurrentPlayer(entry.getKey());
+                    logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().getName());
+                }
+                logger.info("class Game, method moveHasBeenMade(); returning " + outcome.toString());
+                return outcome;
+            }
+        }
+        return null; //this line will never be reached
+    }
+
     public void addPlayerToTheGame(User user) {
         playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
         gameQueues.put(user, new LinkedList<>());
+        messagesForOwner = new LinkedList<>();
+        messagesForOpponent = new LinkedList<>();
     }
 
     public void addUserAndHisBoard(User user, Board board) {
@@ -64,28 +94,5 @@ public class Game {
 
     public void addReadyPlayer(){
         howManyPlayersAreReady++;
-    }
-
-    /**
-     * This method is responsible for marking changes on opponent's components basing on Move parameter.
-     * Negations inside conditional sentences are used for extracting proper Player from the Game.
-     *
-     * @param move - {@link Move}
-     * @return outcome - {@link ShotOutcome}
-     */
-    public ShotOutcome moveHasBeenMade(Move move) {
-        for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
-            if (!entry.getKey().equals(move.getPlayer())) {
-                ShotOutcome outcome = gameplay.update(move, entry.getValue());
-                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(), outcome.isPlayerWon(),null));
-                if (!outcome.isPlayerTurn()) {
-                    setCurrentPlayer(entry.getKey());
-                    logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().toString());
-                }
-                logger.info("class Game, method moveHasBeenMade(); returning " + outcome.toString());
-                return outcome;
-            }
-        }
-        return null; //this line will never be reached
     }
 }
