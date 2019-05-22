@@ -43,6 +43,7 @@ public class GameReferee {
                 .filter(field -> !field.isHit())
                 .collect(Collectors.toList());
         boolean won = hitFields.isEmpty();
+        logger.info(hitFields.toString());
         logger.info("player won = " + won);
         return won;
     }
