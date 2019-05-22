@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 class Auditor {
 
-    private Move move;
+    private Move lastMove;
     private boolean hitTheShip;
     private boolean wonTheGame;
 
@@ -27,7 +27,7 @@ class Auditor {
     }
 
     public void update(Move move, boolean hitTheShip, boolean wonTheGame) {
-        this.move = move;
+        this.lastMove = move;
         this.hitTheShip = hitTheShip;
         this.wonTheGame = wonTheGame;
         writeMessageToFile();
@@ -38,24 +38,24 @@ class Auditor {
     }
 
     public String writeMessageToFront() {
-        if (move == null) {
+        if (lastMove == null) {
             return "Game hasn't started yet.";
         } else {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(move.getPlayer().getName()).append("shot on a field ").append(move.getFieldToShoot().getId());
+            stringBuilder.append(lastMove.getPlayer().getName()).append("shot on a field ").append(lastMove.getFieldToShoot().getId());
             if (hitTheShip) {
                 stringBuilder.append("Ship has been shot!");
             } else stringBuilder.append("Missed!");
             if (wonTheGame) {
-                stringBuilder.append(move.getPlayer().getName()).append(" won the game!");
+                stringBuilder.append(lastMove.getPlayer().getName()).append(" won the game!");
             }
             return stringBuilder.toString();
         }
     }
 
-    public String getMessageFromAuditor() {
-        return "Player " + move.getPlayer() +
-                " fired at field: " + getCoordinatesOfField(move.getFieldToShoot()) +
+    public String auditLastMove() {
+        return "Player " + lastMove.getPlayer().getName() +
+                " fired at field: " + getCoordinatesOfField(lastMove.getFieldToShoot()) +
                 "\nresult: hit the ship: " + hitTheShip + ", won: " + wonTheGame;
     }
 
@@ -64,11 +64,11 @@ class Auditor {
     }
 
     String getCoordinatesOfField(Field field) {
-            char letterA = 'A';
-            long id = field.getId();
-            char desiredLetter = (char) (letterA + (id / 10));
-            String number = String.valueOf((id % 10)+1);
-            String letter = String.valueOf(desiredLetter);
-            return letter + number;
+        char letterA = 'A';
+        long id = field.getId();
+        char desiredLetter = (char) (letterA + (id / 10));
+        String number = String.valueOf((id % 10) + 1);
+        String letter = String.valueOf(desiredLetter);
+        return letter + number;
     }
 }

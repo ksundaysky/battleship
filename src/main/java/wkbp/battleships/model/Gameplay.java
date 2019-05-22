@@ -38,7 +38,7 @@ public class Gameplay {
         this.board = board;
         boardUpdater.setRefereeBoard(board);
         addMove(move);
-        logger.info("class GamePlay, method update(); move " + move.toString());
+        logger.info("class GamePlay, method update(); lastMove " + move.toString());
         return boardUpdater.updateBoard(move);
     }
 

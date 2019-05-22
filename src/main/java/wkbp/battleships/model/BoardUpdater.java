@@ -43,13 +43,13 @@ class BoardUpdater {
         boolean hitTheShip = gameReferee.checkIfHitTheShip();
         boolean ifWon = gameReferee.checkIfWon();
         notifyAuditor(move, ifWon, hitTheShip);
-        ShotOutcome shotOutcome = new ShotOutcome(hitTheShip, updatedField, ifWon, auditor.getMessageFromAuditor());
+        ShotOutcome shotOutcome = new ShotOutcome(hitTheShip, updatedField, ifWon, auditor.auditLastMove());
         logger.info("class BoardUpdater, method updateBoard(); returning shotOutcome: " + shotOutcome.toString());
         return shotOutcome;
     }
 
     private void notifyReferee(Move move) {
-        logger.info("notifying referee with move " + move.toString());
+        logger.info("notifying referee with lastMove " + move.toString());
         gameReferee.setLastMove(move);
     }
 
