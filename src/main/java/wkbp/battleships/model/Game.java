@@ -54,10 +54,7 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
-                messagesForOwner.add(outcome.getMessage());
-                messagesForOpponent.add(outcome.getMessage());
-                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
-                        outcome.isPlayerWon(), null));
+                sendAccordingMessagesToPlayer(entry, outcome);
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
                     logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().getName());
@@ -84,6 +81,11 @@ public class Game {
         return playersInGame.get(user);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
     public int getNumberOfPlayers() {
         return playersInGame.size();
     }
@@ -92,7 +94,19 @@ public class Game {
         return playersInGame.containsKey(user);
     }
 
-    public void addReadyPlayer(){
+    public void addReadyPlayer() {
         howManyPlayersAreReady++;
+    }
+
+    private void sendAccordingMessagesToPlayer(Map.Entry<User, Board> entry, ShotOutcome outcome) {
+        messagesForOwner.add(outcome.getMessage());
+        messagesForOpponent.add(outcome.getMessage());
+        if (currentPlayer.equals(entry.getKey())) {
+            gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
+                    outcome.isPlayerWon(), messagesForOpponent.poll()));
+        } else {
+            gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
+                    outcome.isPlayerWon(), messagesForOwner.poll()));
+        }
     }
 }
