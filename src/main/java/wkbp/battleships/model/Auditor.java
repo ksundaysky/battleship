@@ -56,7 +56,7 @@ class Auditor {
     public String auditLastMove() {
         return "Player " + lastMove.getPlayer().getName() +
                 " fired at field: " + getCoordinatesOfField(lastMove.getFieldToShoot()) +
-                "\nresult: hit the ship: " + hitTheShip + ", won: " + wonTheGame;
+                "\nresult: hit the ship: " + hitTheShip;
     }
 
     private void writeMessageToFile() {

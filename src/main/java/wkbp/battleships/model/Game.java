@@ -54,7 +54,7 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
-                sendAccordingMessageToPlayer(entry, outcome);
+                updateMessages(entry, outcome);
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
                     logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().getName());
@@ -66,16 +66,11 @@ public class Game {
         return null; //this line will never be reached
     }
 
-    private void sendAccordingMessageToPlayer(Map.Entry<User, Board> entry, ShotOutcome outcome) {
+    private void updateMessages(Map.Entry<User, Board> entry, ShotOutcome outcome) {
         messagesForOwner.add(outcome.getMessage());
         messagesForOpponent.add(outcome.getMessage());
-        if (currentPlayer.equals(entry.getKey())) {
-            gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
-                    outcome.isPlayerWon(), messagesForOpponent.poll()));
-        } else {
-            gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
-                    outcome.isPlayerWon(), messagesForOwner.poll()));
-        }
+        gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
+                outcome.isPlayerWon(), null));
     }
 
     public void addPlayerToTheGame(User user) {

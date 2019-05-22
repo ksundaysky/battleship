@@ -42,10 +42,15 @@ public class GameplayService {
     public ShotOutcome isPlayerTurn(long id, String playersName) {
         User player = getUserFromDataBase(playersName);
         Game game = getGameById(id);
-        if(game.getGameQueues().get(player).peek()!=null)
+        if (game.getGameQueues().get(player).peek() != null)
             return game.getGameQueues().get(player).poll();
-        else
-            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false, null);
+        else if (player.equals(game.getCurrentPlayer())) {
+            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false,
+                    game.getMessagesForOwner().poll());
+        } else {
+            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false,
+                    game.getMessagesForOpponent().poll());
+        }
     }
 
     private Game getGameById(Long gameId) {
