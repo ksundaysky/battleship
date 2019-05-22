@@ -42,15 +42,19 @@ public class GameplayService {
     public ShotOutcome isPlayerTurn(long id, String playersName) {
         User player = getUserFromDataBase(playersName);
         Game game = getGameById(id);
-        if (game.getGameQueues().get(player).peek() != null)
-            return game.getGameQueues().get(player).poll();
-        else if (player.equals(game.getCurrentPlayer())) {
-            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false,
-                    game.getMessagesForOwner().poll());
+        if (game.getGameQueues().get(player).peek() != null) {
+            ShotOutcome shotOutcome = game.getGameQueues().get(player).poll();
+            assert shotOutcome != null;
+            if (player.equals(game.getCurrentPlayer())) {
+                shotOutcome.setMessage(game.getMessagesForOwner().poll());
+                return shotOutcome;
+            } else {
+                shotOutcome.setMessage(game.getMessagesForOpponent().poll());
+                return shotOutcome;
+            }
         } else {
-            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false,
-                    game.getMessagesForOpponent().poll());
-        }
+            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false, null);
+        }// TODO: 22.05.19 czy to działa
     }
 
     private Game getGameById(Long gameId) {

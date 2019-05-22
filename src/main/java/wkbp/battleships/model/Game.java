@@ -54,7 +54,9 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
-                updateMessages(entry, outcome);
+                updateMessages(outcome);
+                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
+                        outcome.isPlayerWon(), null));
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
                     logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().getName());
@@ -66,11 +68,10 @@ public class Game {
         return null; //this line will never be reached
     }
 
-    private void updateMessages(Map.Entry<User, Board> entry, ShotOutcome outcome) {
+    private void updateMessages(ShotOutcome outcome) {
         messagesForOwner.add(outcome.getMessage());
         messagesForOpponent.add(outcome.getMessage());
-        gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
-                outcome.isPlayerWon(), null));
+
     }
 
     public void addPlayerToTheGame(User user) {
