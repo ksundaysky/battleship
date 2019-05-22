@@ -44,7 +44,7 @@ public class ActiveGamesService {
     }
 
     public boolean isGameReady(long gameId) {
-        boolean isGameReady = games.get(gameId).getNumberOfPlayers() == 2;
+        boolean isGameReady = games.get(gameId).getHowManyPlayersAreReady() == 2;
         logger.info("class ActiveGameService, method isGameReady(); returning " + isGameReady);
         return isGameReady;
     }

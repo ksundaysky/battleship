@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -25,19 +26,23 @@ public class Game {
     private long id;
     private Gameplay gameplay;
     private Map<User, Board> playersInGame;
+    private Map<User, Queue<ShotOutcome>> gameQueues;
     private GameConfig gameConfig;
     private GameState gameState;
     private User currentPlayer;
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
+    private int howManyPlayersAreReady = 0;
 
     public Game(GameConfig gameConfig) {
         playersInGame = new HashMap<>();
+        gameQueues = new HashMap<>();
         this.gameConfig = gameConfig;
         this.gameState = GameState.WAITING_FOR_PLAYER;
     }
 
     public void addPlayerToTheGame(User user) {
         playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
+        gameQueues.put(user, new LinkedList<>());
     }
 
     public void addUserAndHisBoard(User user, Board board) {
@@ -56,6 +61,10 @@ public class Game {
         return playersInGame.containsKey(user);
     }
 
+    public void addReadyPlayer(){
+        howManyPlayersAreReady++;
+    }
+
     /**
      * This method is responsible for marking changes on opponent's components basing on Move parameter.
      * Negations inside conditional sentences are used for extracting proper Player from the Game.
@@ -67,6 +76,7 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
+                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(), outcome.isPlayerWon()));
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
                     logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().toString());
