@@ -9,6 +9,7 @@ import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * Represents single game, and is responsible for initializing
@@ -76,7 +77,6 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
-                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(), outcome.isPlayerWon()));
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
                     logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().toString());
