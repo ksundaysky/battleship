@@ -44,7 +44,6 @@ public class GameplayService {
         Game game = getGameById(id);
         if (game.getGameQueues().get(player).peek() != null) {
             ShotOutcome shotOutcome = game.getGameQueues().get(player).poll();
-            assert shotOutcome != null;
             if (player.equals(game.getCurrentPlayer())) {
                 shotOutcome.setMessage(game.getMessagesForOwner().poll());
                 return shotOutcome;
@@ -54,7 +53,7 @@ public class GameplayService {
             }
         } else {
             return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false, null);
-        }// TODO: 22.05.19 czy to działa
+        }// TODO: 22.05.19 nie działa xd, dlaczego? Wiktur halp
     }
 
     private Game getGameById(Long gameId) {

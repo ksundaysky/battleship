@@ -71,7 +71,6 @@ public class Game {
     private void updateMessages(ShotOutcome outcome) {
         messagesForOwner.add(outcome.getMessage());
         messagesForOpponent.add(outcome.getMessage());
-
     }
 
     public void addPlayerToTheGame(User user) {

@@ -86,7 +86,7 @@ class Auditor {
     }
 
     private String createNewFile() {
-        String fileName = "./game_transcripts/" + currentDate() + "_" + gameRepository.getOne(lastMove.getGameId()) + "_";
+        String fileName = "./game_transcripts/" + currentDate() + "_" + gameRepository.getOne(lastMove.getGameId()).getId() + "_";
         new File(fileName);
         return fileName;
     }
