@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
 
@@ -58,16 +59,5 @@ public class GameplayTest {
         Move actualMove = gameplay.getLastMove();
 
         assertEquals(expectedMove, actualMove);
-    }
-
-    @Test
-    public void testGetMoves() {
-        List<Move> expectedMoves = new ArrayList<>();
-        expectedMoves.add(new Move(1, new User(), new Field(2)));
-
-        gameplay.update(new Move(1, new User(), new Field(2)), board);
-        List<Move> actualMoves = gameplay.getMoves();
-
-        assertEquals(expectedMoves, actualMoves);
     }
 }

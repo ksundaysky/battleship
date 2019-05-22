@@ -10,13 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import wkbp.battleships.dto.SummaryDTO;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.model.ShotOutcome;
 import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
-import wkbp.battleships.service.ActiveGamesService;
-import wkbp.battleships.service.GameService;
-import wkbp.battleships.service.GameplayService;
-import wkbp.battleships.service.ShipPlacementService;
+import wkbp.battleships.service.*;
 
 import javax.naming.NoPermissionException;
 import java.util.List;
@@ -42,6 +40,9 @@ class GameplayRestAPIs {
     private GameService gameService;
     @Autowired
     private GameplayService gameplayService;
+    @Autowired
+    private SummaryService summaryService;
+
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
 
@@ -118,4 +119,21 @@ class GameplayRestAPIs {
         logger.info("class GameplayRestAPIs, method isUserTurn(); sending response: " + message);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @GetMapping("/get/game/summary/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> summary(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        try {
+            message = objectMapper.writeValueAsString(summaryService.getSummaryOfGame(id, authentication.getName()));
+            logger.info("class GameplayRestAPIs, method gameShot(); sending response: " + message);
+        } catch (NoPermissionException e) {
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
 }

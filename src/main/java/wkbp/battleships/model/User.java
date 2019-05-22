@@ -2,6 +2,7 @@ package wkbp.battleships.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 import wkbp.battleships.dao.repository.entity.Role;
 import wkbp.battleships.dao.repository.entity.UserInGameEntity;
@@ -64,6 +65,9 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
     private Set<UserInGameEntity> userInGameEntities = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Summary> summaries = new HashSet<>();
 
     public User(String name, String username, String email, String password) {
         this.name = name;

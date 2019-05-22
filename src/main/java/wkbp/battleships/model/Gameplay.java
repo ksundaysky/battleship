@@ -22,14 +22,14 @@ public class Gameplay {
     private Board board;
     private BoardUpdater boardUpdater;
     private Move lastMove;
-    private List<Move> moves;
+    private Map<Move, ShotOutcome> moves;
     private Map<User, Board> playersInGame;
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     public Gameplay(Board board) {
         this.board = board;
         this.boardUpdater = new BoardUpdater(board);
-        this.moves = new ArrayList<>();
+        this.moves = new HashMap<>();
         this.playersInGame = new HashMap<>();
     }
 
@@ -38,13 +38,14 @@ public class Gameplay {
         this.board = board;
         boardUpdater.setRefereeBoard(board);
         boardUpdater.setCurrentBoard(board);
-        addMove(move);
         logger.info("class GamePlay, method update(); move " + move.toString());
-        return boardUpdater.updateBoard(move);
+        ShotOutcome shotOutcome = boardUpdater.updateBoard(move);
+        addMove(move, shotOutcome);
+        return shotOutcome;
     }
 
-    private void addMove(Move move) {
-        logger.info("class GamePlay, method addMove(); adding " + move.toString() + " to the List<Move> moves: " + moves.toString());
-        moves.add(move);
+    private void addMove(Move move, ShotOutcome shotOutcome) {
+        logger.info("class GamePlay, method addMove(); adding key " + move.toString() + " and value " + shotOutcome.toString() + " to the Map<Move, ShotOutcome> moves: " + moves.toString());
+        moves.put(move, shotOutcome);
     }
 }
