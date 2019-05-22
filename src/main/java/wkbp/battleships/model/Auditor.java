@@ -26,11 +26,11 @@ class Auditor {
         this.move = move;
         this.hitTheShip = hitTheShip;
         this.wonTheGame = wonTheGame;
+        writeMessageToFile();
     }
 
     // TODO: 14.05.19  - implementacja metody i zapisywania przebiegu gry do bazy danych w optymistycznej wersji sprintu
     void writeMessageToDatabase() {
-
     }
 
     public String writeMessageToFront() {
@@ -47,5 +47,24 @@ class Auditor {
             }
             return stringBuilder.toString();
         }
+    }
+
+    public String getMessage() {
+        return "Player " + move.getPlayer() +
+                " fired at field: " + getCoordinatesOfField(move.getFieldToShoot()) +
+                "\nresult: hit the ship: " + hitTheShip + ", won: " + wonTheGame;
+    }
+
+    private void writeMessageToFile() {
+
+    }
+
+    String getCoordinatesOfField(Field field) {
+            char letterA = 'A';
+            long id = field.getId();
+            char desiredLetter = (char) (letterA + (id / 10));
+            String number = String.valueOf((id % 10)+1);
+            String letter = String.valueOf(desiredLetter);
+            return letter + number;
     }
 }

@@ -45,7 +45,7 @@ public class GameplayService {
         if(game.getGameQueues().get(player).peek()!=null)
             return game.getGameQueues().get(player).poll();
         else
-            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false);
+            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false, null);
     }
 
     private Game getGameById(Long gameId) {

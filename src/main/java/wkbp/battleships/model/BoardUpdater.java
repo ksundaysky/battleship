@@ -25,11 +25,13 @@ class BoardUpdater {
     private Move lastMove;
     private Board currentBoard;
     private GameReferee gameReferee;
+    private Auditor auditor;
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     BoardUpdater(Board currentBoard) {
         this.currentBoard = currentBoard;
         this.gameReferee = new GameReferee(this.currentBoard);
+        this.auditor = new Auditor();
     }
 
     ShotOutcome updateBoard(Move move) {
@@ -38,7 +40,10 @@ class BoardUpdater {
         changeStateOfField(currentBoard.getFieldList().get(fieldToShootId));
         Field updatedField = currentBoard.getFieldList().get(fieldToShootId);
         notifyReferee(move);
-        ShotOutcome shotOutcome = new ShotOutcome(gameReferee.checkIfHitTheShip(), updatedField, gameReferee.checkIfWon());
+        boolean hitTheShip = gameReferee.checkIfHitTheShip();
+        boolean ifWon = gameReferee.checkIfWon();
+        notifyAuditor(move, ifWon, hitTheShip);
+        ShotOutcome shotOutcome = new ShotOutcome(hitTheShip, updatedField, ifWon, auditor.getMessage());
         logger.info("class BoardUpdater, method updateBoard(); returning shotOutcome: " + shotOutcome.toString());
         return shotOutcome;
     }
@@ -46,6 +51,10 @@ class BoardUpdater {
     private void notifyReferee(Move move) {
         logger.info("notifying referee with move " + move.toString());
         gameReferee.setLastMove(move);
+    }
+
+    private void notifyAuditor(Move lastMove, boolean won, boolean hitTheShip) {
+        auditor.update(lastMove, won, hitTheShip);
     }
 
     private void changeStateOfField(Field field) {

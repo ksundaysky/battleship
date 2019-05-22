@@ -17,7 +17,7 @@ public class ShotOutcomeTest {
     public void initialize() {
         field.setStateOfField(StateOfField.OCCUPIED);
         field.setIsHit(true);
-        shotOutcome = new ShotOutcome(true, field, false);
+        shotOutcome = new ShotOutcome(true, field, false,null);
     }
 
     @Test
@@ -27,7 +27,6 @@ public class ShotOutcomeTest {
         boolean actualPlayerTurn = shotOutcome.isPlayerTurn();
 
         assertEquals(expectedPlayerTurn, actualPlayerTurn);
-
     }
 
     @Test
@@ -46,11 +45,9 @@ public class ShotOutcomeTest {
 
         boolean expectedPlayerWon = true;
         shotOutcome.setPlayerWon(true);
-
         boolean actualPlayerWon = shotOutcome.isPlayerWon();
 
         assertEquals(expectedPlayerWon, actualPlayerWon);
-
     }
 
     @Test
@@ -64,7 +61,6 @@ public class ShotOutcomeTest {
 
     @Test
     public void testGetField() {
-
         Field expectedField = new Field(2);
         expectedField.setStateOfField(StateOfField.OCCUPIED);
         expectedField.setIsHit(true);

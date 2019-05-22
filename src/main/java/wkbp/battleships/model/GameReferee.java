@@ -28,13 +28,11 @@ public class GameReferee {
 
     private Board board;
     private Move lastMove;
-    private Auditor auditor;
     private boolean lastShootHit;
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     GameReferee(Board board) {
         this.board = board;
-        auditor = new Auditor();
     }
 
     boolean checkIfWon() {
@@ -54,9 +52,5 @@ public class GameReferee {
         boolean isOccupied = stateOfField.equals(StateOfField.OCCUPIED);
         logger.info("shot hit the ship: " + isOccupied);
         return isOccupied; // TODO: 20.05.19 błędny warunek do poprawy && board.getFieldList().get(lastMove.getFieldToShoot().getId()).isHit() && lastShootHit;
-    }
-
-    public void notifyAuditor() {
-        auditor.update(lastMove, checkIfWon(), checkIfHitTheShip());
     }
 }

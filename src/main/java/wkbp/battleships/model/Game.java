@@ -77,7 +77,7 @@ public class Game {
         for (Map.Entry<User, Board> entry : playersInGame.entrySet()) {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
-                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(), outcome.isPlayerWon()));
+                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(), outcome.isPlayerWon(),null));
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());
                     logger.info("class Game, method moveHasBeenMade(); setting currentPlayer " + entry.getKey().toString());
