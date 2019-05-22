@@ -3,6 +3,19 @@ package wkbp.battleships.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import wkbp.battleships.dao.repository.GameRepository;
+import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Responsible for transcripting flow of the game.
@@ -17,9 +30,12 @@ import lombok.Setter;
 @Setter
 class Auditor {
 
+    @Autowired
+    private GameRepository gameRepository;
     private Move lastMove;
     private boolean hitTheShip;
     private boolean wonTheGame;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     public Auditor() {
         this.wonTheGame = false;
@@ -30,7 +46,7 @@ class Auditor {
         this.lastMove = move;
         this.hitTheShip = hitTheShip;
         this.wonTheGame = wonTheGame;
-        writeMessageToFile();
+        //writeMessageToFile(); todo testy się sypio
     }
 
     // TODO: 14.05.19  - implementacja metody i zapisywania przebiegu gry do bazy danych w optymistycznej wersji sprintu
@@ -59,8 +75,20 @@ class Auditor {
                 "\nresult: hit the ship: " + hitTheShip;
     }
 
-    private void writeMessageToFile() {
+    private void writeMessageToFile() {// TODO: 22.05.19 kozak try-with-resources
+        String textToAppend = auditLastMove();
+        try (FileWriter fileWriter = new FileWriter(createNewFile(), true);
+             PrintWriter printWriter = new PrintWriter(fileWriter)) {
+            printWriter.println(textToAppend);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+    }
 
+    private String createNewFile() {
+        String fileName = "./game_transcripts/" + currentDate() + "_" + gameRepository.getOne(lastMove.getGameId()) + "_";
+        new File(fileName);
+        return fileName;
     }
 
     String getCoordinatesOfField(Field field) {
@@ -70,5 +98,11 @@ class Auditor {
         String number = String.valueOf((id % 10) + 1);
         String letter = String.valueOf(desiredLetter);
         return letter + number;
+    }
+
+    private String currentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

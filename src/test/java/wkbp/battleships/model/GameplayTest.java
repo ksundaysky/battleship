@@ -33,9 +33,9 @@ public class GameplayTest {
         resultShotField.setIsHit(true);
 
         ShotOutcome expectedShotOutcome = new ShotOutcome(true, resultShotField, false,
-                "Player null fired at field: A3\nresult: hit the ship: false, won: true"
+                "Player null fired at field: A3\nresult: hit the ship: false"
 );
-        ShotOutcome actualShotOutcome = gameplay.update(new Move(1, null, new Field(2)), board);
+        ShotOutcome actualShotOutcome = gameplay.update(new Move(1, new User(), new Field(2)), board);
         assertEquals(expectedShotOutcome, actualShotOutcome);
     }
 
