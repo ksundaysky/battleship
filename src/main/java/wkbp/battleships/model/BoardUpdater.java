@@ -35,8 +35,8 @@ class BoardUpdater {
     ShotOutcome updateBoard(Move move) {
         lastMove = move;
         int fieldToShootId = move.getFieldToShoot().getId();
-        changeStateOfField(currentBoard.getFieldList().get(fieldToShootId));
-        Field updatedField = currentBoard.getFieldList().get(fieldToShootId);
+        changeStateOfField(currentBoard.getField(fieldToShootId));
+        Field updatedField = currentBoard.getField(fieldToShootId);
         notifyReferee(move);
         ShotOutcome shotOutcome = new ShotOutcome(gameReferee.checkIfHitTheShip(), updatedField, gameReferee.checkIfWon());
         logger.info("class BoardUpdater, method updateBoard(); returning shotOutcome: " + shotOutcome.toString());
