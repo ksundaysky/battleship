@@ -1,6 +1,7 @@
 package wkbp.battleships.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import wkbp.battleships.dto.SummaryDTO;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
+@NoArgsConstructor
 public class Summary {
 
 
