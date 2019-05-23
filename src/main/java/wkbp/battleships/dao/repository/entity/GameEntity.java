@@ -33,9 +33,6 @@ public class GameEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gameEntity")
     private Set<UserInGameEntity> userInGameEntities = new HashSet<>();
 
-    @OneToOne(mappedBy = "gameEntity")
-    private Summary summary;
-
     @Column(name = "GAME_STATE")
     private GameState gameState;
 }

@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.SummaryRepository;
+import wkbp.battleships.dao.repository.UserInGameRepository;
 import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
+import wkbp.battleships.dao.repository.entity.UserInGameEntity;
 import wkbp.battleships.dto.SummaryDTO;
 import wkbp.battleships.model.*;
 
 import javax.naming.NoPermissionException;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +24,8 @@ import java.util.Map;
 public class SummaryService {
 
 
+    @Autowired
+    private UserInGameRepository userInGameRepository;
     @Autowired
     private GameRepository gameRepository;
     @Autowired
@@ -65,7 +70,8 @@ public class SummaryService {
         }
         ratio = (int) (((float) hits / shots) * 100);
         GameEntity gameEntity = getGameFromDataBase(game.getId());
-        Summary summary = new Summary(game.getGameConfig().getGameName(), player, gameEntity, isWinner, shots, hits, ratio);
+        UserInGameEntity userInGameEntity = getUserInGameEntityFromDataBase(player, gameEntity);
+        Summary summary = new Summary(game.getGameConfig().getGameName(), player, userInGameEntity, isWinner, shots, hits, ratio);
         summaryRepository.save(summary);
         return compactToDTO(summary);
     }
@@ -80,6 +86,10 @@ public class SummaryService {
 
     private GameEntity getGameFromDataBase(long gameId) {
         return gameRepository.getOne(gameId);
+    }
+
+    private UserInGameEntity getUserInGameEntityFromDataBase(User user, GameEntity gameEntity) {
+        return userInGameRepository.findUserInGameEntityByIds(user, gameEntity);
     }
 
     private SummaryDTO compactToDTO(Summary summary) {

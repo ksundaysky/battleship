@@ -1,6 +1,7 @@
 package wkbp.battleships.dao.repository.entity;
 
 import lombok.NoArgsConstructor;
+import wkbp.battleships.model.Summary;
 import wkbp.battleships.model.User;
 
 import javax.persistence.*;
@@ -32,4 +33,7 @@ public class UserInGameEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "gameentity_id", nullable = false)
     private GameEntity gameEntity;
+
+    @OneToOne(mappedBy = "userInGameEntity")
+    private Summary summary;
 }
