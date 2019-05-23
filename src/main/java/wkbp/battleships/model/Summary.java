@@ -1,9 +1,8 @@
 package wkbp.battleships.model;
 
 import lombok.Data;
-import wkbp.battleships.dao.repository.entity.GameEntity;
 import lombok.NoArgsConstructor;
-import wkbp.battleships.dto.SummaryDTO;
+import wkbp.battleships.dao.repository.entity.GameEntity;
 
 import javax.persistence.*;
 
@@ -29,9 +28,9 @@ public class Summary {
     private boolean isWinner;
     private int shots;
     private int hits;
-    private float ratio;
+    private int ratio;
 
-    public Summary(String gameName, User user, GameEntity gameEntity,  boolean isWinner, int shots, int hits, float ratio) {
+    public Summary(String gameName, User user, GameEntity gameEntity, boolean isWinner, int shots, int hits, int ratio) {
         this.gameName = gameName;
         this.user = user;
         this.gameEntity = gameEntity;

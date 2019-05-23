@@ -11,12 +11,12 @@ import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dao.repository.entity.UserInGameEntity;
 import wkbp.battleships.dto.ConfigDTO;
-import wkbp.battleships.model.*;
+import wkbp.battleships.model.Game;
+import wkbp.battleships.model.GameState;
+import wkbp.battleships.model.User;
 import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 
 import javax.naming.NoPermissionException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Responsible for creation of the game and setting it up

@@ -3,10 +3,6 @@ package wkbp.battleships.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import wkbp.battleships.model.Summary;
-import wkbp.battleships.model.User;
-
-import javax.persistence.*;
 
 /**
  * @author Wiktor Rup
@@ -22,9 +18,9 @@ public class SummaryDTO {
     private boolean isWinner;
     private int shots;
     private int hits;
-    private float ratio;
+    private int ratio;
 
-    public SummaryDTO(String gameName, String user, boolean isWinner, int shots, int hits, float ratio) {
+    public SummaryDTO(String gameName, String user, boolean isWinner, int shots, int hits, int ratio) {
         this.gameName = gameName;
         this.user = user;
         this.isWinner = isWinner;

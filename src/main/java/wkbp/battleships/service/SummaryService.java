@@ -1,6 +1,5 @@
 package wkbp.battleships.service;
 
-import org.apache.kafka.common.metrics.stats.Sum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wkbp.battleships.dao.repository.GameRepository;
@@ -48,15 +47,15 @@ public class SummaryService {
         return summaries;
     }
 
-    private SummaryDTO createSummaryDTO(User player, Game game){
+    private SummaryDTO createSummaryDTO(User player, Game game) {
         int shots = 0;
         int hits = 0;
         boolean isWinner = false;
-        float ratio = 0;
+        int ratio = 0;
         for (Map.Entry<Move, ShotOutcome> move : game.getGameplay().getMoves().entrySet()) {
             if (player.equals(move.getKey().getPlayer())) {
                 shots++;
-                if(move.getValue().isPlayerTurn()) {
+                if (move.getValue().isPlayerTurn()) {
                     hits++;
                 }
                 if (move.getValue().isPlayerWon()) {
@@ -64,7 +63,7 @@ public class SummaryService {
                 }
             }
         }
-        ratio = (float)hits/shots;
+        ratio = (int) (((float) hits / shots) * 100);
         GameEntity gameEntity = getGameFromDataBase(game.getId());
         Summary summary = new Summary(game.getGameConfig().getGameName(), player, gameEntity, isWinner, shots, hits, ratio);
         summaryRepository.save(summary);
@@ -79,11 +78,11 @@ public class SummaryService {
         return userRepository.findByUsername(username).get();
     }
 
-    private GameEntity getGameFromDataBase(long gameId){
+    private GameEntity getGameFromDataBase(long gameId) {
         return gameRepository.getOne(gameId);
     }
 
-    private SummaryDTO compactToDTO(Summary summary){
+    private SummaryDTO compactToDTO(Summary summary) {
         return new SummaryDTO(summary.getGameName(), summary.getUser().getName(), summary.isWinner(), summary.getShots(), summary.getHits(), summary.getRatio());
     }
 }

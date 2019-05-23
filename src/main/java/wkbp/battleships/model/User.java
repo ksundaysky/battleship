@@ -3,7 +3,6 @@ package wkbp.battleships.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 import wkbp.battleships.dao.repository.entity.Role;
 import wkbp.battleships.dao.repository.entity.UserInGameEntity;
