@@ -18,6 +18,7 @@ public class ShotOutcome {
     private boolean playerTurn;
     private Field field;
     private boolean playerWon;
+    private String message;
 
     @Override
     public String toString() {
@@ -25,6 +26,7 @@ public class ShotOutcome {
                 "playerTurn=" + playerTurn +
                 ", field=" + field +
                 ", playerWon=" + playerWon +
+                ", message=" + message +
                 '}';
     }
 }

@@ -3,6 +3,7 @@ package wkbp.battleships.dao.repository.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import wkbp.battleships.model.GameState;
+import wkbp.battleships.model.Summary;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -31,6 +32,9 @@ public class GameEntity {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "gameEntity")
     private Set<UserInGameEntity> userInGameEntities = new HashSet<>();
+
+    @OneToOne(mappedBy = "gameEntity")
+    private Summary summary;
 
     @Column(name = "GAME_STATE")
     private GameState gameState;

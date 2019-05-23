@@ -1,6 +1,7 @@
 package wkbp.battleships.model;
 
 import lombok.Data;
+import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dto.SummaryDTO;
 
 import javax.persistence.*;
@@ -20,6 +21,9 @@ public class Summary {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "game_entity_id", referencedColumnName = "id")
+    private GameEntity gameEntity;
     private boolean isWinner;
     private int shots;
     private int hits;
