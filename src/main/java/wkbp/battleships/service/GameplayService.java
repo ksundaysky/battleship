@@ -47,7 +47,7 @@ public class GameplayService {
             shotOutcome.setMessage(game.getMessages().get(player).poll()); //To nigdy nie będzie null, ponieważ sprawdzane w powyższym ifie
             return shotOutcome;
         } else {
-            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false, game.getMessages().get(player).poll());
+            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, null,false, game.getMessages().get(player).poll());
         }
     }
 

@@ -15,21 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class ShotOutcome {
 
     private boolean playerTurn;
     private Field field;
+    private List<Field> neighbourFieldsOfSunkenShip;
     private boolean playerWon;
     private String message;
-    //private List<Field> neighbourFieldsOfSunkenShip;
-
-    @Override
-    public String toString() {
-        return "ShotOutcome{" +
-                "playerTurn=" + playerTurn +
-                ", field=" + field +
-                ", playerWon=" + playerWon +
-                ", message=" + message +
-                '}';
-    }
 }

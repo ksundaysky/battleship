@@ -55,7 +55,7 @@ public class Game {
             if (!entry.getKey().equals(move.getPlayer())) {
                 ShotOutcome outcome = gameplay.update(move, entry.getValue());
                 updateMessages(outcome);
-                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(),
+                gameQueues.get(entry.getKey()).add(new ShotOutcome(!outcome.isPlayerTurn(), outcome.getField(), null,
                         outcome.isPlayerWon(), null));
                 if (!outcome.isPlayerTurn()) {
                     setCurrentPlayer(entry.getKey());

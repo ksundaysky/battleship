@@ -72,7 +72,7 @@ class Auditor {
     public String auditLastMove() {
         return "Player " + lastMove.getPlayer().getName() +
                 " fired at field: " + getCoordinatesOfField(lastMove.getFieldToShoot()) +
-                "\nResult: hit the ship: " + hitTheShip;
+                ". Result: hit the ship: " + hitTheShip;
     }
 
     private void writeMessageToFile() {// TODO: 22.05.19 kozak try-with-resources

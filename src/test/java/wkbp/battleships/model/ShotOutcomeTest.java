@@ -17,7 +17,7 @@ public class ShotOutcomeTest {
     public void initialize() {
         field.setStateOfField(StateOfField.OCCUPIED);
         field.setIsHit(true);
-        shotOutcome = new ShotOutcome(true, field, false,null);
+        shotOutcome = new ShotOutcome(true, field,null, false,null);
     }
 
     @Test

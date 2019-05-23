@@ -49,7 +49,7 @@ public class Board {
         int counter = 0;
         for (Ship ship : fleet.getShipList()) {
             for (Field field : ship.getFieldsOfShip()) {
-                if (field.equals(fieldToShot)) {
+                if (field.getId() == fieldToShot.getId()) {
                     for (Field f : ship.getFieldsOfShip()) {
                         if (f.isHit()) {
                             counter++;
