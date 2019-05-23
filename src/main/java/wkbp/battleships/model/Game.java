@@ -38,6 +38,7 @@ public class Game {
     public Game(GameConfig gameConfig) {
         playersInGame = new HashMap<>();
         gameQueues = new HashMap<>();
+        messages = new HashMap<>();
         this.gameConfig = gameConfig;
         this.gameState = GameState.WAITING_FOR_PLAYER;
     }
@@ -76,6 +77,7 @@ public class Game {
     public void addPlayerToTheGame(User user) {
         playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
         gameQueues.put(user, new LinkedList<>());
+        messages.put(user, new LinkedList<>());
     }
 
     public void addUserAndHisBoard(User user, Board board) {
