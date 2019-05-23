@@ -3,8 +3,10 @@ package wkbp.battleships.service;
 import org.apache.kafka.common.metrics.stats.Sum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.SummaryRepository;
 import wkbp.battleships.dao.repository.UserRepository;
+import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dto.SummaryDTO;
 import wkbp.battleships.model.*;
 
@@ -20,6 +22,8 @@ import java.util.Map;
 public class SummaryService {
 
 
+    @Autowired
+    private GameRepository gameRepository;
     @Autowired
     private GameService gameService;
     @Autowired
@@ -61,7 +65,8 @@ public class SummaryService {
             }
         }
         ratio = (float)hits/shots;
-        Summary summary = new Summary(game.getGameConfig().getGameName(), player, isWinner, shots, hits, ratio);
+        GameEntity gameEntity = getGameFromDataBase(game.getId());
+        Summary summary = new Summary(game.getGameConfig().getGameName(), player, gameEntity, isWinner, shots, hits, ratio);
         summaryRepository.save(summary);
         return compactToDTO(summary);
     }
@@ -72,6 +77,10 @@ public class SummaryService {
 
     private User getUserFromDataBase(String username) {
         return userRepository.findByUsername(username).get();
+    }
+
+    private GameEntity getGameFromDataBase(long gameId){
+        return gameRepository.getOne(gameId);
     }
 
     private SummaryDTO compactToDTO(Summary summary){

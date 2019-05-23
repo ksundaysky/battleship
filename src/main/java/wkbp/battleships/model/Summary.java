@@ -31,9 +31,10 @@ public class Summary {
     private int hits;
     private float ratio;
 
-    public Summary(String gameName, User user, boolean isWinner, int shots, int hits, float ratio) {
+    public Summary(String gameName, User user, GameEntity gameEntity,  boolean isWinner, int shots, int hits, float ratio) {
         this.gameName = gameName;
         this.user = user;
+        this.gameEntity = gameEntity;
         this.isWinner = isWinner;
         this.shots = shots;
         this.hits = hits;
