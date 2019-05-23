@@ -47,6 +47,7 @@ public class SummaryService {
             for (Map.Entry<User, Board> currentPlayer : game.getPlayersInGame().entrySet()) {
                 SummaryDTO summary = createSummaryDTO(currentPlayer.getKey(), game);
                 summaries.add(summary);
+                setGameStateToFinished(game);
             }
         }
         return summaries;
@@ -94,5 +95,9 @@ public class SummaryService {
 
     private SummaryDTO compactToDTO(Summary summary) {
         return new SummaryDTO(summary.getGameName(), summary.getUser().getName(), summary.isWinner(), summary.getShots(), summary.getHits(), summary.getRatio());
+    }
+
+    private void setGameStateToFinished(Game game){
+        game.setGameState(GameState.FINISHED);
     }
 }
