@@ -34,17 +34,10 @@ public class ShipPlacementService {
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     public List<Field> randomiseShipsForUser(Long gameId, String playersName) throws CantPlaceShipsException {
-
         Game game = activeGamesService.getGameById(gameId);
-        // TODO: 17.05.19 zamiana na FleetFactory
-        Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
-                new Ship(4),
-                new Ship(3), new Ship(3),
-                new Ship(2), new Ship(2), new Ship(2),
-                new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
-
-        Board board = new BoardFactory(game.getGameConfig()).createBoard();
-        ShipRandomiser shipRandomiser = new ShipRandomiser(board, fleet);
+        Fleet fleet = FleetFactory.standardFleet();
+        Board board = new BoardFactory(game.getGameConfig(), fleet).createBoard();
+        ShipRandomiser shipRandomiser = new ShipRandomiser(board);
         List<Field> ships = shipRandomiser.randomizeShips();
         for (Field field : ships) {
             board.getFieldList().get(field.getId()).setStateOfField(StateOfField.OCCUPIED);

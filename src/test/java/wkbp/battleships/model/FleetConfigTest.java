@@ -12,7 +12,7 @@ import static org.testng.AssertJUnit.assertEquals;
  */
 public class FleetConfigTest {
 
-    Map<Integer, Integer> map = new HashMap<>();
+    private Map<Integer, Integer> map = new HashMap<>();
 
     @Test
     public void testGetFleetConfig() {

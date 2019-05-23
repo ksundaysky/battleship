@@ -32,11 +32,10 @@ public class ShipRandomiser {
 
     /**
      * @param board for ships to be placed on
-     * @param fleet ships to be placed
      */
     @Autowired
-    public ShipRandomiser(Board board, Fleet fleet) {
-        this.fleet = fleet;
+    public ShipRandomiser(Board board) {
+        this.fleet = board.getFleet();
         this.board = board;
     }
 
@@ -73,6 +72,7 @@ public class ShipRandomiser {
             int currentIndexToBeMarked = startingPosition.getId() + (i * multiplier);
             Field currentField = board.getField(currentIndexToBeMarked);
             currentField.setStateOfField(StateOfField.OCCUPIED);
+            ship.addField(currentField);
             randomizedShips.add(currentField);
             setNeighbourFieldsOfShipAsIllegal(startingPosition, ship);
         }
@@ -153,7 +153,7 @@ public class ShipRandomiser {
      * |   |   |   |   |
      * <p>
      * algorithm starts with 3 fields above first field of ship starting from left or top,
-     * depending if ship was placed horizontally or vertically {@link #setNeighboursOfFieldAsIllegal(Field)}
+     * depending if ship was placed horizontally or vertically {@link #setNeighboursOfFieldAsIllegal(Field, Ship)}
      * <p>
      * | x | x | x |   |
      * -----------------
@@ -174,7 +174,7 @@ public class ShipRandomiser {
      * |   |   |   |   |
      * <p>
      * then ones on the left and right side of field (if not StateOfField.OCCUPIED)
-     * {@link #changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(Field currentField, int indexDifference)}
+     * {@link #changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(Field currentField, int indexDifference, Ship)}
      * <p>
      * | x | x | x |   |
      * -----------------
@@ -216,45 +216,47 @@ public class ShipRandomiser {
     private void setNeighbourFieldsOfShipAsIllegal(Field startingPosition, Ship ship) {
         for (int j = 0; j < ship.getSize(); j++) {
             Field currentField = board.getField((startingPosition.getId()) + j * multiplier);
-            setNeighboursOfFieldAsIllegal(currentField);
+            setNeighboursOfFieldAsIllegal(currentField, ship);
         }
     }
 
-    private void setNeighboursOfFieldAsIllegal(Field field) {
-        setFieldsAboveFieldAsIllegal(field);
-        setFieldsBelowFieldAsIllegal(field);
+    private void setNeighboursOfFieldAsIllegal(Field field, Ship ship) {
+        setFieldsAboveFieldAsIllegal(field, ship);
+        setFieldsBelowFieldAsIllegal(field, ship);
     }
 
-    private void iterateThroughSelectedFieldsAndMarkThemAsIllegal(Field field, int rowJump) {
-        for (int i = -1; i < 2; i++) {
-            changeStateOfFieldToIllegal(field, rowJump, i);
-        }
-    }
-
-    private void setFieldsAboveFieldAsIllegal(Field field) {
+    private void setFieldsAboveFieldAsIllegal(Field field, Ship ship) {
         int rowJump = board.getDimension() * -1;
         int indexDifference = -1;
-        iterateThroughSelectedFieldsAndMarkThemAsIllegal(field, rowJump);
-        changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(field, indexDifference);
+        iterateThroughSelectedFieldsAndMarkThemAsIllegal(field, rowJump, ship);
+        changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(field, indexDifference, ship);
     }
 
-    private void setFieldsBelowFieldAsIllegal(Field field) {
+    private void setFieldsBelowFieldAsIllegal(Field field, Ship ship) {
         int rowJump = board.getDimension();
         int indexDifference = 1;
-        iterateThroughSelectedFieldsAndMarkThemAsIllegal(field, rowJump);
-        changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(field, indexDifference);
+        iterateThroughSelectedFieldsAndMarkThemAsIllegal(field, rowJump, ship);
+        changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(field, indexDifference, ship);
     }
 
-    private void changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(Field currentField, int indexDifference) {
+    private void changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(Field currentField, int indexDifference, Ship ship) {
         if (board.indexExists(currentField.getId() + indexDifference)) {
             Field startingPosition = board.getField(currentField.getId() + indexDifference);
             if (!(fieldIsOccupied(startingPosition))) {
                 startingPosition.setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+                Ship currentShip = board.getFleet().getShipList().get(ship.getId());
+                currentShip.addToIllegalListOfFields(startingPosition);
             }
         }
     }
 
-    private void changeStateOfFieldToIllegal(Field currentField, int rowJump, int i) {
+    private void iterateThroughSelectedFieldsAndMarkThemAsIllegal(Field field, int rowJump, Ship ship) {
+        for (int i = -1; i < 2; i++) {
+            changeStateOfFieldToIllegal(field, rowJump, i, ship);
+        }
+    }
+
+    private void changeStateOfFieldToIllegal(Field currentField, int rowJump, int i, Ship ship) {
         int indexOfFieldToChange = currentField.getId() + rowJump + i;
 
         if (board.indexExists(indexOfFieldToChange)) {
@@ -263,6 +265,8 @@ public class ShipRandomiser {
                 return;
             }
             fieldToUpdate.setStateOfField(StateOfField.ILLEGAL_TO_PLACE);
+            Ship currentShip = board.getFleet().getShipList().get(ship.getId());
+            currentShip.addToIllegalListOfFields(fieldToUpdate);
         }
     }
 }

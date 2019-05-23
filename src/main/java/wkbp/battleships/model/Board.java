@@ -17,6 +17,7 @@ public class Board {
 
     private List<Field> fieldList;
     private int dimension;
+    private Fleet fleet;
 
     /**
      * since board is always a square dimensions
@@ -26,9 +27,10 @@ public class Board {
      *                  to BoardFactory.class
      * @see BoardFactory
      */
-    public Board(List<Field> fieldList) {
+    public Board(List<Field> fieldList, Fleet fleet) {
         this.fieldList = fieldList;
         dimension = (int) Math.sqrt(fieldList.size());
+        this.fleet = fleet;
     }
 
     public Field getField(int fieldId) {
@@ -41,5 +43,24 @@ public class Board {
 
     public int getSize() {
         return fieldList.size();
+    }
+
+    public List<Field> neighboursOfShip(Field fieldToShot) {
+        int counter = 0;
+        for (Ship ship : fleet.getShipList()) {
+            for (Field field : ship.getFieldsOfShip()) {
+                if (field.equals(fieldToShot)) {
+                    for (Field f : ship.getFieldsOfShip()) {
+                        if (f.isHit()) {
+                            counter++;
+                            if (counter == ship.getSize()) {
+                                return ship.getNeighbourFields();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null; //tak ma być
     }
 }

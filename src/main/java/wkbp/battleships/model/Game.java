@@ -74,7 +74,7 @@ public class Game {
     }
 
     public void addPlayerToTheGame(User user) {
-        playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
+        playersInGame.put(user, new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard());
         gameQueues.put(user, new LinkedList<>());
         messagesForOwner = new LinkedList<>();
         messagesForOpponent = new LinkedList<>();
