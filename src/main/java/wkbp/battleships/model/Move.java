@@ -3,6 +3,7 @@ package wkbp.battleships.model;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author Wiktor Rup
@@ -13,18 +14,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class Move {
 
     private long gameId;
     private User player;
     private Field fieldToShoot;
-
-    @Override
-    public String toString() {
-        return "Move{" +
-                "gameId=" + gameId +
-                ", player=" + player +
-                ", fieldToShoot=" + fieldToShoot +
-                '}';
-    }
 }

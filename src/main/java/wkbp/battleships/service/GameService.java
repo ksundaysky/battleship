@@ -68,10 +68,12 @@ public class GameService {
     public boolean isPlayersGame(long id, String user) throws NoPermissionException {
         User player = getUserFromDataBase(user);
         Game game = getGameById(id);
-        if (!game.getPlayersInGame().containsKey(player))
+        if (!game.getPlayersInGame().containsKey(player)) {
             throw new NoPermissionException("No permissions for such action");
-        else
+
+        } else{
             return true;
+        }
     }
 
     private void setStartingPlayer(Game game, String playersName) {
