@@ -13,18 +13,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class ShotOutcome {
 
     private boolean playerTurn;
     private Field field;
     private boolean playerWon;
-
-    @Override
-    public String toString() {
-        return "ShotOutcome{" +
-                "playerTurn=" + playerTurn +
-                ", field=" + field +
-                ", playerWon=" + playerWon +
-                '}';
-    }
 }

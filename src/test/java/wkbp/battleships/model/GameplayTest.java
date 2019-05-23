@@ -2,12 +2,11 @@ package wkbp.battleships.model;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import wkbp.battleships.businesslogic.ShipRandomiser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Wiktor Rup
@@ -17,8 +16,9 @@ public class GameplayTest {
 
     private Board board;
     private Gameplay gameplay;
+
     @BeforeMethod
-    public void initialize(){
+    public void initialize() {
         board = new BoardFactory(gameConfig).createBoard();
         board.getField(1).setStateOfField(StateOfField.OCCUPIED);
         board.getField(2).setStateOfField(StateOfField.OCCUPIED);

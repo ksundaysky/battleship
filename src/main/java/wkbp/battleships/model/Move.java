@@ -3,6 +3,7 @@ package wkbp.battleships.model;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author Wiktor Rup
@@ -13,6 +14,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
+@ToString
 public class Move {
 
     private long gameId;

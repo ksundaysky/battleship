@@ -2,6 +2,8 @@ package wkbp.battleships.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +12,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.model.ShotOutcome;
+import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 import wkbp.battleships.service.ActiveGamesService;
+import wkbp.battleships.service.GameService;
+import wkbp.battleships.service.GameplayService;
+import wkbp.battleships.service.ShipPlacementService;
 
+import javax.naming.NoPermissionException;
 import java.util.List;
 
 /**
@@ -29,27 +36,74 @@ class GameplayRestAPIs {
 
     @Autowired
     private ActiveGamesService activeGamesService;
+    @Autowired
+    private ShipPlacementService shipPlacementService;
+    @Autowired
+    private GameService gameService;
+    @Autowired
+    private GameplayService gameplayService;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
-    @PostMapping("post/game/shoot/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    ResponseEntity<?> gameShot(Authentication authentication, @RequestBody Field field, @PathVariable("id") long id) throws JsonProcessingException {
-        ShotOutcome shotOutcome = activeGamesService.makeAShoot(id, authentication.getName(), field);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String message = objectMapper.writeValueAsString(shotOutcome);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
 
     @GetMapping("get/game/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> userFleet(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> gameInit(Authentication authentication,
+                                      @PathVariable("id") long id) throws JsonProcessingException {
+
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
         try {
-            List<Field> ships = activeGamesService.getUserFleet(id, authentication.getName()); //todo no nie bardzo
-            message = objectMapper.writeValueAsString(ships);
-        } catch (CantPlaceShipsException e) {
+            boolean isPlayerGame = gameService.isPlayersGame(id, authentication.getName());
+            message = objectMapper.writeValueAsString(isPlayerGame);
+            logger.info("class GameplayRestAPIs, method gameInit(); returning isPlayersGame = " + isPlayerGame);
+        } catch (NoPermissionException e) {
             message = e.getMessage();
-            return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
+            logger.error("Player: " + authentication.getName() + " tried to join game with id: " + id + ". " + message);
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("get/game/is_game_ready/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> isGameReady(@PathVariable("id") long id) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        boolean isGameReady = activeGamesService.isGameReady(id);
+        message = objectMapper.writeValueAsString(isGameReady);
+        logger.info("class GameplayRestAPIs, method isGameReady(); gameId: " + id + ",sending response: " + message);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("get/game/fleet/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> userFleet(Authentication authentication,
+                                       @PathVariable("id") long id) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        List<Field> ships = shipPlacementService.getUserFleet(id, authentication.getName());
+        message = objectMapper.writeValueAsString(ships);
+        logger.info("class GameplayRestAPIs, method userFleet(); sending response: " + message);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @PostMapping("post/game/shoot/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    ResponseEntity<?> gameShot(Authentication authentication, @RequestBody Field field,
+                               @PathVariable("id") long id) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        try {
+            ShotOutcome shotOutcome = gameplayService.makeAShoot(id, authentication.getName(), field);
+            message = objectMapper.writeValueAsString(shotOutcome);
+            logger.info("class GameplayRestAPIs, method gameShot(); sending response: " + message);
+        } catch (NoPermissionException e) {
+            message = e.getMessage();
+            logger.error("Player: " + authentication.getName() + " tried to make a shot in game with id: " + id + ". " + e.getMessage());
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -60,8 +114,8 @@ class GameplayRestAPIs {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
-        message = objectMapper.writeValueAsString(activeGamesService.isPlayerTurn(id, authentication.getName()));
-
+        message = objectMapper.writeValueAsString(gameplayService.isPlayerTurn(id, authentication.getName()));
+        logger.info("class GameplayRestAPIs, method isUserTurn(); sending response: " + message);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

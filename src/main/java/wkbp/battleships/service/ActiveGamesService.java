@@ -1,19 +1,19 @@
 package wkbp.battleships.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wkbp.battleships.controller.NoAvailableGamesException;
 import wkbp.battleships.dao.repository.GameRepository;
 import wkbp.battleships.dao.repository.UserInGameRepository;
 import wkbp.battleships.dao.repository.UserRepository;
-import wkbp.battleships.dao.repository.entity.GameEntity;
-import wkbp.battleships.dao.repository.entity.UserInGameEntity;
-import wkbp.battleships.model.*;
+import wkbp.battleships.model.Game;
+import wkbp.battleships.model.User;
+import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author Wiktor Rup
@@ -30,77 +30,34 @@ public class ActiveGamesService {
     private UserInGameRepository userInGameRepository;
     @Autowired
     private GameRepository gameRepository;
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     private Map<Long, Game> games = new HashMap<>();
 
-    public ShotOutcome makeAShoot(Long gameId, String playersName, Field field) { // TODO: 17.05.19 ta metoda również nie tutaj końcowo
-        User player = getUserFromDataBase(playersName);
-        Game game = getGameById(gameId);
-        return game.moveHasBeenMade(new Move(gameId, player, field));
-    }
-
-    public boolean isPlayerTurn(long id, String playersName) {
-        User player = getUserFromDataBase(playersName);
-        Game game = games.get(id);
-        return player.equals(game.getCurrentPlayer());
-    }
-
-    public List<Field> getUserFleet(Long id, String username) { // TODO: 17.05.19 ta metoda nie tutaj xd
-        User user = getUserFromDataBase(username);
-        Game game = getGameById(id);
-        game.setGameState(GameState.IN_PROGRESS);
-        Board userBoard = game.getBoardByUser(user);
-
-        return userBoard.getFieldList()
-                .stream()
-                .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
-                .collect(Collectors.toList());
-    }
-
     public Map<Long, Game> getListOfGames() {
         if (games.isEmpty()) {
-            throw new NoAvailableGamesException("No available games to display!");
+            logger.error("class ActiveGameService, method getListOfGames; games.isEmpty = true; throwing NoAvailableGamesException");
+            throw new NoAvailableGamesException("No available games to display");
         }
+        logger.info("class ActiveGameService, method getListOfGames; returning Map<Long, Game> games: " + games.toString());
         return games;
     }
 
-    void addPlayerToTheGame(Long gameId, String playersName, Game game) {
-
-        User owner = getUserFromDataBase(playersName);
-        GameEntity gameEntity = gameRepository.getOne(gameId);
-        UserInGameEntity userInGameEntity = new UserInGameEntity(owner, gameEntity);
-        userInGameRepository.save(userInGameEntity);
-        game.addPlayerToTheGame(owner);
+    public boolean isGameReady(long gameId) {
+        boolean isGameReady = games.get(gameId).getHowManyPlayersAreReady() == 2;
+        logger.info("class ActiveGameService, method isGameReady(); returning " + isGameReady);
+        return isGameReady;
     }
 
-    boolean checkIfUserCanJoinTheGame(long gameId, String username) {
-        User player = getUserFromDataBase(username);
-        Game game = getGameById(gameId);
-        return game.containsPlayer(player) || game.getNumberOfPlayers() < 2;
+    User getUserFromDataBase(String username) {
+        return userRepository.findByUsername(username).get();
     }
 
-    User getUserFromDataBase(String name) {
-        return userRepository.findByUsername(name).get();
+    void addGameToActiveGames(long gameId, Game game) {
+        games.put(gameId, game);
     }
 
-    void addGameToActiveGames(long id, Game game) {
-        games.put(id, game);
-    }
-
-    Game getGameById(Long id) {
-        return games.get(id);
-    }
-
-    void setStartingPlayer(Game game, String playersName) {
-        if (game.getGameConfig().isOwnerStarts() && game.getNumberOfPlayers() == 0) {
-            game.setCurrentPlayer(getUserFromDataBase(playersName));
-        } else if (!game.getGameConfig().isOwnerStarts() && game.getNumberOfPlayers() == 1) {
-            game.setCurrentPlayer(getUserFromDataBase(playersName));
-        }
-    }
-
-    private void setCurrentPlayer(long id, User currentPlayer) {
-        Game game = games.get(id);
-        game.setCurrentPlayer(currentPlayer);
+    Game getGameById(Long gameId) {
+        return games.get(gameId);
     }
 }

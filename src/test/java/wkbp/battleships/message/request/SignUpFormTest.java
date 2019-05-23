@@ -16,6 +16,7 @@ public class SignUpFormTest {
 
     private Set<String> role = new HashSet<>();
     private SignUpForm signUpForm;
+
     @BeforeMethod
     public void initializeSignUpForm() {
         role.add("USER_ROLE");

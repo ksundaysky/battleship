@@ -22,7 +22,6 @@ import java.util.Set;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
-
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
@@ -71,6 +70,19 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", userInGameEntities=" + userInGameEntities +
+                '}';
     }
 
     @Override

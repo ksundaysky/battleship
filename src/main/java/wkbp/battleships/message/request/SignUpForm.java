@@ -2,6 +2,7 @@ package wkbp.battleships.message.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -18,6 +19,7 @@ import java.util.Set;
  */
 @Getter
 @NoArgsConstructor
+@ToString
 public class SignUpForm {
     @NotBlank
     @Size(min = 3, max = 50)
@@ -38,7 +40,7 @@ public class SignUpForm {
     @Size(min = 6, max = 40)
     private String password;
 
-    public SignUpForm(@NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(max = 60) @Email String email, Set<String> role, @NotBlank @Size(min = 6, max = 40) String password) {
+    SignUpForm(@NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Size(max = 60) @Email String email, Set<String> role, @NotBlank @Size(min = 6, max = 40) String password) {
         this.name = name;
         this.username = username;
         this.email = email;

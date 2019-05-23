@@ -3,20 +3,20 @@ package wkbp.battleships.dao.repository.entity;
 import org.testng.annotations.Test;
 import wkbp.battleships.model.GameState;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Wiktor Rup
  */
 public class GameEntityTest {
 
-    private GameEntity gameEntity = new GameEntity(GameState.IN_PREPARATION);
+    private GameEntity gameEntity = new GameEntity(GameState.WAITING_FOR_PLAYER);
 
     @Test
     public void testGetGameState() {
-        GameState expectedGameState = GameState.IN_PREPARATION;
+        GameState expectedGameState = GameState.WAITING_FOR_PLAYER;
         GameState actualGameState = gameEntity.getGameState();
 
-        assertEquals(expectedGameState,actualGameState);
+        assertEquals(expectedGameState, actualGameState);
     }
 }
