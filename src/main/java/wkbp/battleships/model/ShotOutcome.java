@@ -2,6 +2,8 @@ package wkbp.battleships.model;
 
 import lombok.*;
 
+import java.util.List;
+
 /**
  * @author Wiktor Rup
  * @author Patryk Kucharski
@@ -19,6 +21,7 @@ public class ShotOutcome {
     private Field field;
     private boolean playerWon;
     private String message;
+    //private List<Field> neighbourFieldsOfSunkenShip;
 
     @Override
     public String toString() {

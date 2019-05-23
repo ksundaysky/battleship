@@ -20,7 +20,7 @@ public class GameplayTest {
 
     @BeforeMethod
     public void initialize() {
-        board = new BoardFactory(gameConfig).createBoard();
+        board = new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard();
         board.getField(1).setStateOfField(StateOfField.OCCUPIED);
         board.getField(2).setStateOfField(StateOfField.OCCUPIED);
         gameplay = new Gameplay(board);

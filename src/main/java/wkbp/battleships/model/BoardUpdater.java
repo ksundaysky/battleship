@@ -44,6 +44,7 @@ class BoardUpdater {
         boolean ifWon = gameReferee.checkIfWon();
         notifyAuditor(move, ifWon, hitTheShip);
         ShotOutcome shotOutcome = new ShotOutcome(hitTheShip, updatedField, ifWon, auditor.auditLastMove());
+        // TODO: 23.05.19 currentBoard.neighboursOfShip(move.getFieldToShoot()) jako 4 parametr do shoutOutcome 
         logger.info("class BoardUpdater, method updateBoard(); returning shotOutcome: " + shotOutcome.toString());
         return shotOutcome;
     }

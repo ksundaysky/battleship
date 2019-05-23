@@ -24,17 +24,11 @@ public class GameRefereeTest {
         for (int i = 0; i < 100; i++) {
             fieldList.add(new Field(i));
         }
-        return new Board(fieldList);
+        return new Board(fieldList, FleetFactory.standardFleet());
     }
 
     public List<Field> addFleetToBoard(Board board) {
-        Fleet fleet = new Fleet(Arrays.asList(
-                new Ship(4),
-                new Ship(3), new Ship(3),
-                new Ship(2), new Ship(2), new Ship(2),
-                new Ship(1), new Ship(1), new Ship(1), new Ship(1)));
-
-        return new ShipRandomiser(board, fleet).randomizeShips();
+        return new ShipRandomiser(board).randomizeShips();
     }
 
     public Board burnFleet(Board board) {

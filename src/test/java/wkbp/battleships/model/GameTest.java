@@ -35,7 +35,7 @@ public class GameTest {
     public void testAddUserAndHisBoard() {
         User user = new User();
         user.setName("user2");
-        Board board = new BoardFactory(gameConfig).createBoard();
+        Board board = new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard();
         board.getField(12).setStateOfField(StateOfField.OCCUPIED);
 
         game.addUserAndHisBoard(user, board);
@@ -75,7 +75,7 @@ public class GameTest {
 
     @Test
     public void testGetGameplay() {
-        Gameplay gameplay = new Gameplay(new BoardFactory(gameConfig).createBoard());
+        Gameplay gameplay = new Gameplay(new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard());
         game.setGameplay(gameplay);
 
         assertEquals(gameplay, game.getGameplay());
@@ -84,7 +84,7 @@ public class GameTest {
     @Test
     public void testGetPlayersInGame() {
         Map<User, Board> currentPlayers = new HashMap<>();
-        currentPlayers.put(new User(), new BoardFactory(gameConfig).createBoard());
+        currentPlayers.put(new User(), new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard());
         game.setPlayersInGame(currentPlayers);
         assertEquals(game.getPlayersInGame(), currentPlayers);
 

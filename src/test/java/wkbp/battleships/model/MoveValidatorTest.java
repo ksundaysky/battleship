@@ -11,7 +11,7 @@ import static org.testng.AssertJUnit.assertFalse;
 public class MoveValidatorTest {
 
     private GameConfig gameConfig = new GameConfig("game1", 10, GameMode.STANDARD, true);
-    private Board board = new BoardFactory(gameConfig).createBoard();
+    private Board board = new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard();
 
     @Test
     public void testValidMove() {
