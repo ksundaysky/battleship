@@ -28,8 +28,7 @@ public class Game {
     private Gameplay gameplay;
     private Map<User, Board> playersInGame;
     private Map<User, Queue<ShotOutcome>> gameQueues;
-    private LinkedList<String> messagesForOwner;
-    private LinkedList<String> messagesForOpponent;
+    private Map<User, Queue<String>> messages;
     private GameConfig gameConfig;
     private GameState gameState;
     private User currentPlayer;
@@ -69,15 +68,14 @@ public class Game {
     }
 
     private void updateMessages(ShotOutcome outcome) {
-        messagesForOwner.add(outcome.getMessage());
-        messagesForOpponent.add(outcome.getMessage());
+        for (Map.Entry<User, Queue<String>> messageMap : messages.entrySet()) {
+            messageMap.getValue().add(outcome.getMessage());
+        }
     }
 
     public void addPlayerToTheGame(User user) {
         playersInGame.put(user, new BoardFactory(gameConfig).createBoard());
         gameQueues.put(user, new LinkedList<>());
-        messagesForOwner = new LinkedList<>();
-        messagesForOpponent = new LinkedList<>();
     }
 
     public void addUserAndHisBoard(User user, Board board) {

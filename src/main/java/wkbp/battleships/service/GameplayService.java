@@ -44,16 +44,11 @@ public class GameplayService {
         Game game = getGameById(id);
         if (game.getGameQueues().get(player).peek() != null) {
             ShotOutcome shotOutcome = game.getGameQueues().get(player).poll();
-            if (player.equals(game.getCurrentPlayer())) {
-                shotOutcome.setMessage(game.getMessagesForOwner().poll());
-                return shotOutcome;
-            } else {
-                shotOutcome.setMessage(game.getMessagesForOpponent().poll());
-                return shotOutcome;
-            }
+            shotOutcome.setMessage(game.getMessages().get(player).poll()); //To nigdy nie będzie null, ponieważ sprawdzane w powyższym ifie
+            return shotOutcome;
         } else {
-            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false, null);
-        }// TODO: 22.05.19 nie działa xd, dlaczego? Wiktur halp
+            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, false, game.getMessages().get(player).poll());
+        }
     }
 
     private Game getGameById(Long gameId) {
