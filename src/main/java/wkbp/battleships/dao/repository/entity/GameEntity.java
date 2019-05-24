@@ -2,6 +2,7 @@ package wkbp.battleships.dao.repository.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import wkbp.battleships.model.GameState;
 import wkbp.battleships.model.Summary;
 
@@ -19,6 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Entity
+@Setter
 @Table(name = "GAME_ENTITY")
 public class GameEntity {
 

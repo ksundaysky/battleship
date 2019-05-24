@@ -9,5 +9,6 @@ package wkbp.battleships.model;
 public enum GameState {
     WAITING_FOR_PLAYER,
     IN_PROGRESS,
-    FINISHED
+    FINISHED,
+    ABORTED
 }
