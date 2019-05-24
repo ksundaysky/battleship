@@ -83,7 +83,13 @@ class GameplayRestAPIs {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
-        List<Field> ships = shipPlacementService.getUserFleet(id, authentication.getName());
+        List<Field> ships = null;
+        try {
+            ships = shipPlacementService.getUserFleet(id, authentication.getName());
+        } catch (NoPermissionException e) {
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
         message = objectMapper.writeValueAsString(ships);
         logger.info("class GameplayRestAPIs, method userFleet(); sending response: " + message);
         return new ResponseEntity<>(message, HttpStatus.OK);
@@ -114,7 +120,12 @@ class GameplayRestAPIs {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
-        message = objectMapper.writeValueAsString(gameplayService.isPlayerTurn(id, authentication.getName()));
+        try {
+            message = objectMapper.writeValueAsString(gameplayService.isPlayerTurn(id, authentication.getName()));
+        } catch (NoPermissionException e) {
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
         logger.info("class GameplayRestAPIs, method isUserTurn(); sending response: " + message);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
