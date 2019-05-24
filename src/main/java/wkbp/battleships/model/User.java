@@ -35,7 +35,7 @@ import java.util.Set;
 })
 @Data
 @NoArgsConstructor
-@ToString
+//@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -91,5 +91,18 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(username, email);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", userInGameEntities=" + userInGameEntities +
+                 '}';
     }
 }
