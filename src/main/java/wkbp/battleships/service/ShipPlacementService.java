@@ -11,6 +11,7 @@ import wkbp.battleships.dao.repository.UserRepository;
 import wkbp.battleships.model.*;
 import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
 
+import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,15 +49,19 @@ public class ShipPlacementService {
         return ships;
     }
 
-    public List<Field> getUserFleet(Long id, String username) {
+    public List<Field> getUserFleet(Long id, String username) throws NoPermissionException {
         User user = userRepository.findByUsername(username).get();
         Game game = activeGamesService.getGameById(id);
-        game.addReadyPlayer();
-        Board userBoard = game.getBoardByUser(user);
+        if(!game.getPlayersInGame().containsKey(user))
+            throw new NoPermissionException("You have no power here!");
+        else {
+            game.addReadyPlayer();
+            Board userBoard = game.getBoardByUser(user);
 
-        return userBoard.getFieldList()
-                .stream()
-                .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
-                .collect(Collectors.toList());
+            return userBoard.getFieldList()
+                    .stream()
+                    .filter(field -> field.getStateOfField().equals(StateOfField.OCCUPIED))
+                    .collect(Collectors.toList());
+        }
     }
 }

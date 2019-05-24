@@ -71,4 +71,8 @@ public class ActiveGamesService {
     Game getGameById(Long gameId) {
         return games.get(gameId);
     }
+
+    void removeGameById(long gameId) {
+        games.remove(gameId);
+    }
 }

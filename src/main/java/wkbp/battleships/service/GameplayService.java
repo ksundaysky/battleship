@@ -39,15 +39,19 @@ public class GameplayService {
         return game.moveHasBeenMade(new Move(gameId, player, field));
     }
 
-    public ShotOutcome isPlayerTurn(long id, String playersName) {
+    public ShotOutcome isPlayerTurn(long id, String playersName) throws NoPermissionException {
         User player = getUserFromDataBase(playersName);
         Game game = getGameById(id);
-        if (game.getGameQueues().get(player).peek() != null) {
-            ShotOutcome shotOutcome = game.getGameQueues().get(player).poll();
-            shotOutcome.setMessage(game.getMessages().get(player).poll()); //To nigdy nie będzie null, ponieważ sprawdzane w powyższym ifie
-            return shotOutcome;
+        if (!game.getPlayersInGame().containsKey(player)) {
+            throw new NoPermissionException("You have no power here!");
         } else {
-            return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, null,false, game.getMessages().get(player).poll());
+            if (game.getGameQueues().get(player).peek() != null) {
+                ShotOutcome shotOutcome = game.getGameQueues().get(player).poll();
+                shotOutcome.setMessage(game.getMessages().get(player).poll()); //To nigdy nie będzie null, ponieważ sprawdzane w powyższym ifie
+                return shotOutcome;
+            } else {
+                return new ShotOutcome(player.equals(game.getCurrentPlayer()), null, null, false, game.getMessages().get(player).poll());
+            }
         }
     }
 
