@@ -73,6 +73,8 @@ public class ActiveGamesService {
     }
 
     void removeGameById(long gameId) {
+        System.out.println("lol usuwam giere");
         games.remove(gameId);
+        System.out.println(games.toString());
     }
 }

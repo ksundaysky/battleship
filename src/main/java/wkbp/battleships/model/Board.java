@@ -50,31 +50,31 @@ public class Board {
     }
 
     List<Field> neighboursOfShip(Field fieldToShot) {
-        AtomicInteger counter = new AtomicInteger();
-//        for (Ship ship : fleet.getShipList()) {
-//            for (Field field : ship.getFieldsOfShip()) {
-//                if (field.getId() == fieldToShot.getId()) {
-//                    for (Field f : ship.getFieldsOfShip()) {
-//                        if (f.isHit()) {
-//                            counter++;
-//                            if (counter == ship.getSize()) {
-//                                return ship.getNeighbourFields();
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
+        int counter = 0;
         for (Ship ship : fleet.getShipList()) {
-            ship.getFieldsOfShip().stream()
-                    .filter(x -> x.getId() == fieldToShot.getId())
-                    .filter(Field::isHit)
-                    .forEach(x -> counter.getAndIncrement());
-            if (counter.get() == ship.getSize()) {
-                return ship.getNeighbourFields();
+            for (Field field : ship.getFieldsOfShip()) {
+                if (field.getId() == fieldToShot.getId()) {
+                    for (Field f : ship.getFieldsOfShip()) {
+                        if (f.isHit()) {
+                            counter++;
+                            if (counter == ship.getSize()) {
+                                return ship.getNeighbourFields();
+                            }
+                        }
+                    }
+                }
             }
         }
+
+//        for (Ship ship : fleet.getShipList()) {
+//            ship.getFieldsOfShip().stream()
+//                    .filter(x -> x.getId() == fieldToShot.getId())
+//                    .filter(Field::isHit)
+//                    .forEach(x -> counter.getAndIncrement());
+//            if (counter.get() == ship.getSize()) {
+//                return ship.getNeighbourFields();
+//            }
+//        }
 
         return null; //tak ma być
     }

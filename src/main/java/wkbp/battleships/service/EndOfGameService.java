@@ -38,11 +38,13 @@ public class EndOfGameService {
         Game game = getGameById(gameId);
         if (!game.getPlayersInGame().containsKey(player)) {
             throw new NoPermissionException("No permissions for such action!");
-        } else if (game.getGameState().equals(GameState.FINISHED))
+        } else if (game.getGameState().equals(GameState.FINISHED)) {
+            System.out.println("jestem w elseifie");
             activeGamesService.removeGameById(gameId);
+        }
         else {
             changeStateOfGameInDataBase(gameId);
-            setWinnerOfTheGame(game.getGameplay(), player);
+            setWinnerOfTheGame(game, player);
         }
     }
 
@@ -60,12 +62,13 @@ public class EndOfGameService {
         gameRepository.save(gameEntity);
     }
 
-    private void setWinnerOfTheGame(Gameplay gameplay, User player) {
-        for (Map.Entry<Move, ShotOutcome> move : gameplay.getMoves().entrySet()) {
+    private void setWinnerOfTheGame(Game game, User player) {
+        for (Map.Entry<Move, ShotOutcome> move : game.getGameplay().getMoves().entrySet()) {
             if (!player.equals(move.getKey().getPlayer())) {
                 ShotOutcome shotOutcome = move.getValue();
                 shotOutcome.setPlayerWon(true);
                 move.setValue(shotOutcome);
+                game.getGameQueues().get(move.getKey().getPlayer()).add(new ShotOutcome(false, null, null, true, "You won the game."));
             }
         }
     }

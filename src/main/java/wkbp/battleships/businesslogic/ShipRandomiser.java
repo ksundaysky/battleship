@@ -240,7 +240,7 @@ public class ShipRandomiser {
     }
 
     private void changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(Field currentField, int indexDifference, Ship ship) {
-        if (indexDifference < 0 && currentField.getId() % board.getDimension() == 0) {
+        if (indexDifference < 0 && currentField.getId() % board.getDimension() == 0) {            // idzie se w prawo
             return;
         } else if (indexDifference > 0 && currentField.getId() % board.getDimension() == board.getDimension() - 1) {
             return;
