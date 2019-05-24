@@ -251,6 +251,16 @@ public class ShipRandomiser {
     }
 
     private void iterateThroughSelectedFieldsAndMarkThemAsIllegal(Field field, int rowJump, Ship ship) {
+        if(field.getId()%board.getDimension() == 0){
+            for (int i = 0; i < 2; i++) {
+                changeStateOfFieldToIllegal(field, rowJump, i, ship);
+            }
+        }
+        if(field.getId()%board.getDimension() == board.getDimension()-1){
+            for (int i = -1; i < 1; i++) {
+                changeStateOfFieldToIllegal(field, rowJump, i, ship);
+            }
+        }
         for (int i = -1; i < 2; i++) {
             changeStateOfFieldToIllegal(field, rowJump, i, ship);
         }
