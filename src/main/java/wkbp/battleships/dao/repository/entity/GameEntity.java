@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import wkbp.battleships.model.GameState;
-import wkbp.battleships.model.Summary;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Entity mapping games table in database
+ *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski

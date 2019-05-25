@@ -2,11 +2,7 @@ package wkbp.battleships.model;
 
 import lombok.Data;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * Represents board and it's content for gameplay purpose

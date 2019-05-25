@@ -27,6 +27,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Service with handling logic of logging in and
+ * registering request
+ *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
@@ -47,14 +50,11 @@ public class AuthenticationService {
     private RoleRepository roleRepository;
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
-    public boolean userExistsByUsername(String username) {
-        return userRepository.existsByUsername(username);
-    }
-
-    public boolean userExistsByEmail(String email) {
-        return userRepository.existsByEmail(email);
-    }
-
+    /**
+     * Creates new account and grants user ROLE_USER
+     *
+     * @param signUpRequest register form
+     */
     public void createNewAccount(@RequestBody @Valid SignUpForm signUpRequest) {
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
@@ -79,6 +79,12 @@ public class AuthenticationService {
         logger.info("created new account: " + user.toString());
     }
 
+
+    /**
+     *
+     * @param loginRequest login form
+     * @return response with user details and json web token
+     */
     public JwtResponse login(@Valid @RequestBody LoginForm loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -87,5 +93,13 @@ public class AuthenticationService {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         return new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+    }
+
+    public boolean userExistsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public boolean userExistsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 }

@@ -19,6 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Service providing logic for retrieving all currently active games
+ *
+ *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
@@ -33,25 +36,21 @@ public class ActiveGamesService {
     private UserInGameRepository userInGameRepository;
     @Autowired
     private GameRepository gameRepository;
-    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
-
     private Map<Long, Game> games = new HashMap<>();
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
     public List<GameDTO> getListOfGames() {
         if (games.isEmpty()) {
-            logger.error("class ActiveGameService, method getListOfGames; games.isEmpty = true; throwing NoAvailableGamesException");
+            logger.error("class ActiveGameService, method getListOfGames; " +
+                    "games.isEmpty = true; throwing NoAvailableGamesException");
             throw new NoAvailableGamesException("No available games to display");
         }
         List<GameDTO> listOfGames = new ArrayList<>();
-        for(Map.Entry<Long, Game> games : games.entrySet()){
+        for (Map.Entry<Long, Game> games : games.entrySet()) {
             listOfGames.add(convertToGameDTO(games.getValue()));
         }
         logger.info("class ActiveGameService, method getListOfGames; returning List<GameDTO> games: " + listOfGames);
         return listOfGames;
-    }
-
-    private GameDTO convertToGameDTO(Game game) {
-        return new GameDTO(game.getId(), game.getGameState(), game.getGameConfig().getGameName(), game.getGameConfig().getDimension(), game.getGameConfig().getGameMode());
     }
 
     public boolean isGameReady(long gameId) {
@@ -60,21 +59,26 @@ public class ActiveGamesService {
         return isGameReady;
     }
 
-    User getUserFromDataBase(String username) {
-        return userRepository.findByUsername(username).get();
+    void removeGameById(long gameId) {
+        System.out.println("lol usuwam giere");
+        games.remove(gameId);
+        System.out.println(games.toString());
     }
 
-    void addGameToActiveGames(long gameId, Game game) {
-        games.put(gameId, game);
+    User getUserFromDataBase(String username) {
+        return userRepository.findByUsername(username).get();
     }
 
     Game getGameById(Long gameId) {
         return games.get(gameId);
     }
 
-    void removeGameById(long gameId) {
-        System.out.println("lol usuwam giere");
-        games.remove(gameId);
-        System.out.println(games.toString());
+    void addGameToActiveGames(long gameId, Game game) {
+        games.put(gameId, game);
+    }
+
+    private GameDTO convertToGameDTO(Game game) {
+        return new GameDTO(game.getId(), game.getGameState(), game.getGameConfig().getGameName(),
+                game.getGameConfig().getDimension(), game.getGameConfig().getGameMode());
     }
 }

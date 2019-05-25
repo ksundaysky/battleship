@@ -22,13 +22,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ShipRandomiser {
 
     private int counterOfAttempts = 0;
-    private static final List<Compass> VALUES =
-            Collections.unmodifiableList(Arrays.asList(Compass.values()));
     private final int SIZE = VALUES.size();
     private Board board;
     private Fleet fleet;
     private boolean isHorizontal = false;
     private int multiplier = 1;
+    private static final List<Compass> VALUES =
+            Collections.unmodifiableList(Arrays.asList(Compass.values()));
 
     /**
      * @param board for ships to be placed on
@@ -240,11 +240,10 @@ public class ShipRandomiser {
     }
 
     private void changeStateOfFieldToIllegalSingleIndexBeforeAndAfter(Field currentField, int indexDifference, Ship ship) {
-        if (indexDifference < 0 && currentField.getId() % board.getDimension() == 0) {            // idzie se w prawo
+        if (indexDifference < 0 && currentField.getId() % board.getDimension() == 0) {
             return;
         } else if (indexDifference > 0 && currentField.getId() % board.getDimension() == board.getDimension() - 1) {
             return;
-
         } else {
             if (board.indexExists(currentField.getId() + indexDifference)) {
                 Field startingPosition = board.getField(currentField.getId() + indexDifference);

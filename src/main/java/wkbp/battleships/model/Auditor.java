@@ -46,27 +46,10 @@ class Auditor {
         this.lastMove = move;
         this.hitTheShip = hitTheShip;
         this.wonTheGame = wonTheGame;
-        //writeMessageToFile(); todo testy się sypio
+        //writeMessageToFile();
     }
 
-    // TODO: 14.05.19  - implementacja metody i zapisywania przebiegu gry do bazy danych w optymistycznej wersji sprintu
     void writeMessageToDatabase() {
-    }
-
-    public String writeMessageToFront() {
-        if (lastMove == null) {
-            return "Game hasn't started yet.";
-        } else {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(lastMove.getPlayer().getName()).append("shot on a field ").append(lastMove.getFieldToShoot().getId());
-            if (hitTheShip) {
-                stringBuilder.append("Ship has been shot!");
-            } else stringBuilder.append("Missed!");
-            if (wonTheGame) {
-                stringBuilder.append(lastMove.getPlayer().getName()).append(" won the game!");
-            }
-            return stringBuilder.toString();
-        }
     }
 
     public String auditLastMove() {
@@ -75,7 +58,7 @@ class Auditor {
                 ". Result: hit the ship: " + hitTheShip;
     }
 
-    private void writeMessageToFile() {// TODO: 22.05.19 kozak try-with-resources
+    private void writeMessageToFile() {
         String textToAppend = auditLastMove();
         try (FileWriter fileWriter = new FileWriter(createNewFile(), true);
              PrintWriter printWriter = new PrintWriter(fileWriter)) {

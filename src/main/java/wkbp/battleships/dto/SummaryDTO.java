@@ -28,5 +28,4 @@ public class SummaryDTO {
         this.hits = hits;
         this.ratio = ratio;
     }
-
 }

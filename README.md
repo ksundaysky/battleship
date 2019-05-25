@@ -57,16 +57,15 @@ Basic game components
 
 Main game components are two identical boards with given dimensions which are corresponding to second players boards. Most of gameplay will take place on those. Left board contains our fleet, while right - fleet of the opponent. Rows on boards are described by capital letters, while each column has its own unique number. Board with our fleet (leftone) is not interactive and serves mainly as information about opponent’s actions. Our moves will be marked on board signed as “Opponent’s board”. To fire at chosen field hover cursor over it and click left mouse button (or tap it while playing on touch-interface device). 
 
-
 Right below boards there’s a text window holding live transcript of the game. Every move made will be displayed along with date, player who made it and it’s outcome. 
 
 Fleet
 
 Both players have exactly the same fleet. Standard one consists of 10 ships:
 
-1 ship with length of 4 fields
-2 ships with length of 3 fields
-3 ships with length of 2 fields
+1 ship with length of 4 fields,
+2 ships with length of 3 fields,
+3 ships with length of 2 fields,
 4 ships with length of 1 field
 
 Each of ships is a rectangle with dimensions 1 field x length of ship.
@@ -74,12 +73,6 @@ Each of ships is a rectangle with dimensions 1 field x length of ship.
 Shoot outcome
 
 Depending on shoot outcome fields will change its state and colour. Red means that shoot has missed the target and there’s no enemy ship on given field. Green means enemy ship has been hit. Each ship from our fleet placed on the left board is marked with grey colour. X symbol on such a ship means, that it was hit by the enemy.
-
-		
-
-Left board - view of our fleet		      		Right board - view of enemy’s board and
-                                                                                                 shots fired at his fleet 
-
 
 Fleet placement
 
@@ -89,9 +82,6 @@ Gameplay
 
 Game is turn-based, information about who has a turn currently is displayed in the middle of screen just above boards. While turn is his, player fires at chosen field. If shoot missed turns are switched and it’s time for our opponent to make his move. If shoot indeed hit a ship player receives another turn, he will continue to do so until he misses. Then again turn will be handled to the first player. This means that it is possible for a player that starts to sink whole enemy fleet without handling turn to his opponent (if one is lucky enough). Ship which is hit but still has remaining non-hit fields is treated as hit-but-not-sunken. One that has its all fields hit is treated as hit-and-sunken, which means that according to previous mentioned rules there are no ships on neighbour fields. Game will detect sunken ships and will mark all neighbouring fields with red colour.        
 	           		
-
 Shooting at field marked as red will handle turn to the opponent, but shooting at already hit or sunken ship will not. Once a player sunk all ships of enemy’s fleet he wins, and the game ends. Then both players are shown game summary containing game data and players statistics. 
-
-
 
 Developing team WKBP wishes you a pleasant gaming experience!

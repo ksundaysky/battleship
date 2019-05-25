@@ -16,6 +16,9 @@ import wkbp.battleships.service.EndOfGameService;
 import javax.naming.NoPermissionException;
 
 /**
+ * Controller responsible for ending the game
+ * whenever players quit game or finish one
+ *
  * @author Wiktor Rup
  */
 
@@ -32,7 +35,7 @@ class EndOfGameRestAPIs {
     @GetMapping("get/game/end_of_game/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> endOfGame(Authentication authentication,
-                                      @PathVariable("id") long id) throws JsonProcessingException {
+                                       @PathVariable("id") long id){
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;

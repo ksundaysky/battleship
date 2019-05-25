@@ -19,5 +19,4 @@ public class GameDTO {
     String gameName;
     int dimension;
     GameMode gameMode;
-
 }

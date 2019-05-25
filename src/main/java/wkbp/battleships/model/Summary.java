@@ -2,19 +2,19 @@ package wkbp.battleships.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import wkbp.battleships.dao.repository.entity.GameEntity;
 import wkbp.battleships.dao.repository.entity.UserInGameEntity;
 
 import javax.persistence.*;
 
 /**
+ * Entity corresponding to summary table in database
+ *
  * @author Wiktor Rup
  */
 @Data
 @Entity
 @NoArgsConstructor
 public class Summary {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,6 +40,4 @@ public class Summary {
         this.hits = hits;
         this.ratio = ratio;
     }
-
-
 }

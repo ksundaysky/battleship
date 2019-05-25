@@ -7,6 +7,9 @@ import wkbp.battleships.model.User;
 import javax.persistence.*;
 
 /**
+ * Entity representing user with all necessary tables
+ * in order to track his scores and statistics
+ *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski

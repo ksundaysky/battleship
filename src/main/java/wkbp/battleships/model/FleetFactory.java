@@ -18,7 +18,7 @@ public class FleetFactory {
     FleetConfig fleetConfig;
     private GameConfig gameConfig;
 
-    // TODO: 21.05.19 jeszcze nie używane, ale wkrótce będzie lub nie xd
+    // TODO: 21.05.19 jeszcze nie używane, ale wkrótce będzie
 
     Fleet generateFleet(FleetConfig fleetConfig) {
         List<Ship> shipsInFleet = new ArrayList<>();
@@ -30,7 +30,7 @@ public class FleetFactory {
         return new Fleet(shipsInFleet);
     }
 
-    public static Fleet standardFleet(){
+    public static Fleet standardFleet() {
         Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
                 new Ship(4),
                 new Ship(3), new Ship(3),

@@ -12,17 +12,17 @@ import wkbp.battleships.dto.SummaryDTO;
 import wkbp.battleships.model.*;
 
 import javax.naming.NoPermissionException;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * Service that provides summary of the game logic
+ *
  * @author Wiktor Rup
  */
 @Service
 public class SummaryService {
-
 
     @Autowired
     private UserInGameRepository userInGameRepository;
@@ -37,10 +37,18 @@ public class SummaryService {
     @Autowired
     private SummaryRepository summaryRepository;
 
-    public List<SummaryDTO> getSummaryOfGame(long id, String user) throws NoPermissionException {
+    /**
+     * Creates and returns list of summaries {@link Summary} of given game
+     *
+     * @param gameId id of the given game
+     * @param username username of player to get summary
+     * @return list of summaries to display
+     * @throws NoPermissionException when given game doesn't contain player
+     */
+    public List<SummaryDTO> getSummaryOfGame(long gameId, String username) throws NoPermissionException {
         List<SummaryDTO> summaries = new ArrayList<>();
-        User player = getUserFromDataBase(user);
-        Game game = getGameById(id);
+        User player = getUserFromDataBase(username);
+        Game game = getGameById(gameId);
         if (!game.getPlayersInGame().containsKey(player)) {
             throw new NoPermissionException("No permissions for such action!");
         } else {
@@ -53,11 +61,17 @@ public class SummaryService {
         return summaries;
     }
 
+    /**
+     * Creates summary of the game for given player
+     *
+     * @param player owner of summary
+     * @param game which summary is to be returned
+     * @return summaryDTO object with statistics {@link SummaryDTO}
+     */
     private SummaryDTO createSummaryDTO(User player, Game game) {
         int shots = 0;
         int hits = 0;
         boolean isWinner = false;
-        int ratio = 0;
         for (Map.Entry<Move, ShotOutcome> move : game.getGameplay().getMoves().entrySet()) {
             if (player.equals(move.getKey().getPlayer())) {
                 shots++;
@@ -69,12 +83,19 @@ public class SummaryService {
                 }
             }
         }
-        ratio = (int) (((float) hits / shots) * 100);
+        int ratio = getHitRatio(shots, hits);
         GameEntity gameEntity = getGameFromDataBase(game.getId());
         UserInGameEntity userInGameEntity = getUserInGameEntityFromDataBase(player, gameEntity);
-        Summary summary = new Summary(game.getGameConfig().getGameName(), player, userInGameEntity, isWinner, shots, hits, ratio);
+        Summary summary = new Summary(game.getGameConfig().getGameName(),
+                player, userInGameEntity, isWinner, shots, hits, ratio);
         summaryRepository.save(summary);
         return compactToDTO(summary);
+    }
+
+    private int getHitRatio(int shots, float hits) {
+        int ratio;
+        ratio = (int) ((hits / shots) * 100);
+        return ratio;
     }
 
     private Game getGameById(long gameId) {
@@ -94,10 +115,11 @@ public class SummaryService {
     }
 
     private SummaryDTO compactToDTO(Summary summary) {
-        return new SummaryDTO(summary.getGameName(), summary.getUser().getName(), summary.isWinner(), summary.getShots(), summary.getHits(), summary.getRatio());
+        return new SummaryDTO(summary.getGameName(), summary.getUser().getName(),
+                summary.isWinner(), summary.getShots(), summary.getHits(), summary.getRatio());
     }
 
-    private void setGameStateToFinished(Game game){
+    private void setGameStateToFinished(Game game) {
         game.setGameState(GameState.FINISHED);
     }
 }

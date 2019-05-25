@@ -83,7 +83,7 @@ class GameplayRestAPIs {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
-        List<Field> ships = null;
+        List<Field> ships;
         try {
             ships = shipPlacementService.getUserFleet(id, authentication.getName());
         } catch (NoPermissionException e) {
@@ -108,7 +108,8 @@ class GameplayRestAPIs {
             logger.info("class GameplayRestAPIs, method gameShot(); sending response: " + message);
         } catch (NoPermissionException e) {
             message = e.getMessage();
-            logger.error("Player: " + authentication.getName() + " tried to make a shot in game with id: " + id + ". " + e.getMessage());
+            logger.error("Player: " + authentication.getName() +
+                         " tried to make a shot in game with id: " + id + ". " + e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
@@ -116,7 +117,8 @@ class GameplayRestAPIs {
 
     @GetMapping("get/game/is_my_turn/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> isUserTurn(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> isUserTurn(Authentication authentication,
+                                        @PathVariable("id") long id) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
@@ -132,7 +134,8 @@ class GameplayRestAPIs {
 
     @GetMapping("/get/game/summary/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> summary(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> summary(Authentication authentication,
+                                     @PathVariable("id") long id) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;

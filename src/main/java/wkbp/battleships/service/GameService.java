@@ -39,6 +39,12 @@ public class GameService {
     private UserInGameRepository userInGameRepository;
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
+    /**
+     * Creates game and adds it to active games
+     *
+     * @param configDTO params of the game specified by user
+     * @return id of the created game
+     */
     public long createGame(ConfigDTO configDTO) {
         Game game = new Game(configDTO.assembly());
         GameEntity gameEntity = new GameEntity(game.getGameState());
@@ -52,6 +58,14 @@ public class GameService {
         return gameEntity.getId();
     }
 
+    /**
+     * Checks if game can be join
+     *
+     * @param gameId id of the game to join
+     * @param playersName player requesting joining
+     * @return outcome message of request
+     * @throws GameIsFullException when game already contains 2 players
+     */
     public String tryToJoinTheGame(long gameId, String playersName) throws GameIsFullException {
         if (!userCanJoinTheGame(gameId)) {
             throw new GameIsFullException("Cannot join the game, it's already full");
@@ -64,7 +78,8 @@ public class GameService {
             if (game.getNumberOfPlayers() == 2) {
                 game.setGameState(GameState.IN_PROGRESS);
             }
-            logger.info("class GameService, method tryToJoinTheGame(); Number of players: " + game.getNumberOfPlayers() + ". Set gameState: "
+            logger.info("class GameService, method tryToJoinTheGame(); Number of players: " +
+                    game.getNumberOfPlayers() + ". Set gameState: "
                     + game.getGameState() + " to the game with id: " + gameId);
         }
         return "Success";

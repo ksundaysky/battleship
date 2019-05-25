@@ -1,5 +1,7 @@
 package wkbp.battleships.message.response;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
@@ -12,6 +14,8 @@ import java.util.Collection;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
+@Getter
+@Setter
 public class JwtResponse {
     private String token;
     private String type = "Bearer";
@@ -22,33 +26,5 @@ public class JwtResponse {
         this.token = accessToken;
         this.username = username;
         this.authorities = authorities;
-    }
-
-    public String getAccessToken() {
-        return token;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.token = accessToken;
-    }
-
-    public String getTokenType() {
-        return type;
-    }
-
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
     }
 }
