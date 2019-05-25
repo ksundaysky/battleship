@@ -13,22 +13,10 @@ import java.util.Map;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
-public class FleetFactory {
+public class FleetFactory { //not used currently, but will be in future
 
     FleetConfig fleetConfig;
     private GameConfig gameConfig;
-
-    // TODO: 21.05.19 jeszcze nie używane, ale wkrótce będzie
-
-    Fleet generateFleet(FleetConfig fleetConfig) {
-        List<Ship> shipsInFleet = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry : fleetConfig.getFleetConfig().entrySet()) {
-            for (int i = 0; i < entry.getKey(); i++) {
-                shipsInFleet.add(new Ship(entry.getValue()));
-            }
-        }
-        return new Fleet(shipsInFleet);
-    }
 
     public static Fleet standardFleet() {
         Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
@@ -41,6 +29,16 @@ public class FleetFactory {
             fleet.getShipList().get(i).setId(i);
         }
         return fleet;
+    }
+
+    Fleet generateFleet(FleetConfig fleetConfig) {
+        List<Ship> shipsInFleet = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : fleetConfig.getFleetConfig().entrySet()) {
+            for (int i = 0; i < entry.getKey(); i++) {
+                shipsInFleet.add(new Ship(entry.getValue()));
+            }
+        }
+        return new Fleet(shipsInFleet);
     }
 }
 

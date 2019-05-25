@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Responsible for transcripting flow of the game.
+ * Responsible for creating transcriptions of the gameplay
  *
  * @author Wiktor Rup
  * @author Patryk Kucharski
@@ -37,7 +37,7 @@ class Auditor {
     private boolean wonTheGame;
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
-    public Auditor() {
+    Auditor() {
         this.wonTheGame = false;
         this.hitTheShip = false;
     }
@@ -46,34 +46,26 @@ class Auditor {
         this.lastMove = move;
         this.hitTheShip = hitTheShip;
         this.wonTheGame = wonTheGame;
-        //writeMessageToFile();
     }
 
-    void writeMessageToDatabase() {
-    }
-
+    /**
+     * Creates message corresponding to most recent
+     * move made by one of the players
+     *
+     * @return message with details of last move
+     */
     public String auditLastMove() {
         return "Player " + lastMove.getPlayer().getName() +
                 " fired at field: " + getCoordinatesOfField(lastMove.getFieldToShoot()) +
                 ". Result: hit the ship: " + hitTheShip;
     }
 
-    private void writeMessageToFile() {
-        String textToAppend = auditLastMove();
-        try (FileWriter fileWriter = new FileWriter(createNewFile(), true);
-             PrintWriter printWriter = new PrintWriter(fileWriter)) {
-            printWriter.println(textToAppend);
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
-    }
-
-    private String createNewFile() {
-        String fileName = "./game_transcripts/" + currentDate() + "_" + gameRepository.getOne(lastMove.getGameId()).getId() + "_";
-        new File(fileName);
-        return fileName;
-    }
-
+    /**
+     * Gets corresponding field coordinates
+     *
+     * @param field which coordinates are to be generated
+     * @return coordinates of the field for example A5
+     */
     String getCoordinatesOfField(Field field) {
         char letterA = 'A';
         long id = field.getId();
@@ -87,5 +79,24 @@ class Auditor {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    private void writeMessageToDatabase() {//will be used in future
+    }
+
+    private void writeMessageToFile() {//will be used in future
+        String textToAppend = auditLastMove();
+        try (FileWriter fileWriter = new FileWriter(createNewFile(), true);
+             PrintWriter printWriter = new PrintWriter(fileWriter)) {
+            printWriter.println(textToAppend);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    private String createNewFile() {
+        String fileName = "./game_transcripts/" + currentDate() + "_" + gameRepository.getOne(lastMove.getGameId()).getId() + "_";
+        new File(fileName);
+        return fileName;
     }
 }

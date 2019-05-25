@@ -5,6 +5,9 @@ import lombok.*;
 import java.util.List;
 
 /**
+ * Represents outcome of the shoot with all necessary
+ * information requested by client
+ *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski

@@ -33,23 +33,21 @@ public class Board {
         this.fleet = fleet;
     }
 
-    public Field getField(int fieldId) {
-        return fieldList.get(fieldId);
-    }
-
-    public boolean indexExists(final int index) {
-        return index >= 0 && index < fieldList.size();
-    }
-
-    public int getSize() {
-        return fieldList.size();
-    }
-
-    List<Field> neighboursOfShip(Field fieldToShot) {
+    /**
+     * Returns neighbouring fields {@link Field}
+     * of the ship {@link Ship} if one is indeed sunken,
+     * otherwise returns null which is handled by client
+     *
+     *
+     * @param lastFiredField last field that was fired at
+     * @return List<Field> with neighbouring fields of ship,
+     *                     or null if shoot didn't sunk the ship
+     */
+    List<Field> neighboursOfShip(Field lastFiredField) {
         int counter = 0;
         for (Ship ship : fleet.getShipList()) {
             for (Field field : ship.getFieldsOfShip()) {
-                if (field.getId() == fieldToShot.getId()) {
+                if (field.getId() == lastFiredField.getId()) {
                     for (Field f : ship.getFieldsOfShip()) {
                         if (f.isHit()) {
                             counter++;
@@ -61,17 +59,18 @@ public class Board {
                 }
             }
         }
+        return null; //this is desired outcome
+    }
 
-//        for (Ship ship : fleet.getShipList()) {
-//            ship.getFieldsOfShip().stream()
-//                    .filter(x -> x.getId() == fieldToShot.getId())
-//                    .filter(Field::isHit)
-//                    .forEach(x -> counter.getAndIncrement());
-//            if (counter.get() == ship.getSize()) {
-//                return ship.getNeighbourFields();
-//            }
-//        }
+    public Field getField(int fieldId) {
+        return fieldList.get(fieldId);
+    }
 
-        return null; //tak ma być
+    public boolean indexExists(final int index) {
+        return index >= 0 && index < fieldList.size();
+    }
+
+    public int getSize() {
+        return fieldList.size();
     }
 }

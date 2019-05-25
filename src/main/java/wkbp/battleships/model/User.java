@@ -34,7 +34,6 @@ import java.util.Set;
 })
 @Data
 @NoArgsConstructor
-//@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
