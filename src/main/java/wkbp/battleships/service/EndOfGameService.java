@@ -38,7 +38,7 @@ public class EndOfGameService {
      * Removes given game when one is finished or quit
      *
      * @param gameId id of game to remove
-     * @param user user that made request
+     * @param user   user that made request
      * @throws NoPermissionException when request was made by player who didn't participate in game
      */
     public void endOfGameOnDestroy(long gameId, String user) throws NoPermissionException {

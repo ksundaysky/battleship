@@ -38,10 +38,9 @@ public class Board {
      * of the ship {@link Ship} if one is indeed sunken,
      * otherwise returns null which is handled by client
      *
-     *
      * @param lastFiredField last field that was fired at
      * @return List<Field> with neighbouring fields of ship,
-     *                     or null if shoot didn't sunk the ship
+     * or null if shoot didn't sunk the ship
      */
     List<Field> neighboursOfShip(Field lastFiredField) {
         int counter = 0;

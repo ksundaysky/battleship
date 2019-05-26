@@ -1,6 +1,5 @@
 package wkbp.battleships.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +34,7 @@ class EndOfGameRestAPIs {
     @GetMapping("get/game/end_of_game/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> endOfGame(Authentication authentication,
-                                       @PathVariable("id") long id){
+                                       @PathVariable("id") long id) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
@@ -49,5 +48,4 @@ class EndOfGameRestAPIs {
         }
         return new ResponseEntity<>("Game removed successfully.", HttpStatus.OK);
     }
-
 }

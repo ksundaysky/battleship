@@ -38,7 +38,7 @@ public class ShipPlacementService {
     /**
      * Sets up randomly fleet on board for user request
      *
-     * @param gameId in which request was made
+     * @param gameId   in which request was made
      * @param username player who made request
      * @return List<Field> with ships placed on
      * @throws CantPlaceShipsException 0,2% times when randomizing algorithm can't properly place a ship
@@ -61,7 +61,7 @@ public class ShipPlacementService {
     /**
      * provides user fleet to display at game board
      *
-     * @param gameId id of the game
+     * @param gameId   id of the game
      * @param username player who made request
      * @return List<Field> which is containing all fields with fleet
      * @throws NoPermissionException when request was made by player outside of given game

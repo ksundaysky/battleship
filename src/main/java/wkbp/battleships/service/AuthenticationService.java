@@ -81,7 +81,6 @@ public class AuthenticationService {
 
 
     /**
-     *
      * @param loginRequest login form
      * @return response with user details and json web token
      */

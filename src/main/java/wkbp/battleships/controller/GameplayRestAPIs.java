@@ -109,7 +109,7 @@ class GameplayRestAPIs {
         } catch (NoPermissionException e) {
             message = e.getMessage();
             logger.error("Player: " + authentication.getName() +
-                         " tried to make a shot in game with id: " + id + ". " + e.getMessage());
+                    " tried to make a shot in game with id: " + id + ". " + e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
@@ -148,5 +148,4 @@ class GameplayRestAPIs {
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
 }

@@ -21,7 +21,6 @@ import java.util.Map;
 /**
  * Service providing logic for retrieving all currently active games
  *
- *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
@@ -62,7 +61,7 @@ public class ActiveGamesService {
     void removeGameById(long gameId) {
         games.remove(gameId);
         logger.info("class ActiveGameService, method removeGameById; games were removed, games that are left: "
-                    + games.toString());
+                + games.toString());
     }
 
     User getUserFromDataBase(String username) {

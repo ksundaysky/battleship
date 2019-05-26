@@ -40,7 +40,7 @@ public class SummaryService {
     /**
      * Creates and returns list of summaries {@link Summary} of given game
      *
-     * @param gameId id of the given game
+     * @param gameId   id of the given game
      * @param username username of player to get summary
      * @return list of summaries to display
      * @throws NoPermissionException when given game doesn't contain player
@@ -65,7 +65,7 @@ public class SummaryService {
      * Creates summary of the game for given player
      *
      * @param player owner of summary
-     * @param game which summary is to be returned
+     * @param game   which summary is to be returned
      * @return summaryDTO object with statistics {@link SummaryDTO}
      */
     private SummaryDTO createSummaryDTO(User player, Game game) {

@@ -61,7 +61,7 @@ public class GameService {
     /**
      * Checks if game can be join
      *
-     * @param gameId id of the game to join
+     * @param gameId      id of the game to join
      * @param playersName player requesting joining
      * @return outcome message of request
      * @throws GameIsFullException when game already contains 2 players
@@ -92,7 +92,6 @@ public class GameService {
             throw new NoPermissionException("No permissions for such action!");
         else
             return true;
-        }
     }
 
     private void setStartingPlayer(Game game, String playersName) {

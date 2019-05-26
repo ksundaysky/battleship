@@ -33,9 +33,9 @@ public class GameplayService {
     /**
      * Handles shoot request made by one of the players
      *
-     * @param gameId Id of game where shoot was made
+     * @param gameId      Id of game where shoot was made
      * @param playersName player that fired
-     * @param field field where player fired at
+     * @param field       field where player fired at
      * @return outcome of move made by player {@link ShotOutcome}
      * @throws NoPermissionException when request was made by player who is not participating in given game
      */
@@ -53,7 +53,7 @@ public class GameplayService {
     /**
      * Handles request from client asking if it's his turn to make a move in the game
      *
-     * @param gameId id of the game form which request was made
+     * @param gameId      id of the game form which request was made
      * @param playersName name of requesting player
      * @return outcome with additional information like move made by opponent, and last transcript of previous move
      * @throws NoPermissionException when request was made by user outside of the game
