@@ -2,6 +2,7 @@ package wkbp.battleships.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * Represents single cell of the board which can be shot at
@@ -16,6 +17,7 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
+@ToString
 public class Field {
 
     private int id;
@@ -34,14 +36,5 @@ public class Field {
 
     void setIsHit(boolean hit) {
         this.hit = hit;
-    }
-
-    @Override
-    public String toString() {
-        return "Field{" +
-                "id=" + id +
-                ", stateOfField=" + stateOfField +
-                ", hit=" + hit +
-                '}';
     }
 }
