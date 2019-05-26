@@ -92,6 +92,7 @@ public class GameService {
             throw new NoPermissionException("No permissions for such action!");
         else
             return true;
+        }
     }
 
     private void setStartingPlayer(Game game, String playersName) {
