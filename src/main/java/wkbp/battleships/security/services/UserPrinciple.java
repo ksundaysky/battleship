@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
-@Getter
+
 @AllArgsConstructor
 public class UserPrinciple implements UserDetails {
     private static final long serialVersionUID = 1L;
@@ -75,8 +75,38 @@ public class UserPrinciple implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         UserPrinciple user = (UserPrinciple) o;
         return Objects.equals(id, user.id);
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 }
