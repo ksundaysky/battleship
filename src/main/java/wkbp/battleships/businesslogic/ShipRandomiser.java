@@ -258,9 +258,9 @@ public class ShipRandomiser {
 
     private void iterateThroughSelectedFieldsAndMarkThemAsIllegal(Field field, int rowJump, Ship ship) {
         if (field.getId() % board.getDimension() == 0) {
-            changeStateWhenShipIsOnLeftBoarder(field, rowJump, ship, 0, 2);
+            changeStateWhenShipIsOnLeftBoarder(field, rowJump, ship);
         } else if (field.getId() % board.getDimension() == board.getDimension() - 1) {
-            changeStateWhenShipIsOnRightBoarder(field, rowJump, ship, -1, 1);
+            changeStateWhenShipIsOnRightBoarder(field, rowJump, ship);
         } else {
             for (int i = -1; i < 2; i++) {
                 changeStateOfFieldToIllegal(field, rowJump, i, ship);
@@ -268,20 +268,20 @@ public class ShipRandomiser {
         }
     }
 
-    private void changeStateWhenShipIsOnRightBoarder(Field field, int rowJump, Ship ship, int i2, int i3) {
-        for (int i = i2; i < i3; i++) {
+    private void changeStateWhenShipIsOnRightBoarder(Field field, int rowJump, Ship ship) {
+        for (int i = -1; i < 1; i++) {
             changeStateOfFieldToIllegal(field, rowJump, i, ship);
         }
     }
 
-    private void changeStateWhenShipIsOnLeftBoarder(Field field, int rowJump, Ship ship, int i2, int i3) {
-        for (int i = i2; i < i3; i++) {
+    private void changeStateWhenShipIsOnLeftBoarder(Field field, int rowJump, Ship ship) {
+        for (int i = 0; i < 2; i++) {
             changeStateOfFieldToIllegal(field, rowJump, i, ship);
         }
     }
 
-    private void changeStateOfFieldToIllegal(Field currentField, int rowJump, int i, Ship ship) {
-        int indexOfFieldToChange = currentField.getId() + rowJump + i;
+    private void changeStateOfFieldToIllegal(Field currentField, int rowJump, int index, Ship ship) {
+        int indexOfFieldToChange = currentField.getId() + rowJump + index;
 
         if (board.indexExists(indexOfFieldToChange)) {
             Field fieldToUpdate = board.getField(indexOfFieldToChange);

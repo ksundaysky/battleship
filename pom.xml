@@ -12,7 +12,17 @@
     <artifactId>battleship</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>battleship</name>
-    <description>BattleShips project</description>
+    <description>Server module of web application battleships.
+
+        "Battleships" is a guessing game for two players.
+        It is played on ruled grids on which each player's fleet of ships are marked.
+        The locations of the fleets are concealed from the other player.
+        Players alternate turns calling "shots" at the other player's ships.
+        Main objective of the game is to destroy the opposing player's fleet
+        before he destroys ours.
+
+        http://wkbp-battleships.herokuapp.com/
+    </description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -61,7 +71,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>5.0.8.RELEASE</version>
+            <version>5.1.5.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -130,7 +140,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0</version>
+                <version>3.0.0</version>
                 <reportSets>
                     <reportSet>
                         <reports>
