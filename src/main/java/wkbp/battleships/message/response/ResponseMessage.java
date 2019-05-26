@@ -1,5 +1,10 @@
 package wkbp.battleships.message.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Docker for a messages which are to
  * be sent between server and client
@@ -9,22 +14,11 @@ package wkbp.battleships.message.response;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResponseMessage {
 
     private String message;
-
-    public ResponseMessage() {
-    }
-
-    public ResponseMessage(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

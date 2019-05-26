@@ -24,20 +24,20 @@ public class JwtResponse {
         this.authorities = authorities;
     }
 
-    public String getToken() {
+    public String getAccessToken() {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String accessToken) {
+        this.token = accessToken;
     }
 
-    public String getType() {
+    public String getTokenType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTokenType(String tokenType) {
+        this.type = tokenType;
     }
 
     public String getUsername() {
@@ -50,9 +50,5 @@ public class JwtResponse {
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
-    }
-
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
     }
 }
