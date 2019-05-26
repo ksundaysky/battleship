@@ -258,17 +258,25 @@ public class ShipRandomiser {
 
     private void iterateThroughSelectedFieldsAndMarkThemAsIllegal(Field field, int rowJump, Ship ship) {
         if (field.getId() % board.getDimension() == 0) {
-            for (int i = 0; i < 2; i++) {
-                changeStateOfFieldToIllegal(field, rowJump, i, ship);
-            }
+            changeStateWhenShipIsOnLeftBoarder(field, rowJump, ship, 0, 2);
         } else if (field.getId() % board.getDimension() == board.getDimension() - 1) {
-            for (int i = -1; i < 1; i++) {
-                changeStateOfFieldToIllegal(field, rowJump, i, ship);
-            }
+            changeStateWhenShipIsOnRightBoarder(field, rowJump, ship, -1, 1);
         } else {
             for (int i = -1; i < 2; i++) {
                 changeStateOfFieldToIllegal(field, rowJump, i, ship);
             }
+        }
+    }
+
+    private void changeStateWhenShipIsOnRightBoarder(Field field, int rowJump, Ship ship, int i2, int i3) {
+        for (int i = i2; i < i3; i++) {
+            changeStateOfFieldToIllegal(field, rowJump, i, ship);
+        }
+    }
+
+    private void changeStateWhenShipIsOnLeftBoarder(Field field, int rowJump, Ship ship, int i2, int i3) {
+        for (int i = i2; i < i3; i++) {
+            changeStateOfFieldToIllegal(field, rowJump, i, ship);
         }
     }
 

@@ -95,6 +95,5 @@ public class BoardTest {
         Board testBoard = new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard();
 
         assertEquals(testBoard, board);
-
     }
 }

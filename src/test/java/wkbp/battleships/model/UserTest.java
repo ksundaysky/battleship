@@ -85,5 +85,4 @@ public class UserTest {
 
         assertEquals(expectedPassword, actualPassword);
     }
-
 }

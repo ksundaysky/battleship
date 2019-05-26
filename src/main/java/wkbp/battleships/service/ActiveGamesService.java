@@ -60,9 +60,9 @@ public class ActiveGamesService {
     }
 
     void removeGameById(long gameId) {
-        System.out.println("lol usuwam giere");
         games.remove(gameId);
-        System.out.println(games.toString());
+        logger.info("class ActiveGameService, method removeGameById; games were removed, games that are left: "
+                    + games.toString());
     }
 
     User getUserFromDataBase(String username) {

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -77,8 +78,8 @@ class Auditor {
 
     private String currentDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
+        LocalDate localDate = LocalDate.now();
+        return dateFormat.format(localDate);
     }
 
     private void writeMessageToDatabase() {//will be used in future

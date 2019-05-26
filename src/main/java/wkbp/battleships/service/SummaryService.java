@@ -84,18 +84,21 @@ public class SummaryService {
             }
         }
         int ratio = getHitRatio(shots, hits);
+        Summary summary = getSummaryOfGame(player, game, shots, hits, isWinner, ratio);
+        return compactToDTO(summary);
+    }
+
+    private Summary getSummaryOfGame(User player, Game game, int shots, int hits, boolean isWinner, int ratio) {
         GameEntity gameEntity = getGameFromDataBase(game.getId());
         UserInGameEntity userInGameEntity = getUserInGameEntityFromDataBase(player, gameEntity);
         Summary summary = new Summary(game.getGameConfig().getGameName(),
                 player, userInGameEntity, isWinner, shots, hits, ratio);
         summaryRepository.save(summary);
-        return compactToDTO(summary);
+        return summary;
     }
 
-    private int getHitRatio(int shots, float hits) {
-        int ratio;
-        ratio = (int) ((hits / shots) * 100);
-        return ratio;
+    private int getHitRatio(int shots, int hits) {
+        return hits * 100 / shots;
     }
 
     private Game getGameById(long gameId) {
