@@ -19,7 +19,6 @@ public class FleetFactoryTest {
 
     @Test
     public void testGenerateFleet() {
-
         configMap.put(1, 1);
         shipsInFleet.add(new Ship(1));
         Fleet fleet = new Fleet(shipsInFleet);

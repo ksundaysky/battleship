@@ -1,6 +1,7 @@
 package wkbp.battleships.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -12,12 +13,23 @@ import java.util.Map;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
-class FleetFactory {
+public class FleetFactory { //not used currently, but will be in future
 
     FleetConfig fleetConfig;
     private GameConfig gameConfig;
 
-    // TODO: 21.05.19 jeszcze nie używane, ale wkrótce będzie
+    public static Fleet standardFleet() {
+        Fleet fleet = new Fleet(new ArrayList<>(Arrays.asList(
+                new Ship(4),
+                new Ship(3), new Ship(3),
+                new Ship(2), new Ship(2), new Ship(2),
+                new Ship(1), new Ship(1), new Ship(1), new Ship(1))));
+
+        for (int i = 0; i < fleet.getShipList().size(); i++) {
+            fleet.getShipList().get(i).setId(i);
+        }
+        return fleet;
+    }
 
     Fleet generateFleet(FleetConfig fleetConfig) {
         List<Ship> shipsInFleet = new ArrayList<>();

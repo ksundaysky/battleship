@@ -39,6 +39,12 @@ public class GameService {
     private UserInGameRepository userInGameRepository;
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
+    /**
+     * Creates game and adds it to active games
+     *
+     * @param configDTO params of the game specified by user
+     * @return id of the created game
+     */
     public long createGame(ConfigDTO configDTO) {
         Game game = new Game(configDTO.assembly());
         GameEntity gameEntity = new GameEntity(game.getGameState());
@@ -52,8 +58,16 @@ public class GameService {
         return gameEntity.getId();
     }
 
+    /**
+     * Checks if game can be join
+     *
+     * @param gameId      id of the game to join
+     * @param playersName player requesting joining
+     * @return outcome message of request
+     * @throws GameIsFullException when game already contains 2 players
+     */
     public String tryToJoinTheGame(long gameId, String playersName) throws GameIsFullException {
-        if (!userCanJoinTheGame(gameId, playersName)) {
+        if (!userCanJoinTheGame(gameId)) {
             throw new GameIsFullException("Cannot join the game, it's already full");
         } else {
             Game game = getGameById(gameId);
@@ -61,6 +75,12 @@ public class GameService {
             addPlayerToTheGame(gameId, playersName, game);
             logger.info("class GameService, method tryToJoinTheGame(); added player: "
                     + playersName + " to the game with id: " + gameId);
+            if (game.getNumberOfPlayers() == 2) {
+                game.setGameState(GameState.IN_PROGRESS);
+            }
+            logger.info("class GameService, method tryToJoinTheGame(); Number of players: " +
+                    game.getNumberOfPlayers() + ". Set gameState: "
+                    + game.getGameState() + " to the game with id: " + gameId);
         }
         return "Success";
     }
@@ -68,19 +88,16 @@ public class GameService {
     public boolean isPlayersGame(long id, String user) throws NoPermissionException {
         User player = getUserFromDataBase(user);
         Game game = getGameById(id);
-        if (!game.getPlayersInGame().containsKey(player)) {
-            throw new NoPermissionException("No permissions for such action");
-
-        } else{
+        if (!game.getPlayersInGame().containsKey(player))
+            throw new NoPermissionException("No permissions for such action!");
+        else
             return true;
-        }
     }
 
     private void setStartingPlayer(Game game, String playersName) {
         if (game.getGameConfig().isOwnerStarts() && game.getNumberOfPlayers() == 0) {
             game.setCurrentPlayer(getUserFromDataBase(playersName));
         } else if (!game.getGameConfig().isOwnerStarts() && game.getNumberOfPlayers() == 1) {
-            game.setGameState(GameState.IN_PROGRESS);
             game.setCurrentPlayer(getUserFromDataBase(playersName));
         }
     }
@@ -93,10 +110,9 @@ public class GameService {
         game.addPlayerToTheGame(owner);
     }
 
-    private boolean userCanJoinTheGame(long gameId, String username) {
-        User player = getUserFromDataBase(username);
+    private boolean userCanJoinTheGame(long gameId) {
         Game game = getGameById(gameId);
-        return game.containsPlayer(player) || game.getNumberOfPlayers() < 2;
+        return game.getNumberOfPlayers() < 2;
     }
 
     private Game getGameById(long gameId) {

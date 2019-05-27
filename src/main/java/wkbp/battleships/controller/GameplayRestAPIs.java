@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import wkbp.battleships.model.Field;
 import wkbp.battleships.model.ShotOutcome;
 import wkbp.battleships.security.jwt.JwtAuthEntryPoint;
-import wkbp.battleships.service.ActiveGamesService;
-import wkbp.battleships.service.GameService;
-import wkbp.battleships.service.GameplayService;
-import wkbp.battleships.service.ShipPlacementService;
+import wkbp.battleships.service.*;
 
 import javax.naming.NoPermissionException;
 import java.util.List;
@@ -42,6 +39,9 @@ class GameplayRestAPIs {
     private GameService gameService;
     @Autowired
     private GameplayService gameplayService;
+    @Autowired
+    private SummaryService summaryService;
+
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
 
 
@@ -83,7 +83,13 @@ class GameplayRestAPIs {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
-        List<Field> ships = shipPlacementService.getUserFleet(id, authentication.getName());
+        List<Field> ships;
+        try {
+            ships = shipPlacementService.getUserFleet(id, authentication.getName());
+        } catch (NoPermissionException e) {
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
         message = objectMapper.writeValueAsString(ships);
         logger.info("class GameplayRestAPIs, method userFleet(); sending response: " + message);
         return new ResponseEntity<>(message, HttpStatus.OK);
@@ -102,7 +108,8 @@ class GameplayRestAPIs {
             logger.info("class GameplayRestAPIs, method gameShot(); sending response: " + message);
         } catch (NoPermissionException e) {
             message = e.getMessage();
-            logger.error("Player: " + authentication.getName() + " tried to make a shot in game with id: " + id + ". " + e.getMessage());
+            logger.error("Player: " + authentication.getName() +
+                    " tried to make a shot in game with id: " + id + ". " + e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
@@ -110,12 +117,35 @@ class GameplayRestAPIs {
 
     @GetMapping("get/game/is_my_turn/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> isUserTurn(Authentication authentication, @PathVariable("id") long id) throws JsonProcessingException {
+    public ResponseEntity<?> isUserTurn(Authentication authentication,
+                                        @PathVariable("id") long id) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String message;
-        message = objectMapper.writeValueAsString(gameplayService.isPlayerTurn(id, authentication.getName()));
+        try {
+            message = objectMapper.writeValueAsString(gameplayService.isPlayerTurn(id, authentication.getName()));
+        } catch (NoPermissionException e) {
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
         logger.info("class GameplayRestAPIs, method isUserTurn(); sending response: " + message);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/get/game/summary/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> summary(Authentication authentication,
+                                     @PathVariable("id") long id) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message;
+        try {
+            message = objectMapper.writeValueAsString(summaryService.getSummaryOfGame(id, authentication.getName()));
+            logger.info("class GameplayRestAPIs, method gameShot(); sending response: " + message);
+        } catch (NoPermissionException e) {
+            message = e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

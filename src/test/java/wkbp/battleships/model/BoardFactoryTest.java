@@ -12,7 +12,7 @@ public class BoardFactoryTest {
     public void allFieldsShouldBeEmpty_WhenCreateBoardIsCalled(int fieldId) {
 
         BoardFactory boardFactory = new BoardFactory(
-                new GameConfig(null, 10, null, true));
+                new GameConfig(null, 10, null, true), FleetFactory.standardFleet());
         Board emptyBoard = boardFactory.createBoard();
         assertEquals(emptyBoard.getField(fieldId).getStateOfField(), StateOfField.EMPTY);
     }
@@ -29,7 +29,7 @@ public class BoardFactoryTest {
     @Test(dataProvider = "generateDimensions")
     public void sizeShouldBeDimensionPow2Test(int dimension) {
         BoardFactory boardFactory = new BoardFactory(
-                new GameConfig(null, dimension, null, true));
+                new GameConfig(null, dimension, null, true),FleetFactory.standardFleet());
         Board emptyBoard = boardFactory.createBoard();
         assertEquals(emptyBoard.getFieldList().size(), (int) Math.pow(dimension, 2));
     }

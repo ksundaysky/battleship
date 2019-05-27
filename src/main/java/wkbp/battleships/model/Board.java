@@ -17,6 +17,7 @@ public class Board {
 
     private List<Field> fieldList;
     private int dimension;
+    private Fleet fleet;
 
     /**
      * since board is always a square dimensions
@@ -26,9 +27,38 @@ public class Board {
      *                  to BoardFactory.class
      * @see BoardFactory
      */
-    public Board(List<Field> fieldList) {
+    public Board(List<Field> fieldList, Fleet fleet) {
         this.fieldList = fieldList;
         dimension = (int) Math.sqrt(fieldList.size());
+        this.fleet = fleet;
+    }
+
+    /**
+     * Returns neighbouring fields {@link Field}
+     * of the ship {@link Ship} if one is indeed sunken,
+     * otherwise returns null which is handled by client
+     *
+     * @param lastFiredField last field that was fired at
+     * @return List<Field> with neighbouring fields of ship,
+     * or null if shoot didn't sunk the ship
+     */
+    List<Field> neighboursOfShip(Field lastFiredField) {
+        int counter = 0;
+        for (Ship ship : fleet.getShipList()) {
+            for (Field field : ship.getFieldsOfShip()) {
+                if (field.getId() == lastFiredField.getId()) {
+                    for (Field f : ship.getFieldsOfShip()) {
+                        if (f.isHit()) {
+                            counter++;
+                            if (counter == ship.getSize()) {
+                                return ship.getNeighbourFields();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null; //this is desired outcome
     }
 
     public Field getField(int fieldId) {

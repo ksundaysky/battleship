@@ -2,6 +2,7 @@ package wkbp.battleships.dao.repository.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import wkbp.battleships.model.GameState;
 
 import javax.persistence.*;
@@ -9,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Entity mapping games table in database
+ *
  * @author Wiktor Rup
  * @author Patryk Kucharski
  * @author Krzysztof Niedzielski
@@ -18,6 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Entity
+@Setter
 @Table(name = "GAME_ENTITY")
 public class GameEntity {
 

@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
 
@@ -19,7 +20,7 @@ public class GameplayTest {
 
     @BeforeMethod
     public void initialize() {
-        board = new BoardFactory(gameConfig).createBoard();
+        board = new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard();
         board.getField(1).setStateOfField(StateOfField.OCCUPIED);
         board.getField(2).setStateOfField(StateOfField.OCCUPIED);
         gameplay = new Gameplay(board);
@@ -32,7 +33,9 @@ public class GameplayTest {
         resultShotField.setStateOfField(StateOfField.OCCUPIED);
         resultShotField.setIsHit(true);
 
-        ShotOutcome expectedShotOutcome = new ShotOutcome(true, resultShotField, false);
+        ShotOutcome expectedShotOutcome = new ShotOutcome(true, resultShotField, null, false,
+                "Player null fired at field: A3. Result: hit the ship: true"
+);
         ShotOutcome actualShotOutcome = gameplay.update(new Move(1, new User(), new Field(2)), board);
         assertEquals(expectedShotOutcome, actualShotOutcome);
     }
@@ -58,16 +61,5 @@ public class GameplayTest {
         Move actualMove = gameplay.getLastMove();
 
         assertEquals(expectedMove, actualMove);
-    }
-
-    @Test
-    public void testGetMoves() {
-        List<Move> expectedMoves = new ArrayList<>();
-        expectedMoves.add(new Move(1, new User(), new Field(2)));
-
-        gameplay.update(new Move(1, new User(), new Field(2)), board);
-        List<Move> actualMoves = gameplay.getMoves();
-
-        assertEquals(expectedMoves, actualMoves);
     }
 }

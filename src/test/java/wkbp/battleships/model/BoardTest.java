@@ -14,12 +14,12 @@ import static org.testng.AssertJUnit.assertEquals;
 public class BoardTest {
 
     private GameConfig gameConfig = new GameConfig("game1", 10, GameMode.STANDARD, true);
-    private Board board = new BoardFactory(gameConfig).createBoard();
+    private Board board = new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard();
 
     @Test(dataProvider = "indexProvider")
     public void shouldBeTrue_AllIndexesExist(int index) {
         BoardFactory boardFactory = new BoardFactory(
-                new GameConfig("testGame", 10, GameMode.STANDARD, true));
+                new GameConfig("testGame", 10, GameMode.STANDARD, true), FleetFactory.standardFleet());
         Board board = boardFactory.createBoard();
         assertTrue(board.indexExists(index));
     }
@@ -37,7 +37,7 @@ public class BoardTest {
     @Test(dataProvider = "fakeIndexesProvider")
     public void shouldBeFalse_IndexesDontExist(int index) {
         BoardFactory boardFactory = new BoardFactory(
-                new GameConfig("testGame", 10, GameMode.STANDARD, true));
+                new GameConfig("testGame", 10, GameMode.STANDARD, true), FleetFactory.standardFleet());
         Board board = boardFactory.createBoard();
         assertFalse(board.indexExists(index));
     }
@@ -92,9 +92,8 @@ public class BoardTest {
 
     @Test
     public void testEquals1() {
-        Board testBoard = new BoardFactory(gameConfig).createBoard();
+        Board testBoard = new BoardFactory(gameConfig, FleetFactory.standardFleet()).createBoard();
 
         assertEquals(testBoard, board);
-
     }
 }
