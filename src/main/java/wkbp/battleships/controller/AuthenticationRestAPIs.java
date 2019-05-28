@@ -25,7 +25,7 @@ import javax.validation.Valid;
  * @author Krzysztof Niedzielski
  * @author Bartosz Kupajski
  */
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "https://battleships-tests.herokuapp.com", maxAge = 3600)
 @RestController
 @RequestMapping("/api/wkbp/auth")
 class AuthenticationRestAPIs {
