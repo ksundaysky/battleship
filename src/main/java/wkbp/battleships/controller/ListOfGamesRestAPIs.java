@@ -25,7 +25,7 @@ import wkbp.battleships.service.ActiveGamesService;
 
 @RestController
 @RequestMapping("/api/wkbp/")
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "https://battleship-client-test.herokuapp.com", maxAge = 3600)
 class ListOfGamesRestAPIs {
 
     @Autowired
